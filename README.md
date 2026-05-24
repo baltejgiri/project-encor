@@ -1,15 +1,12 @@
 # Project ENCOR
 
-CCNP Enterprise exam preparation — May 2026 to May 2027.
+CCNP Enterprise Core exam preparation — target: 350-401 ENCOR by November 2026.
 
-## Exams
+## Exam
 
 | Exam | Code | Target |
 |------|------|--------|
 | Implementing Cisco Enterprise Network Core Technologies | 350-401 ENCOR | ~November 2026 |
-| Implementing Cisco Enterprise Advanced Routing and Services | 300-410 ENARSI | ~May 2027 |
-
-Passing both exams earns the **CCNP Enterprise** certification.
 
 ## Resources
 
@@ -27,7 +24,7 @@ project-encor/
 ├── project_overview.md        # Goals and timeline
 ├── project_instructions.md    # Resources and study workflow
 ├── project_chapters_list.md   # Chapter map with exam scope notes
-└── labs/
+└── ccnp/
     └── <lab-name>/
         ├── README.md          # Topology and lab objectives
         └── SOLUTION.md        # Exam-style questions (no answers)
