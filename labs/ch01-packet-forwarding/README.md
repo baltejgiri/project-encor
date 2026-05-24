@@ -50,6 +50,6 @@ R1 (Lo0: 10.1.1.1/32)                R2 (Lo0: 10.2.2.2/32)
 5. Identify which forwarding path (CEF vs. process switching) handles each packet type
 6. Disable CEF on one interface and compare forwarding behavior
 
-## CML Lab ID
+## Importing into CML
 
-`c5dc035e-cf2e-44c0-9d10-4e4aef145468`
+Import `topology.yaml` from this directory into your CML instance to recreate the lab.
