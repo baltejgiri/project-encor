@@ -1,3 +1,4 @@
 *.pdf
 CLAUDE.md
 .vscode/
+cml-mcp/.env
