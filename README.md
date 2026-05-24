@@ -24,7 +24,7 @@ project-encor/
 ├── project_overview.md        # Goals and timeline
 ├── project_instructions.md    # Resources and study workflow
 ├── project_chapters_list.md   # Chapter map with exam scope notes
-└── ccnp/
+└── labs/
     └── <lab-name>/
         ├── README.md          # Topology and lab objectives
         └── SOLUTION.md        # Exam-style questions (no answers)
