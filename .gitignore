@@ -2,3 +2,5 @@
 CLAUDE.md
 .vscode/
 cml-mcp/.env
+__pycache__/
+*.pyc
