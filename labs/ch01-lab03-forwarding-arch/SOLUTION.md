@@ -1,4 +1,4 @@
-# Ch 1 – Packet Forwarding: Exam-Style Questions
+# Ch 1 – Lab 3: Forwarding Architectures — Exam-Style Questions
 
 Answer each question without referring to your notes. Use the lab topology to verify your answers after.
 
@@ -18,7 +18,7 @@ Answer each question without referring to your notes. Use the lab topology to ve
 
 **Q7.** What is the difference between process switching and CEF? In what scenario would a router fall back to process switching even when CEF is enabled globally?
 
-**Q8.** You disable CEF on R1's Gi0/0 interface with `no ip route-cache cef`. What forwarding mechanism takes over? How would you observe the impact on CPU utilization during a sustained ping?
+**Q8.** You disable CEF on R2's Gi0/0 interface with `no ip route-cache cef`. What forwarding mechanism takes over? How would you observe the impact on CPU utilization during a sustained ping?
 
 **Q9.** Interpret the following partial FIB output. What does each field tell you?
 
@@ -31,3 +31,11 @@ Answer each question without referring to your notes. Use the lab topology to ve
 **Q11.** What command displays the Layer 2 rewrite information (destination MAC, source MAC, encapsulation type) that CEF will use when forwarding to a specific next-hop?
 
 **Q12.** R1 has a default route pointing to R2. A packet arrives destined for `8.8.8.8`. Trace the exact lookup sequence R1 performs in the FIB to find the forwarding entry for this destination.
+
+**Q13.** What is the difference between the RIB (Routing Information Base) and the FIB (Forwarding Information Base)? Which one does CEF use to make forwarding decisions, and what process is responsible for populating the FIB from the RIB?
+
+**Q14.** `show sdm prefer` on SW1 shows the "default" template is active rather than the "routing" template. What is the operational impact of this on the switch's ability to perform IP routing? What command changes the SDM template, and what must happen for the change to take effect?
+
+**Q15.** Describe the difference between centralized CEF and distributed CEF. On a modular chassis with distributed CEF, what happens to forwarding if the route processor (supervisor) fails? On a fixed-platform switch like SW1 in this lab, which model applies?
+
+**Q16.** You disable CEF globally on R2 with `no ip cef` and then run a 1000-packet ping flood from R1 Lo0 to R3 Lo0 (two hops through R2). Which show command on R2 reveals that process switching is handling the packets? What would `show processes cpu` look like, and which IOS process would show elevated CPU usage?

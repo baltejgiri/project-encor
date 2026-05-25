@@ -1,0 +1,500 @@
+annotations: []
+smart_annotations: []
+nodes:
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname R1
+          !
+          no ip domain-lookup
+          !
+          ipv6 unicast-routing
+          !
+          interface GigabitEthernet0/0
+           description TRUNK-TO-SW-CORE
+           no ip address
+           no shutdown
+          !
+          interface GigabitEthernet0/0.10
+           description SUBINT-VLAN10
+           ip address 10.10.10.254 255.255.255.0
+           ipv6 address 2001:db8:10::1/64
+          !
+          interface GigabitEthernet0/0.20
+           description SUBINT-VLAN20
+           encapsulation dot1Q 20
+           ip address 10.20.20.254 255.255.255.0
+           ipv6 address 2001:db8:20::1/64
+          !
+          interface GigabitEthernet0/0.30
+           description SUBINT-VLAN30
+           encapsulation dot1Q 30
+           ip address 10.30.30.254 255.255.255.0
+           ipv6 address 2001:db8:30::1/64
+          !
+          ip route 10.99.99.99 255.255.255.255 10.10.10.1
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n0
+    image_definition: null
+    label: R1
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: 0
+    y: -200
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname R2
+          !
+          no ip domain-lookup
+          !
+          interface Loopback0
+           ip address 10.99.99.99 255.255.255.255
+          !
+          interface GigabitEthernet0/0
+           description FROM-SW-CORE-Gi03
+           ip address 172.31.0.2 255.255.255.252
+           no shutdown
+          !
+          ip route 10.0.0.0 255.0.0.0 172.31.0.1
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n1
+    image_definition: null
+    label: R2
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: 300
+    y: 0
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname SW-CORE
+          !
+          no ip domain-lookup
+          !
+          ip routing
+          ipv6 unicast-routing
+          !
+          vlan 10
+           name VLAN10
+          !
+          vlan 30
+           name VLAN30
+          !
+          interface GigabitEthernet0/0
+           description TRUNK-TO-R1
+           switchport trunk encapsulation dot1q
+           switchport mode trunk
+           no shutdown
+          !
+          interface GigabitEthernet0/1
+           description TRUNK-TO-SW-ACC
+           switchport trunk encapsulation dot1q
+           switchport mode trunk
+           switchport trunk native vlan 99
+           no shutdown
+          !
+          interface GigabitEthernet0/2
+           description ACCESS-VLAN30-SERVER
+           switchport mode access
+           switchport access vlan 30
+           no shutdown
+          !
+          interface GigabitEthernet0/3
+           description TO-R2--FAULT-STILL-SWITCHPORT
+           no shutdown
+          !
+          interface Vlan10
+           description SVI-VLAN10
+           ip address 10.10.10.1 255.255.255.0
+           ipv6 address 2001:db8:10::2/64
+           no shutdown
+          !
+          interface Vlan20
+           description SVI-VLAN20
+           ip address 10.20.20.1 255.255.255.0
+           ipv6 address 2001:db8:20::2/64
+           no shutdown
+          !
+          interface Vlan30
+           description SVI-VLAN30
+           ip address 10.30.30.1 255.255.255.0
+           ipv6 address 2001:db8:30::2/64
+           no shutdown
+          !
+          ip route 10.99.99.99 255.255.255.255 172.31.0.2
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    image_definition: null
+    label: SW-CORE
+    node_definition: iosvl2
+    parameters: {}
+    ram: null
+    tags: []
+    x: 0
+    y: 0
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname SW-ACC
+          !
+          no ip domain-lookup
+          !
+          vlan 10
+           name VLAN10
+          !
+          vlan 20
+           name VLAN20
+          !
+          interface GigabitEthernet0/0
+           description TRUNK-TO-SW-CORE
+           switchport trunk encapsulation dot1q
+           switchport mode trunk
+           switchport trunk native vlan 1
+           no shutdown
+          !
+          interface GigabitEthernet0/1
+           description PC1-ACCESS-VLAN10
+           switchport mode access
+           switchport access vlan 10
+           no shutdown
+          !
+          interface GigabitEthernet0/2
+           description PC2-ACCESS-VLAN20
+           switchport mode access
+           switchport access vlan 20
+           no shutdown
+          !
+          interface GigabitEthernet0/3
+           description PC3-ACCESS-VLAN10
+           switchport mode access
+           switchport access vlan 10
+           no shutdown
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n3
+    image_definition: null
+    label: SW-ACC
+    node_definition: iosvl2
+    parameters: {}
+    ram: null
+    tags: []
+    x: -200
+    y: 150
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname PC1
+          !
+          no ip domain-lookup
+          !
+          interface GigabitEthernet0/0
+           ip address 10.10.10.10 255.255.255.0
+           no shutdown
+          !
+          ip route 0.0.0.0 0.0.0.0 10.10.10.254
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n4
+    image_definition: null
+    label: PC1
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: -350
+    y: 250
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname PC2
+          !
+          no ip domain-lookup
+          !
+          interface GigabitEthernet0/0
+           ip address 10.20.20.10 255.255.255.0
+           no shutdown
+          !
+          ip route 0.0.0.0 0.0.0.0 10.20.20.254
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n5
+    image_definition: null
+    label: PC2
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: -200
+    y: 300
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname PC3
+          !
+          no ip domain-lookup
+          !
+          interface GigabitEthernet0/0
+           ip address 10.10.10.11 255.255.255.0
+           no shutdown
+          !
+          ip route 0.0.0.0 0.0.0.0 10.10.10.254
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n6
+    image_definition: null
+    label: PC3
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: -50
+    y: 250
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+links:
+  - id: l0
+    n1: n0
+    n2: n2
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: R1-GigabitEthernet0/0<->SW-CORE-GigabitEthernet0/0
+  - id: l1
+    n1: n2
+    n2: n3
+    i1: i2
+    i2: i1
+    conditioning: {}
+    label: SW-CORE-GigabitEthernet0/1<->SW-ACC-GigabitEthernet0/0
+  - id: l2
+    n1: n2
+    n2: n1
+    i1: i4
+    i2: i1
+    conditioning: {}
+    label: SW-CORE-GigabitEthernet0/3<->R2-GigabitEthernet0/0
+  - id: l3
+    n1: n3
+    n2: n4
+    i1: i2
+    i2: i1
+    conditioning: {}
+    label: SW-ACC-GigabitEthernet0/1<->PC1-GigabitEthernet0/0
+  - id: l4
+    n1: n3
+    n2: n5
+    i1: i3
+    i2: i1
+    conditioning: {}
+    label: SW-ACC-GigabitEthernet0/2<->PC2-GigabitEthernet0/0
+  - id: l5
+    n1: n3
+    n2: n6
+    i1: i4
+    i2: i1
+    conditioning: {}
+    label: SW-ACC-GigabitEthernet0/3<->PC3-GigabitEthernet0/0
+lab:
+  description: Ch 1 Capstone - Part I integrated troubleshooting lab with 5 pre-injected
+    faults.
+  notes: |-
+    FAULT SUMMARY (do not read before diagnosing!):
+      1. Native VLAN mismatch: SW-ACC native=1, SW-CORE native=99
+      2. VLAN 20 missing from SW-CORE VLAN database -> PC2 isolated
+      3. R1 Gi0/0.10 missing encapsulation dot1Q 10 -> PC1 cannot reach gateway
+      4. CEF disabled on R2 Gi0/0 (no ip route-cache cef) -> process switching
+      5. SW-CORE Gi0/3 still a switchport -> no L3 link to R2
+
+    Intended addressing:
+      R1 Gi0/0.10: 10.10.10.254/24, 2001:db8:10::1/64
+      R1 Gi0/0.20: 10.20.20.254/24, 2001:db8:20::1/64
+      R1 Gi0/0.30: 10.30.30.254/24, 2001:db8:30::1/64
+      SW-CORE VLAN10 SVI: 10.10.10.1/24, 2001:db8:10::2/64
+      SW-CORE VLAN20 SVI: 10.20.20.1/24, 2001:db8:20::2/64
+      SW-CORE VLAN30 SVI: 10.30.30.1/24, 2001:db8:30::2/64
+      SW-CORE Gi0/3 (no switchport): 172.31.0.1/30
+      R2 Gi0/0: 172.31.0.2/30  |  R2 Lo0: 10.99.99.99/32
+      PC1: 10.10.10.10/24 GW .254 | PC2: 10.20.20.10/24 GW .254 | PC3: 10.10.10.11/24 GW .254
+
+    Goal: fix all 5 faults, verify PC1/PC2/PC3 can reach R2 Lo0 (10.99.99.99)
+  title: 'CCNP ENCOR - Ch1 Capstone: Part I Integrated Lab'
+  version: 0.3.0

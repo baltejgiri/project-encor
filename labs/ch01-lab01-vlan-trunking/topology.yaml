@@ -1,0 +1,315 @@
+annotations: []
+smart_annotations: []
+nodes:
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname SW1
+          !
+          no ip domain-lookup
+          !
+          vlan 10
+           name VLAN10
+          !
+          vlan 20
+           name VLAN20
+          !
+          interface GigabitEthernet0/0
+           description TRUNK-TO-SW2--CONFIGURE-THIS
+           no shutdown
+          !
+          interface GigabitEthernet0/1
+           description PC1-ACCESS-VLAN10
+           switchport mode access
+           switchport access vlan 10
+           no shutdown
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n0
+    image_definition: null
+    label: SW1
+    node_definition: iosvl2
+    parameters: {}
+    ram: null
+    tags: []
+    x: -150
+    y: 0
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname SW2
+          !
+          no ip domain-lookup
+          !
+          vlan 10
+           name VLAN10
+          !
+          vlan 20
+           name VLAN20
+          !
+          interface GigabitEthernet0/0
+           description TRUNK-TO-SW1--CONFIGURE-THIS
+           no shutdown
+          !
+          interface GigabitEthernet0/1
+           description PC2-ACCESS-VLAN10
+           switchport mode access
+           switchport access vlan 10
+           no shutdown
+          !
+          interface GigabitEthernet0/2
+           description PC3-ACCESS-VLAN20
+           switchport mode access
+           switchport access vlan 20
+           no shutdown
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n1
+    image_definition: null
+    label: SW2
+    node_definition: iosvl2
+    parameters: {}
+    ram: null
+    tags: []
+    x: 150
+    y: 0
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname PC1
+          !
+          no ip domain-lookup
+          !
+          interface GigabitEthernet0/0
+           ip address 10.10.10.1 255.255.255.0
+           no shutdown
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    image_definition: null
+    label: PC1
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: -300
+    y: -150
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname PC2
+          !
+          no ip domain-lookup
+          !
+          interface GigabitEthernet0/0
+           ip address 10.10.10.2 255.255.255.0
+           no shutdown
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n3
+    image_definition: null
+    label: PC2
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: 150
+    y: -150
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          hostname PC3
+          !
+          no ip domain-lookup
+          !
+          interface GigabitEthernet0/0
+           ip address 10.20.20.1 255.255.255.0
+           no shutdown
+          !
+          line con 0
+           logging synchronous
+           exec-timeout 0 0
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n4
+    image_definition: null
+    label: PC3
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: 300
+    y: -150
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+links:
+  - id: l0
+    n1: n0
+    n2: n1
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: SW1-GigabitEthernet0/0<->SW2-GigabitEthernet0/0
+  - id: l1
+    n1: n0
+    n2: n2
+    i1: i2
+    i2: i1
+    conditioning: {}
+    label: SW1-GigabitEthernet0/1<->PC1-GigabitEthernet0/0
+  - id: l2
+    n1: n1
+    n2: n3
+    i1: i2
+    i2: i1
+    conditioning: {}
+    label: SW2-GigabitEthernet0/1<->PC2-GigabitEthernet0/0
+  - id: l3
+    n1: n1
+    n2: n4
+    i1: i3
+    i2: i1
+    conditioning: {}
+    label: SW2-GigabitEthernet0/2<->PC3-GigabitEthernet0/0
+lab:
+  description: Ch 1 Lab 1 - VLANs, trunking, 802.1Q frame fields, CAM table, MAC learning,
+    and L2 flooding.
+  notes: |-
+    Topology: SW1 ---trunk--- SW2
+              PC1 on SW1 VLAN 10
+              PC2 on SW2 VLAN 10
+              PC3 on SW2 VLAN 20
+
+    Pre-configured: VLANs 10/20, access ports, PC IPs
+    Student task: configure trunk on SW1 Gi0/0 and SW2 Gi0/0
+
+    Objectives:
+      1. Configure 802.1Q trunk between SW1 and SW2
+      2. Verify with show interfaces trunk
+      3. Packet capture on trunk link to observe 802.1Q frame fields
+      4. Verify MAC table population after pinging
+      5. Observe flooding behavior after clearing MAC table
+      6. Diagnose native VLAN mismatch (change SW2 native to 99)
+      7. Compare MAC table before and after traffic
+      8. Use L2 diagnostic commands
+  title: 'Ch 1 – Lab 1: VLANs, Trunking, and 802.1Q Frame Analysis'
+  version: 0.3.0
