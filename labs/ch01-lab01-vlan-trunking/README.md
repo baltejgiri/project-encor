@@ -69,6 +69,10 @@ Gi0/0 VLAN 10     Gi0/0 VLAN 10
 7. Compare `show mac address-table` before and after traffic; explain how the aging timer affects entries
 8. Use Layer 2 diagnostic commands: `show interfaces Gi0/0`, `show interfaces counters`, `show vlan brief`, `show spanning-tree vlan 10`
 
+## Platform Notes (CML / IOSvL2)
+
+- `show interfaces counters` returns no output on IOSvL2 — this command reads hardware ASIC counters available only on physical Catalyst platforms (3750, 3850, 9300). Use `show interfaces Gi0/0` instead for input/output packet, byte, and error counters.
+
 ## Importing into CML
 
 Import `topology.yaml` from this directory into your CML instance to recreate the lab.
