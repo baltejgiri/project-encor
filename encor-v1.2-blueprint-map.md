@@ -51,4 +51,4 @@ Per-topic tracking lives in [encor-tracker.csv](encor-tracker.csv).
 
 **Concept (Explain / Describe / Interpret / Compare):** everything else. These go on the whiteboard and into Anki, not the lab.
 
-**CML Free node budget (5 nodes):** every lab topic above fits in 5 nodes or fewer. NETCONF/RESTCONF needs an IOS-XE node (Catalyst 8000v), which uses more RAM than IOSv, so test that one before the week 20 stream.
+**CML node budget:** every lab topic above fits easily on a 20-node CML server, including the combined block labs. NETCONF/RESTCONF needs an IOS-XE node (Catalyst 8000v), which uses more RAM than IOSv, so test that one before the chapter 28 labs.

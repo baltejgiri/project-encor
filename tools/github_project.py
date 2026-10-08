@@ -35,10 +35,18 @@ LABELS = {"read": "1d76db", "lab": "0e8a16", "review": "fbca04", "block-lab": "d
 
 # ---------------------------------------------------------------- gh helpers
 def gh(*args, input=None):
-    r = subprocess.run(["gh", *args], input=input, capture_output=True, text=True)
-    if r.returncode != 0:
-        raise RuntimeError(f"gh {' '.join(args[:3])}: {r.stderr.strip()[:500]}")
-    return r.stdout
+    for attempt in range(6):
+        r = subprocess.run(["gh", *args], input=input, capture_output=True, text=True)
+        if r.returncode == 0:
+            return r.stdout
+        err = r.stderr.lower()
+        transient = any(k in err for k in ("error connecting", "timeout", "timed out", "502", "503", "504",
+                                           "secondary rate limit", "connection reset", "eof"))
+        if not transient or attempt == 5:
+            raise RuntimeError(f"gh {' '.join(args[:3])}: {r.stderr.strip()[:500]}")
+        wait = 15 * (attempt + 1) if "rate limit" in err else 5 * (attempt + 1)
+        print(f"  (network/rate hiccup, retrying in {wait}s)", flush=True)
+        time.sleep(wait)
 
 
 def gql(query, **variables):
@@ -150,9 +158,11 @@ def parent_title(r):
 
 
 def session_title(r):
-    t, ch = r["Type"], r["Chapter"]
+    t, ch = stype(r), r["Chapter"]
     if t == "Read":
-        return f"{ch} · {r['Book pages']}" if r["Book pages"] != "-" else ch
+        if r["Book pages"] != "-":
+            return f"{ch} · {r['Book pages']}"
+        return f"{ch} · refresher" if r["Unit ID"] == "R-1-1" else f"{ch} · reading"
     if t == "Lab":
         return f"Lab · {ch.split(' ', 2)[-1] if ch.startswith('Ch ') else ch}: {r['Plan'].split(';')[0]}"
     if t == "Block review":
@@ -182,6 +192,10 @@ CHECK = {
 }
 
 
+def stype(r):
+    return "Kickoff" if r["Unit ID"] == "KICKOFF" else r["Type"]
+
+
 def session_body(r):
     lines = [f"**Block:** {r['Block'] or '-'}  ", f"**Slot:** {r['Slot']}  "]
     if r["Book pages"] != "-":
@@ -189,7 +203,7 @@ def session_body(r):
     if r["Blueprint"]:
         lines.append(f"**Blueprint:** {r['Blueprint']}  ")
     lines += ["", "### Plan", r["Plan"], "", "### Checklist"]
-    lines += [f"- [ ] {c}" for c in CHECK.get(r["Type"], ["Close this issue"])]
+    lines += [f"- [ ] {c}" for c in CHECK.get(stype(r), ["Close this issue"])]
     lines += ["", "Stream replay: _(paste link in a comment)_", "",
               "_Dates live on the board and move when the schedule is replanned._",
               f"<!-- unit: {r['Unit ID']} -->"]
@@ -275,7 +289,8 @@ def cmd_setup(a):
             print(f"view exists: {name}"); continue
         v = gql("mutation($i:CreateProjectV2ViewInput!){createProjectV2View(input:$i){projectV2View{id}}}",
                 i={"projectId": p["id"], "name": name, "layout": layout,
-                   "configuration": {"visibleFieldIds": vis}})["createProjectV2View"]["projectV2View"]["id"]
+                   **({} if layout == "ROADMAP_LAYOUT" else {"configuration": {"visibleFieldIds": vis}})}
+                )["createProjectV2View"]["projectV2View"]["id"]
         gql("mutation($i:UpdateProjectV2ViewInput!){updateProjectV2View(input:$i){clientMutationId}}",
             i={"viewId": v, "filter": flt})
         print(f"view created: {name}  (filter: {flt})")
@@ -311,11 +326,11 @@ def cmd_create(a):
             break
         pk = parent_key(r)
         if pk and pk not in parents:
-            if pk in have:
+            if pk in have and have[pk]["id"] in board:
                 parents[pk] = have[pk]
             else:
                 kids = [x for x in rows if parent_key(x) == pk]
-                iss = create_issue(parent_title(r), parent_body(pk, rows),
+                iss = have.get(pk) or create_issue(parent_title(r), parent_body(pk, rows),
                                    ["chapter"] + ([block_label(r["Block"])] if r["Block"] else []))
                 item = add_to_board(p, iss["id"])
                 set_fields(p, item, {"Session type": "Chapter", "Block": r["Block"], "Unit ID": pk,
@@ -325,19 +340,29 @@ def cmd_create(a):
                 parents[pk] = iss; have[pk] = iss; made += 1
                 print(f"#{iss['number']} {iss['title']}"); time.sleep(1.2)
         if r["Unit ID"] in have:
-            continue
-        labels = [label_for(r["Type"])] + ([block_label(r["Block"])] if r["Block"] else [])
-        iss = create_issue(session_title(r), session_body(r), labels)
+            iss = have[r["Unit ID"]]
+            if iss["id"] in board:
+                continue
+            print(f"repairing #{iss['number']} (created but not on board)")
+        else:
+            iss = None
+        labels = [label_for(stype(r))] + ([block_label(r["Block"])] if r["Block"] else [])
+        if iss is None:
+            iss = create_issue(session_title(r), session_body(r), labels)
         item = add_to_board(p, iss["id"])
         d = dt.date.fromisoformat(r["Date"]) if r["Date"][:1].isdigit() else None
-        set_fields(p, item, {"Session type": r["Type"], "Block": r["Block"] or ("Phase 3" if r["Type"] == "Phase 3" else None),
+        set_fields(p, item, {"Session type": stype(r), "Block": r["Block"] or ("Phase 3" if r["Type"] == "Phase 3" else None),
                              "Slot": r["Slot"], "Book pages": "" if r["Book pages"] == "-" else r["Book pages"],
                              "Blueprint": r["Blueprint"], "Unit ID": r["Unit ID"],
                              "Start Date": d and d.isoformat(), "Target Date": d and d.isoformat(),
                              "Week": d and iteration_for(p, d), "Status": "Todo"})
         if pk:
-            gql('mutation($a:ID!,$b:ID!){addSubIssue(input:{issueId:$a,subIssueId:$b}){clientMutationId}}',
-                a=parents[pk]["id"], b=iss["id"])
+            try:
+                gql('mutation($a:ID!,$b:ID!){addSubIssue(input:{issueId:$a,subIssueId:$b}){clientMutationId}}',
+                    a=parents[pk]["id"], b=iss["id"])
+            except RuntimeError as e:
+                if "already" not in str(e).lower() and "duplicate" not in str(e).lower():
+                    raise
         have[r["Unit ID"]] = iss; made += 1
         print(f"#{iss['number']} {iss['title']}"); time.sleep(1.2)
     print(f"created {made} issues")
