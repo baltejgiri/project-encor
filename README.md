@@ -1,87 +1,94 @@
-# Project ENCOR
+# Project ENCOR: CCNP ENCOR 350-401 (v1.2)
 
-Preparation for the **350-401 ENCOR** exam — target: December 15, 2026.
+My day-by-day plan for CCNP ENCOR v1.2, studied live on YouTube ([@baltejgiri](https://www.youtube.com/@baltejgiri)) every morning at 5:00. It uses the same method I used to pass CCNA: read the Official Cert Guide, take notes in my own words, lab every chapter, and review with spaced repetition.
 
-## Exam
-
-| Exam | Code | Target |
-|------|------|--------|
-| Implementing Cisco Enterprise Network Core Technologies | 350-401 ENCOR | December 15, 2026 |
+I'm not booking the exam on a date. I book it when the material is covered and the practice tests say I'm ready (see [Readiness gates](#readiness-gates)).
 
 ## Resources
 
-- **Official Guide**: *CCNP and CCIE Enterprise Core (ENCOR 350-401) 2nd Edition*
-- **Exam Blueprint**: 350-401 ENCOR v1.2 (`350-401-ENCORE-v1.2.pdf`)
-- **Video**: INE — *Enterprise CORE Exam: 350-401 ENCOR v1.2*
-- **Labs**: Cisco Modeling Labs (CML) — personal license, 20 nodes, hosted on home server
-- **Practice**: Boson NetSim (introduced after month 3)
+- **Book:** *CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide*, 2nd edition (Cisco Press). Not included here; it's copyrighted.
+- **Video:** INE, *Enterprise CORE Exam: 350-401 ENCOR v1.2*
+- **Labs:** Cisco Modeling Labs (personal license, 20 nodes) on a home server; topologies in [`labs/`](labs/)
+- **Practice tests:** Pearson Test Prep (included with the book) for block tests; Boson ExSim for final readiness
+- **Progress board:** [Project ENCOR on GitHub Projects](https://github.com/users/baltejgiri/projects/3)
 
-## Repo Structure
+## What's in here
 
+| File | What it is |
+|---|---|
+| [`encor-session-schedule.csv`](encor-session-schedule.csv) | Every study session in order: date, chapter, exact book pages or lab, and a `Done (date)` column |
+| [`encor-tracker.csv`](encor-tracker.csv) | All 47 v1.2 blueprint topics mapped to book chapters, with columns for lab done, Anki cards and confidence (1 to 5) |
+| [`encor-v1.2-blueprint-map.md`](encor-v1.2-blueprint-map.md) | Which book chapters to read, skim or skip for v1.2 (no wireless), plus the topics the book doesn't cover |
+| [`tools/build_schedule.py`](tools/build_schedule.py) | Generates the schedule, and replans it when I fall behind |
+| [`tools/github_project.py`](tools/github_project.py) | Syncs the schedule with the GitHub Projects board (one issue per session) |
+| [`labs/`](labs/) | CML topologies: each lab has `topology.yaml`, `README.md` and `SOLUTION.md` (exam-style questions, no answers) |
+| [`notes/`](notes/) | Chapter notes and flashcards in my own words |
+| [`cml-mcp/`](cml-mcp/) | MCP server for creating and managing labs on CML (credentials go in a local `.env`, never committed) |
+
+## The weekly rhythm
+
+| When | Time | What |
+|---|---|---|
+| Monday to Friday | 5:00 to 6:00 | **Reading:** Anki reviews, a 25-minute sprint, a 5-minute explain-back, a 15-minute sprint (about 12 pages) |
+| Saturday and Sunday | 5:00 to 8:00 | **Labs:** Anki, whiteboard recap of the week, two Build, Break, Fix labs, new Anki cards, weekly check |
+
+The first day of a chapter starts with a pre-scan and the "Do I Know This Already?" quiz. The last day ends with an own-words summary and 5 to 6 Anki cards. Labs only come from chapters already finished.
+
+## Blocks: so earlier chapters don't fade
+
+The book is split into 6 blocks of 3 to 5 chapters. No new chapter starts until a block is reviewed:
+
+1. **Review week (weekdays):** one chapter per day. A blank-page recall first, then my notes, the DIKTA quiz again, and the book's "Review All Key Topics" and "Define Key Terms".
+2. **Block lab (Saturday):** one topology mixing the whole block, troubleshot without the book.
+3. **Block test (Sunday):** a timed Pearson Test Prep exam on the block's chapters, plus about 20% from earlier blocks.
+
+| Block | Chapters |
+|---|---|
+| B1 Layer 2 | 1, 5, 2, 3, 4 |
+| B2 Routing and OSPF | 6, 7, 8, 9, 10 |
+| B3 BGP and IP services | 11, 12, 15, 13 |
+| B4 QoS, tunnels, architecture | 14, 16, 22, 27, 23 |
+| B5 Assurance and security | 24, Catalyst Center AI workflows, 26, 25 |
+| B6 Programmability and automation | 28, REST API security, 29 |
+
+Chapters 17 to 21 (wireless) are skipped: wireless isn't on the v1.2 blueprint.
+
+## Tracking on the board
+
+Every session is an issue under its chapter (as a sub-issue), on the [Project ENCOR board](https://github.com/users/baltejgiri/projects/3). Each one has a target date, a week, a block and a session type. **Closing the issue at the end of the stream is the log.** The board's "This week" view is what I show at the start of each stream. Stream replay links go in the issue comments.
+
+## Falling behind (replanning)
+
+Buffer sessions are built into the schedule. If I fall further behind than the buffer covers:
+
+```bash
+python3 tools/github_project.py pull           # closed issues -> "Done (date)" in the CSV
+python3 tools/build_schedule.py --replan        # reschedule everything not done, from tomorrow
+python3 tools/github_project.py push            # new dates and weeks -> the board
 ```
-project-encor/
-├── README.md
-├── project_overview.md          # Goals and full 29-week schedule
-├── project_instructions.md      # Resources and study workflow
-├── project_chapters_list.md     # Chapter map with exam scope notes
-└── labs/
-    └── <lab-name>/
-        ├── topology.yaml        # CML-importable topology
-        ├── README.md            # What the lab covers
-        └── SOLUTION.md          # Exam-style questions (no answers)
+Finished sessions stay as they are. Everything else moves to new dates with the same rules, so nothing is dropped, only pushed back.
+
+To build a fresh schedule from a different start date:
+```bash
+python3 tools/build_schedule.py --start 2026-10-19
 ```
+The reading pace (`DAY_PAGES`, default 12 pages per weekday) is set at the top of the script.
 
-## ENCOR Study Schedule (29 weeks)
+## Readiness gates
 
-### Phase 1 — Content Reading (Weeks 1–24, May 25 – Nov 8)
+I book the exam only when all of these are true:
 
-| Week | Dates | Content |
-|------|-------|---------|
-| 1 | May 25 – May 31 | Ch 1 Packet Forwarding |
-| 2 | Jun 1 – Jun 7 | Ch 2 Spanning Tree Protocol |
-| 3 | Jun 8 – Jun 14 | Ch 3 Advanced STP Tuning |
-| 4 | Jun 15 – Jun 21 | Ch 4 MSTP + Ch 5 VLANs/EtherChannel |
-| 5 | Jun 22 – Jun 28 | Ch 6 IP Routing Essentials + Ch 7 EIGRP |
-| 6 | Jun 29 – Jul 5 | Vacation (Jul 1–5) — light review only |
-| 7 | Jul 6 – Jul 12 | Ch 8 OSPF |
-| 8 | Jul 13 – Jul 19 | Ch 9 Advanced OSPF |
-| 9 | Jul 20 – Jul 26 | Ch 10 OSPFv3 |
-| 10 | Jul 27 – Aug 2 | Ch 11 BGP |
-| 11 | Aug 3 – Aug 9 | Ch 12 Advanced BGP |
-| 12 | Aug 10 – Aug 16 | Ch 13 Multicast |
-| 13 | Aug 17 – Aug 23 | Ch 14 QoS (first half) |
-| 14 | Aug 24 – Aug 30 | Ch 14 QoS (finish) + Ch 15 IP Services (start) |
-| 15 | Aug 31 – Sep 6 | Ch 15 IP Services (finish) |
-| 16 | Sep 7 – Sep 13 | Ch 16 Overlay Tunnels |
-| 17 | Sep 14 – Sep 20 | Ch 22 Enterprise Network Architecture |
-| 18 | Sep 21 – Sep 27 | Ch 23 Fabric Technologies |
-| 19 | Sep 28 – Oct 4 | Ch 24 Network Assurance (first half) |
-| 20 | Oct 5 – Oct 11 | Ch 24 Network Assurance (finish) |
-| 21 | Oct 12 – Oct 18 | Ch 25 Secure Network Access Control |
-| 22 | Oct 19 – Oct 25 | Ch 26 Network Device Access Control |
-| 23 | Oct 26 – Nov 1 | Ch 27 Virtualization + Ch 28 Programmability (start) |
-| 24 | Nov 2 – Nov 8 | Ch 28 Programmability (finish) + Ch 29 Automation Tools |
+1. Every row in the schedule is done, including all 6 block tests.
+2. All 47 tracker topics are at confidence 4 or higher, with notes, Anki cards and (for lab topics) a finished lab.
+3. No Anki backlog for at least a week.
+4. Boson ExSim practice exams, taken in exam conditions, are consistently at my target score on exams I haven't seen before.
+5. Cisco hasn't announced a newer ENCOR version ([certification roadmap](https://cisco.com/go/certroadmap)).
 
-> Part VI (Ch 17–21 Wireless) is skipped — no longer on the ENCOR exam blueprint.
+## Using this yourself
 
-### Phase 2 — Review and Practice Tests (Weeks 25–29, Nov 9 – Dec 14)
+Download the CSVs into any spreadsheet app, or fork the repo and change the start date and `DAY_PAGES` to fit your own pace. Page numbers refer to the *CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide*, 2nd edition (Cisco Press). The book isn't included here; it's copyrighted.
 
-| Week | Dates | Activity |
-|------|-------|----------|
-| 25 | Nov 9 – Nov 15 | Comprehensive section reviews (Part VII, VIII, IX) |
-| 26 | Nov 16 – Nov 22 | Boson Practice Test 1 + review wrong answers |
-| 27 | Nov 23 – Nov 29 | Boson Practice Test 2 + targeted chapter re-reads |
-| 28 | Nov 30 – Dec 6 | Boson Practice Test 3 + weak area focus |
-| 29 | Dec 7 – Dec 13 | Boson Practice Test 4 + final cramming |
-| Exam | Dec 15 | **350-401 ENCOR** |
+## Sources
 
-## Study Workflow
-
-- **Daily**: Read one chapter + 10–15 flashcard-style review questions
-- **Weekly**: Mock test covering the past week's topics
-- **Per Part**: Comprehensive section review upon completion
-- **Labs**: Created for blueprint topics tagged with *Configure*, *Verify*, *Troubleshoot*, *Diagnose*, *Construct*, *Interpret*, or *Compare*
-
-## Progress Tracking
-
-Tracked via the [Project ENCOR](https://github.com/users/baltejgiri/projects/3) board on GitHub Projects.
+- [Cisco 350-401 ENCOR v1.2 exam topics](https://learningcontent.cisco.com/documents/marketing/exam-topics/350-401-ENCORE-v1.2.pdf)
+- *CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide*, 2nd edition, Cisco Press (ISBN 9780138216764)

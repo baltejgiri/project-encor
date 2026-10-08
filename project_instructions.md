@@ -4,11 +4,11 @@
 
 - Primary source of learning: Cisco's official certification guide "CCNP and CCIE Enterprise Core (ENCOR 350-401) 2nd Edition"
 - Cisco Whitepapers on various exam topics to understand concepts at a deeper level while remaining on track
-- The official cert guide PDF is stored in this project for reference
+- The cert guide PDF is kept locally for reference only. It's copyrighted and git-ignored, so it's never committed.
 
 ## Exam Blueprint
 
-The ENCOR exam blueprint provides a detailed list of topics tested on this exam. See the attached blueprint file: `350-401-ENCORE-v1.2.pdf`
+The ENCOR exam blueprint provides a detailed list of topics tested on this exam. Official PDF: [350-401 ENCOR v1.2 exam topics](https://learningcontent.cisco.com/documents/marketing/exam-topics/350-401-ENCORE-v1.2.pdf). Book-to-blueprint mapping: [`encor-v1.2-blueprint-map.md`](encor-v1.2-blueprint-map.md).
 
 ### Exam Description
 
@@ -27,7 +27,7 @@ Implementing Cisco Enterprise Network Core Technologies v1.2 (ENCOR 350-401) is 
 
 - All labs are completed using CML (personal license, 20 nodes) hosted on home server
 - Labs are created for exam blueprint topics with action verbs: *Interpret*, *Configure*, *Verify*, *Troubleshoot*, *Compare*, *Diagnose*, *Construct*
-- Labs can be created as YAML files for CML import, or directly via the CML MCP server at `cml.example.com`
+- Labs can be created as YAML files for CML import, or directly via the CML MCP server (host set in `cml-mcp/.env`, never committed)
 - Boson NetSim will be used for guided lab practice starting around month 3
 
 ## Lab Directory Structure
@@ -50,8 +50,19 @@ Labs are graded against `SOLUTION.md` once completed.
 - Each lab includes a `SOLUTION.md` with exam-style questions (no answers or commands)
 - Labs are graded against `SOLUTION.md` upon completion
 
+## Study Method and Schedule
+
+Live on YouTube every day at 5:00: weekdays 5:00 to 6:00 are for reading, weekends 5:00 to 8:00 are for labs. Full details are in the [README](README.md) and [`encor-session-schedule.csv`](encor-session-schedule.csv). Progress is tracked on the [Project ENCOR board](https://github.com/users/baltejgiri/projects/3).
+
 ## Spaced Repetition
 
-- Generate 10–15 flashcard-style review questions each study day
-- Generate a weekly mock test covering the past week's topics
-- Generate a comprehensive section review at the end of each Part
+- **Daily:** Anki reviews at the start of every session (automation cards included from day 1)
+- **Per chapter:** 5 to 6 new cards from my own notes, plus cards from whatever broke in the labs
+- **Per block (3 to 5 chapters):** a review week (blank-page recall, notes, DIKTA quiz, Key Topics), a mixed lab, and a Pearson Test Prep block test with about 20% from earlier blocks
+
+## Security
+
+- Never commit the cert guide, `.env` files, credentials or the CML hostname. The pre-commit hook in `tools/hooks/` blocks these. Install it once:
+  ```bash
+  cp tools/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+  ```

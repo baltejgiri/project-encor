@@ -1,0 +1,48 @@
+Domain,Weight,ID,Topic,Verb,OCG chapter,Week,Lab done,Anki cards,Confidence 1-5,Stream date,Notes
+Architecture,15%,1.1.a,"Enterprise design: 2-tier, 3-tier, fabric, cloud",Explain,22,13,,,,,
+Architecture,15%,1.1.b,"High availability: redundancy, FHRP, SSO",Explain,22 / 15,13,,,,,
+Architecture,15%,1.2.a,Catalyst SD-WAN control and data plane elements,Explain,23,14,,,,,
+Architecture,15%,1.2.b,Catalyst SD-WAN benefits and limitations,Explain,23,14,,,,,Gap: write your own pros/cons
+Architecture,15%,1.3.a,SD-Access control and data plane elements,Explain,23,14,,,,,
+Architecture,15%,1.3.b,Traditional campus interoperating with SD-Access,Explain,23,14,,,,,
+Architecture,15%,1.4,Interpret QoS configurations,Interpret,14,11,,,,,Skip Wireless QoS section
+Virtualization,10%,2.1.a,Hypervisor type 1 and 2,Describe,27,13,,,,,
+Virtualization,10%,2.1.b,Virtual machine,Describe,27,13,,,,,
+Virtualization,10%,2.1.c,Virtual switching,Describe,27,13,,,,,
+Virtualization,10%,2.2.a,VRF,Configure,6,5,,,,,LAB
+Virtualization,10%,2.2.b,GRE and IPsec tunneling,Configure,16,12,,,,,LAB
+Virtualization,10%,2.3.a,LISP,Describe,16,12,,,,,
+Virtualization,10%,2.3.b,VXLAN,Describe,16,12,,,,,
+Infrastructure,30%,3.1.a,Static and dynamic 802.1q trunking,Troubleshoot,5,2,,,,,LAB
+Infrastructure,30%,3.1.b,Static and dynamic EtherChannels,Troubleshoot,5,2,,,,,LAB
+Infrastructure,30%,3.1.c,"RSTP, MST, root guard, BPDU guard",Configure,2 / 3 / 4,3-4,,,,,LAB
+Infrastructure,30%,3.2.a,EIGRP vs OSPF concepts,Compare,7 / 8,5,,,,,
+Infrastructure,30%,3.2.b,"OSPFv2/v3: multi-area, summarization, filtering, network types, passive-interface",Configure,8 / 9 / 10,6-7,,,,,LAB
+Infrastructure,30%,3.2.c,eBGP directly connected neighbors and best path selection,Configure,11 / 12,8-9,,,,,LAB
+Infrastructure,30%,3.2.d,Policy-based routing,Describe,6,5,,,,,
+Infrastructure,30%,3.3.a,Interpret NTP and PTP configurations,Interpret,15,10,,,,,
+Infrastructure,30%,3.3.b,NAT/PAT,Configure,15,10,,,,,LAB
+Infrastructure,30%,3.3.c,"FHRP: HSRP, VRRP",Configure,15,10,,,,,LAB
+Infrastructure,30%,3.3.d,"Multicast: RPF, PIM SM, IGMPv2/v3, SSM, bidir, MSDP",Describe,13,11,,,,,
+Network Assurance,10%,4.1,"Debugs, conditional debugs, traceroute, ping, SNMP, syslog",Diagnose,24,15,,,,,LAB
+Network Assurance,10%,4.2,Flexible NetFlow,Configure,24,15,,,,,LAB
+Network Assurance,10%,4.3,SPAN/RSPAN/ERSPAN,Configure,24,16,,,,,LAB
+Network Assurance,10%,4.4,IPSLA,Configure,24,16,,,,,LAB
+Network Assurance,10%,4.5,Catalyst Center traditional and AI-powered workflows,Describe,24,16,,,,,Gap: AI workflows not in book
+Network Assurance,10%,4.6,NETCONF and RESTCONF,Configure,28,20,,,,,LAB (IOS-XE node)
+Security,20%,5.1.a,Lines and local user authentication,Configure,26,17,,,,,LAB
+Security,20%,5.1.b,AAA authentication and authorization,Configure,26,17,,,,,LAB
+Security,20%,5.2.a,ACLs,Configure,26,17,,,,,LAB
+Security,20%,5.2.b,CoPP,Configure,26,17,,,,,LAB
+Security,20%,5.3,REST API security,Describe,(gap),19,,,,,Gap: use DevNet material
+Security,20%,5.4.a,Threat defense,Describe,25,18,,,,,
+Security,20%,5.4.b,Endpoint security,Describe,25,18,,,,,
+Security,20%,5.4.c,Next-generation firewall,Describe,25,18,,,,,
+Security,20%,5.4.d,TrustSec and MACsec,Describe,25,18,,,,,
+Automation and AI,15%,6.1,Python components and scripts,Interpret,28,19,,,,,
+Automation and AI,15%,6.2,Valid JSON-encoded files,Construct,28,19,,,,,LAB
+Automation and AI,15%,6.3,YANG data modeling principles,Describe,28,20,,,,,
+Automation and AI,15%,6.4,Catalyst Center and SD-WAN Manager APIs,Describe,28,20,,,,,Book says DNA Center / vManage
+Automation and AI,15%,6.5,REST API response codes and payloads (Catalyst Center and RESTCONF),Interpret,28,19,,,,,
+Automation and AI,15%,6.6,EEM applets,Construct,29,21,,,,,LAB
+Automation and AI,15%,6.7,Agent vs agentless orchestration tools,Compare,29,21,,,,,

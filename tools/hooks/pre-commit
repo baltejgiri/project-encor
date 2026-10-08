@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Blocks commits that would publish secrets, the cert guide, or private details.
+# Install once:  cp tools/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+set -euo pipefail
+
+fail=0
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$staged" ] && exit 0
+
+while IFS= read -r f; do
+  [ -f "$f" ] || continue
+  # 1. Forbidden file types: books, keys, env files
+  if echo "$f" | grep -qiE '\.(pdf|epub|mobi|azw3|pem|key|p12|pfx)$|(^|/)\.env$|(^|/)[^/]+\.env$|id_(rsa|ed25519)'; then
+    echo "BLOCKED: $f (book, key or env file)"; fail=1; continue
+  fi
+  # 2. Large files (the cert guide is ~30 MB)
+  size=$(wc -c < "$f")
+  if [ "$size" -gt 5000000 ]; then
+    echo "BLOCKED: $f is $((size/1000000)) MB (over 5 MB)"; fail=1; continue
+  fi
+done <<< "$staged"
+
+# 3. Secret-looking content in the staged changes
+patterns='(password|passwd|secret|api[_-]?key|token)[[:space:]]*[:=][[:space:]]*[^[:space:]<>"'"'"']{6,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|baltejgiri\.com|baltej\.giri@'
+hits=$(git diff --cached -U0 -- . ':(exclude)tools/hooks/pre-commit' | grep '^+' | grep -v '^+++' | grep -iEn "$patterns" || true)
+# allow the documented placeholders
+hits=$(echo "$hits" | grep -viE 'your_password|your_username|cml\.example\.com' || true)
+if [ -n "$hits" ]; then
+  echo "BLOCKED: possible secret or private detail in staged changes:"
+  echo "$hits" | sed 's/^/  /' | cut -c1-160
+  fail=1
+fi
+
+if [ "$fail" -ne 0 ]; then
+  echo
+  echo "Commit stopped. Remove or unstage the items above (git restore --staged <file>)."
+  exit 1
+fi

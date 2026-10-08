@@ -1,6 +1,25 @@
+# Copyrighted study material: never commit
 *.pdf
+*.epub
+*.mobi
+*.azw3
+
+# Secrets and local config
+.env
+*.env
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+credentials*
+secrets*
+
+# Local tooling
 CLAUDE.md
 .vscode/
-cml-mcp/.env
 __pycache__/
 *.pyc
+*.backup-*.csv
