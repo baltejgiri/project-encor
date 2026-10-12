@@ -18,7 +18,7 @@ import argparse, csv, datetime as dt, json, os, re, subprocess, sys, time
 OWNER, NUMBER, REPO = "baltejgiri", 3, "baltejgiri/project-encor"
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV = os.path.join(HERE, "encor-session-schedule.csv")
-WEEK1 = dt.date(2026, 10, 19)          # Monday of week 1
+WEEK1 = dt.date(2026, 10, 12)          # Monday of week 1
 N_WEEKS = 45
 MARK = re.compile(r"<!-- unit: ([A-Za-z0-9.\-]+) -->")
 

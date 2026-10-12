@@ -70,7 +70,7 @@ Finished sessions stay as they are. Everything else moves to new dates with the 
 
 To build a fresh schedule from a different start date:
 ```bash
-python3 tools/build_schedule.py --start 2026-10-19
+python3 tools/build_schedule.py --start 2026-10-12
 ```
 The reading pace (`DAY_PAGES`, default 12 pages per weekday) is set at the top of the script.
 

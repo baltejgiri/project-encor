@@ -8,7 +8,7 @@ Chapters are grouped into blocks; after each block comes a review week
 
 Usage:
   python3 tools/build_schedule.py                      # fresh plan from START
-  python3 tools/build_schedule.py --start 2026-10-19
+  python3 tools/build_schedule.py --start 2026-10-12
   python3 tools/build_schedule.py --replan --from 2026-11-09
       keeps every row whose "Done" column is filled, and reschedules
       everything not done yet starting at --from (default: tomorrow).
@@ -255,7 +255,7 @@ HEAD = ["Day", "Date", "Weekday", "Slot", "Type", "Block", "Chapter", "Book page
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--start", default="2026-10-19")
+    ap.add_argument("--start", default="2026-10-12")
     ap.add_argument("--replan", action="store_true")
     ap.add_argument("--from", dest="frm")
     a = ap.parse_args()
