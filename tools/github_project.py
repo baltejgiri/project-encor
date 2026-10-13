@@ -162,7 +162,7 @@ def session_title(r):
     if t == "Read":
         if r["Book pages"] != "-":
             return f"{ch} · {r['Book pages']}"
-        return f"{ch} · refresher" if r["Unit ID"] == "R-1-1" else f"{ch} · reading"
+        return f"{ch} · reading"
     if t == "Lab":
         return f"Lab · {ch.split(' ', 2)[-1] if ch.startswith('Ch ') else ch}: {r['Plan'].split(';')[0]}"
     if t == "Block review":

@@ -1,6 +1,6 @@
 Day,Date,Weekday,Slot,Type,Block,Chapter,Book pages,Plan,Blueprint,Unit ID,Done (date)
 1,2026-10-12,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Kickoff,-,"Stream tour: schedule, tracker, blueprint map, CML, Anki deck",,KICKOFF,2026-10-12
-2,2026-10-13,Tue,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,-,Refresher: re-read notes/ch01-packet-forwarding.md and notes/ch01-lab01-flashcards.md from May; skim pp 2-35. Labs already done (labs/ch01-*). Own-words summary + Anki cards,-,R-1-1,
+2,2026-10-13,Tue,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 2-35,"Whole chapter using the 4 tips (pre-scan, DIKTA + sprints, lab, Anki); add to May notes in own words; finish leftovers on the Saturday buffer. Labs already exist (labs/ch01-*), re-run Lab 1 on the buffer. Own-words summary + Anki cards",-,R-1-1,
 3,2026-10-14,Wed,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 94-101,Pre-scan + DIKTA quiz (chat answers) + 1 sprint,"3.1.a, 3.1.b",R-5-1,
 4,2026-10-15,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 102-113,Sprints (25 + 15 min) with explain-back,"3.1.a, 3.1.b",R-5-2,
 5,2026-10-16,Fri,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 114-119,Sprints (25 + 15 min) with explain-back,"3.1.a, 3.1.b",R-5-3,
