@@ -11,7 +11,7 @@ CCNP Enterprise Exam Prep 2026 to 2027 covers two Cisco exams: **350-401 ENCOR**
 
 The first plan (May 2026) targeted 15 December 2026 and stalled after week 1. The restart, from 12 October 2026, is built for consistency instead of a deadline:
 
-- **Daily live stream at 5:00:** weekdays are 1 hour of reading, weekends are 3 hours of labs
+- **Daily live stream at 5:00:** weekdays are 1 hour of reading, Saturdays are 3 hours of labs, Sundays off
 - **6 blocks**, each closed by a review week, a mixed lab and a block test
 - **Buffer built in**, and a replan script (`tools/build_schedule.py --replan`) when I fall behind
 - **The exam is booked only when the readiness gates in the README are met:** the book is covered, every blueprint topic is at confidence 4 or higher, Anki is under control, practice tests are consistently at target, and the blueprint hasn't changed

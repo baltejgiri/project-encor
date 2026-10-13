@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Build (or rebuild) the ENCOR day-by-day study schedule.
 
-Weekdays (Mon-Fri, 5:00-6:00): reading.  Weekends (Sat-Sun, 5:00-8:00): labs.
+Weekdays (Mon-Fri, 5:00-6:00): reading.  Saturday (5:00-8:00): labs.  Sunday: off.
 Chapters are grouped into blocks; after each block comes a review week
-(weekdays: one chapter per day re-read/recall) and a block weekend
-(Saturday mixed troubleshooting lab, Sunday chapter-filtered practice test).
+(weekdays: one chapter per day re-read/recall) and a block Saturday
+(mixed troubleshooting lab, then a chapter-filtered practice test).
 
 Usage:
   python3 tools/build_schedule.py                      # fresh plan from START
@@ -18,14 +18,15 @@ import argparse, csv, datetime as dt, os
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(HERE, "encor-session-schedule.csv")
 
-FIRST_DAY_PAGES = 8   # pre-scan + DIKTA quiz + one 25-min sprint
-DAY_PAGES = 12        # 25-min sprint + 5-min explain-back + 15-min sprint
-LAST_DAY_MAX = 8      # last day of a chapter also holds the summary + Anki cards
+FIRST_DAY_PAGES = 6   # pre-scan + DIKTA quiz + one 25-min sprint
+DAY_PAGES = 6         # two 25-min sprints with own-words notes (measured on Day 2, 2026-10-13: ~6 pages/hour)
+LAST_DAY_MAX = 6      # last day of a chapter also holds the summary + Anki cards
 
 # Block -> list of (chapter id, title, page ranges or None, note, labs, blueprint)
 BLOCKS = [
  ("B1 Layer 2", [
-  ("1", "Packet Forwarding", None, "Whole chapter using the 4 tips (pre-scan, DIKTA + sprints, lab, Anki); add to May notes in own words; finish leftovers on the Saturday buffer. Labs already exist (labs/ch01-*), re-run Lab 1 on the buffer", [], "-"),
+  ("1", "Packet Forwarding", [(2, 35)], "Fresh start (May notes not used). Labs already exist (labs/ch01-*)", [
+     "Ch 1 labs re-run: VLAN trunking, L3 interfaces (labs/ch01-*): Build, Break, Fix"], "-"),
   ("5", "VLAN Trunks and EtherChannel", [(94, 123)], "", [
      "DTP trunk modes, allowed VLANs, native VLAN mismatch: Build, Break, Fix",
      "LACP/PAgP EtherChannel: mode and config mismatches: Build, Break, Fix"], "3.1.a, 3.1.b"),
@@ -147,7 +148,7 @@ def build_units():
                         if note:
                             plan += f". Note: {note}"
                     else:
-                        plan = "Sprints (25 + 15 min) with explain-back"
+                        plan = "Two 25-min sprints (Pomodoro), own-words notes as I read"
                     if k == len(chunks):
                         plan += "; own-words summary; write 5-6 Anki cards"
                     units.append(dict(id=f"R-{cid}-{k}", kind="read", block=bname, ch=cid, chapter=name,
@@ -215,7 +216,10 @@ def schedule(units, start, done_ids):
                 rows.append(dict(id="BUF", kind="buffer", block="", ch="", chapter="Buffer", pages="-",
                                  plan="Catch up if behind; otherwise extra Anki + re-read last chapter's notes",
                                  bp="", date=d, slot="Weekday 5:00-6:00"))
-        else:        # weekend: one 3-hour slot = 2 labs, or 1 block lab, or 1 block test
+        elif wd == 6:  # Sunday: off (decided 2026-10-13)
+            d += dt.timedelta(days=1)
+            continue
+        else:        # Saturday: one 3-hour slot = 2 labs, or the block lab (2 hr) + block test (1 hr)
             taken = []
             for u in todo:
                 if u["kind"] == "lab":
@@ -225,15 +229,15 @@ def schedule(units, start, done_ids):
                             break
             if not taken:
                 for u in todo:
-                    if u["kind"] in ("blocklab", "blocktest"):
-                        b = u["block"]
-                        if all_done(block_units(b, ["read", "lab", "review"])) and \
-                                (u["kind"] == "blocklab" or f"BL-{b.split()[0]}" in done):
-                            taken = [u]
+                    if u["kind"] == "blocklab":
+                        if all_done(block_units(u["block"], ["read", "lab", "review"])):
+                            taken = [x for x in todo if x["block"] == u["block"] and x["kind"] in ("blocklab", "blocktest")]
                         break
             if taken:
                 for u in taken:
-                    rows.append(dict(u, date=d, slot="Weekend 5:00-8:00")); done.add(u["id"]); todo.remove(u)
+                    rows.append(dict(u, date=d, slot="Weekend 5:00-8:00")); done.add(u["id"])
+                for u in taken:
+                    todo.remove(u)
             else:
                 rows.append(dict(id="BUF", kind="buffer", block="", ch="", chapter="Buffer", pages="-",
                                  plan="Catch up any missed reading or labs; otherwise concept review: "

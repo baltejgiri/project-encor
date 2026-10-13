@@ -29,8 +29,9 @@ I'm not booking the exam on a date. I book it when the material is covered and t
 
 | When | Time | What |
 |---|---|---|
-| Monday to Friday | 5:00 to 6:00 | **Reading:** Anki reviews, a 25-minute sprint, a 5-minute explain-back, a 15-minute sprint (about 12 pages) |
-| Saturday and Sunday | 5:00 to 8:00 | **Labs:** Anki, whiteboard recap of the week, two Build, Break, Fix labs, new Anki cards, weekly check |
+| Monday to Friday | 5:00 to 6:00 | **Reading:** Anki reviews, a 25-minute sprint, a 5-minute break, a 20-minute sprint, own-words notes (about 6 pages) |
+| Saturday | 5:00 to 8:00 | **Labs:** Anki, whiteboard recap of the week, two Build, Break, Fix labs, new Anki cards, weekly check |
+| Sunday | off | Rest day |
 
 The first day of a chapter starts with a pre-scan and the "Do I Know This Already?" quiz. The last day ends with an own-words summary and 5 to 6 Anki cards. Labs only come from chapters already finished.
 
@@ -39,8 +40,8 @@ The first day of a chapter starts with a pre-scan and the "Do I Know This Alread
 The book is split into 6 blocks of 3 to 5 chapters. No new chapter starts until a block is reviewed:
 
 1. **Review week (weekdays):** one chapter per day. A blank-page recall first, then my notes, the DIKTA quiz again, and the book's "Review All Key Topics" and "Define Key Terms".
-2. **Block lab (Saturday):** one topology mixing the whole block, troubleshot without the book.
-3. **Block test (Sunday):** a timed Pearson Test Prep exam on the block's chapters, plus about 20% from earlier blocks.
+2. **Block lab (Saturday, first 2 hours):** one topology mixing the whole block, troubleshot without the book.
+3. **Block test (same Saturday, last hour):** a timed Pearson Test Prep exam on the block's chapters, plus about 20% from earlier blocks.
 
 | Block | Chapters |
 |---|---|
@@ -72,7 +73,7 @@ To build a fresh schedule from a different start date:
 ```bash
 python3 tools/build_schedule.py --start 2026-10-12
 ```
-The reading pace (`DAY_PAGES`, default 12 pages per weekday) is set at the top of the script.
+The reading pace (`DAY_PAGES`, 6 pages per weekday since Day 2's real pace) is set at the top of the script.
 
 ## Readiness gates
 

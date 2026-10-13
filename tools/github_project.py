@@ -11,6 +11,7 @@ Commands:
                 set fields, link sub-issues. Skips anything already created. --limit N for a trial.
   pull          closed issues -> "Done (date)" column in the CSV
   push          CSV dates -> Start/Target Date and Week on the board (run after a replan)
+  refresh       rewrite title/body of open session issues whose pages/plan changed (run after a replan)
   status        quick done-vs-planned summary from the board
 """
 import argparse, csv, datetime as dt, json, os, re, subprocess, sys, time
@@ -174,8 +175,8 @@ def session_title(r):
 
 
 CHECK = {
-    "Read": ["Anki reviews", "Sprint 1 (25 min): read + own-words notes", "Explain-back to camera (5 min)",
-             "Sprint 2 (15 min)", "60-second recap", "Close this issue"],
+    "Read": ["Anki reviews (5 min)", "Sprint 1 (25 min): read + own-words notes", "Break (5 min)",
+             "Sprint 2 (25 min): read + own-words notes", "Comment the last page read", "Close this issue"],
     "Kickoff": ["Show schedule, tracker, blueprint map", "Show CML and Anki deck", "Close this issue"],
     "Lab": ["Anki reviews", "Build (configure + verify)", "Break: chat picks the fault",
             "Fix: symptom → show command → cause → fix → verify", "Anki cards from what broke",
@@ -368,6 +369,28 @@ def cmd_create(a):
     print(f"created {made} issues")
 
 
+def cmd_refresh(a):
+    """After a replan that changes page ranges: rewrite title/body of OPEN session issues whose content changed."""
+    p, rows = project(), [r for r in load_rows() if r["Unit ID"] not in ("BUF", "") and not r["Done (date)"].strip()]
+    have = existing_issues()
+    by_uid = {i["vals"].get("Unit ID"): i for i in items(p) if i["vals"].get("Unit ID")}
+    n = 0
+    for r in rows:
+        iss = have.get(r["Unit ID"])
+        if not iss or iss["state"] != "OPEN":
+            continue
+        t, b = session_title(r), session_body(r)
+        if iss["title"] == t and (iss["body"] or "").strip() == b.strip():
+            continue
+        gh("issue", "edit", str(iss["number"]), "-R", REPO, "--title", t, "--body", b)
+        it = by_uid.get(r["Unit ID"])
+        if it:
+            set_fields(p, it["id"], {"Book pages": "" if r["Book pages"] == "-" else r["Book pages"]})
+        n += 1
+        print(f"#{iss['number']} {t}"); time.sleep(0.8)
+    print(f"refreshed {n} issues")
+
+
 def cmd_pull(a):
     p, rows = project(), load_rows()
     closed = {}
@@ -425,10 +448,10 @@ def main():
     sp.add_parser("setup")
     x = sp.add_parser("archive-old"); x.add_argument("--yes", action="store_true")
     x = sp.add_parser("create"); x.add_argument("--limit", type=int, default=0)
-    sp.add_parser("pull"); sp.add_parser("push"); sp.add_parser("status")
+    sp.add_parser("pull"); sp.add_parser("push"); sp.add_parser("status"); sp.add_parser("refresh")
     a = ap.parse_args()
     {"setup": cmd_setup, "archive-old": cmd_archive_old, "create": cmd_create,
-     "pull": cmd_pull, "push": cmd_push, "status": cmd_status}[a.cmd](a)
+     "pull": cmd_pull, "push": cmd_push, "status": cmd_status, "refresh": cmd_refresh}[a.cmd](a)
 
 
 if __name__ == "__main__":
