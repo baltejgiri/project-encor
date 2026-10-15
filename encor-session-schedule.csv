@@ -1,8 +1,8 @@
 Day,Date,Weekday,Slot,Type,Block,Chapter,Book pages,Plan,Blueprint,Unit ID,Done (date)
 1,2026-10-12,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Kickoff,-,"Stream tour: schedule, tracker, blueprint map, CML, Anki deck",,KICKOFF,2026-10-12
 2,2026-10-13,Tue,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 2-7,"Fresh start: pre-scan + DIKTA quiz (4/7) + sprints; read pp 2-7, stopped at Virtual LANs",-,R-1-1,2026-10-13
-3,2026-10-14,Wed,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 8-13,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-2,
-4,2026-10-15,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 14-19,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-3,
+3,2026-10-14,Wed,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 8-13,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-2,2026-10-14
+4,2026-10-15,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 14-19,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-3,2026-10-15
 5,2026-10-16,Fri,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 20-25,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-4,
 6,2026-10-17,Sat,Weekend 5:00-8:00,Buffer,,Buffer,-,Catch up any missed reading or labs; otherwise concept review: Pearson questions for chapters read so far,,BUF,
 7,2026-10-19,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 26-31,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-5,
