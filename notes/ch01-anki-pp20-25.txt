@@ -1,0 +1,10 @@
+#separator:tab
+#html:true
+#notetype:Basic
+#deck:CCNP ENCOR::Ch 01 Packet Forwarding
+#tags column:3
+PC-A sends a packet through R1 to PC-B on another subnet. As R1 forwards it, what does R1 change in the headers and what stays the same?	R1 <b>rewrites the MACs</b>:<br>Source MAC = R1's <b>outbound interface</b> MAC<br>Destination MAC = PC-B's MAC (or the next-hop router's MAC)<br><br>Source and destination <b>IP stay the same</b> end to end.	ENCOR ch01 L3-forwarding
+What is the administrative distance of a connected route, and when does it appear in the routing table (RIB)?	AD <b>0</b>. It appears when the interface has an IP address <b>and</b> is up.<br><br>No static route or routing protocol can override a connected route.	ENCOR ch01 L3-forwarding RIB
+How do you add a <b>second IPv4</b> address vs a <b>second IPv6</b> address to the same interface?	IPv4: <code>ip address &lt;ip&gt; &lt;mask&gt; <b>secondary</b></code> (without it, the first address is replaced)<br>IPv6: just repeat <code>ipv6 address &lt;addr&gt;/&lt;len&gt;</code>, no keyword needed	ENCOR ch01 IP-addressing
+Configure a router subinterface on Gi0/0/1 to route VLAN 10. What is required on the switch side, and does the subinterface number have to match the VLAN?	<code>interface g0/0/1.10</code><br><code>encapsulation dot1Q 10</code><br><code>ip address 10.10.10.2 255.255.255.0</code><br><br>The switch port facing the router must be a <b>trunk</b>.<br>The number does <b>not</b> have to match the VLAN ID, but matching makes support easier.	ENCOR ch01 subinterface
+SVI vs routed switch port: when is an SVI up, and why use <code>no switchport</code> instead of a transit VLAN + SVI for a link to a router?	An SVI (<code>interface vlan &lt;id&gt;</code>) is up only if the VLAN exists and at least <b>one port in that VLAN is up</b>.<br><br><code>no switchport</code> turns the port into a Layer 3 routed port. A transit VLAN could exist elsewhere in the Layer 2 domain, and spanning tree could affect it. A routed port avoids both.	ENCOR ch01 SVI routed-port
