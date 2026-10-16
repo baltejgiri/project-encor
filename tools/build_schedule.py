@@ -19,7 +19,7 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(HERE, "encor-session-schedule.csv")
 
 FIRST_DAY_PAGES = 6   # pre-scan + DIKTA quiz + one 25-min sprint
-DAY_PAGES = 6         # two 25-min sprints with own-words notes (measured on Day 2, 2026-10-13: ~6 pages/hour)
+DAY_PAGES = 6         # three 25-min sprints with own-words notes (measured on Day 2, 2026-10-13: ~6 pages/hour)
 LAST_DAY_MAX = 6      # last day of a chapter also holds the summary + Anki cards
 
 # Block -> list of (chapter id, title, page ranges or None, note, labs, blueprint)
@@ -148,7 +148,7 @@ def build_units():
                         if note:
                             plan += f". Note: {note}"
                     else:
-                        plan = "Two 25-min sprints (Pomodoro), own-words notes as I read"
+                        plan = "Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read"
                     if k == len(chunks):
                         plan += "; own-words summary; write 5-6 Anki cards"
                     units.append(dict(id=f"R-{cid}-{k}", kind="read", block=bname, ch=cid, chapter=name,

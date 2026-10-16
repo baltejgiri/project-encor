@@ -29,7 +29,7 @@ I'm not booking the exam on a date. I book it when the material is covered and t
 
 | When | Time | What |
 |---|---|---|
-| Monday to Friday | 5:00 to 6:00 | **Reading:** Anki reviews, a 25-minute sprint, a 5-minute break, a 20-minute sprint, own-words notes (about 6 pages) |
+| Monday to Friday | 5:00 to about 6:30 | **Reading:** Anki reviews, then three 25-minute sprints with 5-minute breaks, own-words notes (about 6 pages) |
 | Saturday | 5:00 to 8:00 | **Labs:** Anki, whiteboard recap of the week, two Build, Break, Fix labs, new Anki cards, weekly check |
 | Sunday | off | Rest day |
 

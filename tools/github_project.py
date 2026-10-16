@@ -176,7 +176,8 @@ def session_title(r):
 
 CHECK = {
     "Read": ["Anki reviews (5 min)", "Sprint 1 (25 min): read + own-words notes", "Break (5 min)",
-             "Sprint 2 (25 min): read + own-words notes", "Comment the last page read", "Close this issue"],
+             "Sprint 2 (25 min): read + own-words notes", "Break (5 min)",
+             "Sprint 3 (25 min): read + own-words notes", "Comment the last page read", "Close this issue"],
     "Kickoff": ["Show schedule, tracker, blueprint map", "Show CML and Anki deck", "Close this issue"],
     "Lab": ["Anki reviews", "Build (configure + verify)", "Break: chat picks the fault",
             "Fix: symptom → show command → cause → fix → verify", "Anki cards from what broke",
