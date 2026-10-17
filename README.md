@@ -21,7 +21,7 @@ I'm not booking the exam on a date. I book it when the material is covered and t
 | [`encor-v1.2-blueprint-map.md`](encor-v1.2-blueprint-map.md) | Which book chapters to read, skim or skip for v1.2 (no wireless), plus the topics the book doesn't cover |
 | [`tools/build_schedule.py`](tools/build_schedule.py) | Generates the schedule, and replans it when I fall behind |
 | [`tools/github_project.py`](tools/github_project.py) | Syncs the schedule with the GitHub Projects board (one issue per session) |
-| [`labs/`](labs/) | CML topologies: each lab has `topology.yaml`, `README.md` and `SOLUTION.md` (exam-style questions, no answers) |
+| [`labs/`](labs/) | CML labs from the live lab days, one folder per day: topology YAML files plus a README with the request, questions or tickets (no step-by-step instructions) |
 | [`notes/`](notes/) | Chapter notes and flashcards in my own words |
 | [`cml-mcp/`](cml-mcp/) | MCP server for creating and managing labs on CML (credentials go in a local `.env`, never committed) |
 
@@ -30,7 +30,7 @@ I'm not booking the exam on a date. I book it when the material is covered and t
 | When | Time | What |
 |---|---|---|
 | Monday to Friday | 5:00 to about 6:30 | **Reading:** Anki reviews, then three 25-minute sprints with 5-minute breaks, own-words notes (about 6 pages) |
-| Saturday | 5:00 to 8:00 | **Labs:** Anki, whiteboard recap of the week, two Build, Break, Fix labs, new Anki cards, weekly check |
+| Saturday | 5:00 to 8:00 | **Labs:** Anki, then the week's CML labs (build from a request, troubleshoot NOC-style tickets), new Anki cards |
 | Sunday | off | Rest day |
 
 The first day of a chapter starts with a pre-scan and the "Do I Know This Already?" quiz. The last day ends with an own-words summary and 5 to 6 Anki cards. Labs only come from chapters already finished.

@@ -14,6 +14,13 @@ Lab 2 (SVIs, subinterfaces, routed ports) is the Chapter 1 foundation for inter-
 
 > Spoiler warning: `lab1-tickets.yaml` contains the device configs, so it shows the faults. Work the tickets in CML first.
 
+## Done on stream
+
+- **When:** Saturday 17 October 2026, live 4:58 to 8:37 AM (first lab day of the series)
+- **Replay:** https://youtu.be/Bd2diUR5CgY
+- **Checklist and my answers:** [issue #252](https://github.com/baltejgiri/project-encor/issues/252)
+- **Notes from the session:** in Lab 2, disconnecting PC2's link in CML and removing VLAN 20 from the trunk did not bring SW1's VLAN 20 interface down. A disconnected CML link can leave the IOSvL2 port up, and the virtual switch may not apply SVI autostate like a real Catalyst. Worth remembering when a lab result differs from the book.
+
 To use them in your own CML: Import, then choose the YAML file. Each lab's Notes hold the same request, questions or tickets as below.
 
 ---

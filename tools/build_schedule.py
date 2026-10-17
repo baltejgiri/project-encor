@@ -25,8 +25,8 @@ LAST_DAY_MAX = 6      # last day of a chapter also holds the summary + Anki card
 # Block -> list of (chapter id, title, page ranges or None, note, labs, blueprint)
 BLOCKS = [
  ("B1 Layer 2", [
-  ("1", "Packet Forwarding", [(2, 35)], "Fresh start (May notes not used). Labs already exist (labs/ch01-*)", [
-     "Ch 1 labs re-run: VLAN trunking, L3 interfaces (labs/ch01-*): Build, Break, Fix"], "-"),
+  ("1", "Packet Forwarding", [(2, 35)], "Fresh start (May notes not used)", [
+     "Ch 1 lab: forwarding architectures (CEF, FIB, adjacency table, TCAM/SDM), new lab built for the stream"], "-"),
   ("5", "VLAN Trunks and EtherChannel", [(94, 123)], "", [
      "DTP trunk modes, allowed VLANs, native VLAN mismatch: Build, Break, Fix",
      "LACP/PAgP EtherChannel: mode and config mismatches: Build, Break, Fix"], "3.1.a, 3.1.b"),
