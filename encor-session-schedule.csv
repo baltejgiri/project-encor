@@ -4,8 +4,8 @@ Day,Date,Weekday,Slot,Type,Block,Chapter,Book pages,Plan,Blueprint,Unit ID,Done 
 3,2026-10-14,Wed,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 8-13,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-2,2026-10-14
 4,2026-10-15,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 14-19,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-3,2026-10-15
 5,2026-10-16,Fri,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 20-25,"Two 25-min sprints (Pomodoro), own-words notes as I read",-,R-1-4,2026-10-16
-6,2026-10-17,Sat,Weekend 5:00-8:00,Lab,B1 Layer 2,Ch 1 Packet Forwarding,-,"Ch 1 labs (labs/day06-tickets): VLANs and 802.1Q trunking, L3 interfaces; Anki cards from what broke",-,L-1-0,
-7,2026-10-19,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 26-31,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read",-,R-1-5,
+6,2026-10-17,Sat,Weekend 5:00-8:00,Lab,B1 Layer 2,Ch 1 Packet Forwarding,-,"Ch 1 labs (labs/day06-tickets): VLANs and 802.1Q trunking, L3 interfaces; Anki cards from what broke",-,L-1-0,2026-10-18
+7,2026-10-19,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 26-31,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read",-,R-1-5,2026-10-19
 8,2026-10-20,Tue,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 1 Packet Forwarding,pp 32-35,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read; own-words summary; write 5-6 Anki cards",-,R-1-6,
 9,2026-10-21,Wed,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 94-99,Pre-scan + DIKTA quiz (chat answers) + 1 sprint,"3.1.a, 3.1.b",R-5-1,
 10,2026-10-22,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 100-105,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read","3.1.a, 3.1.b",R-5-2,
