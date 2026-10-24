@@ -1,0 +1,258 @@
+annotations: []
+smart_annotations: []
+nodes:
+- boot_disk_size: null
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC1
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.1.1.10/24 dev eth0
+
+    ip route add default via 10.1.1.1
+
+    '
+  cpu_limit: null
+  cpus: null
+  data_volume: null
+  hide_links: false
+  id: n0
+  image_definition: null
+  label: PC1
+  node_definition: alpine
+  parameters: {}
+  ram: null
+  tags: []
+  x: -400
+  y: 0
+  interfaces:
+  - id: i1
+    label: eth0
+    mac_address: null
+    type: physical
+    slot: 0
+  - id: i2
+    label: eth1
+    mac_address: null
+    type: physical
+    slot: 1
+  - id: i3
+    label: eth2
+    mac_address: null
+    type: physical
+    slot: 2
+  - id: i4
+    label: eth3
+    mac_address: null
+    type: physical
+    slot: 3
+- boot_disk_size: null
+  configuration: "hostname R1\nno ip domain-lookup\n!\nline con 0\n logging synchronous\n exec-timeout 0 0\n!\ninterface GigabitEthernet0/0\n description LAN-PC1\n ip address 10.1.1.1 255.255.255.0\n no shutdown\n!\ninterface GigabitEthernet0/1\n description LINK-R2\n ip address 10.12.0.1 255.255.255.252\n no shutdown\n!\nend"
+  cpu_limit: null
+  cpus: null
+  data_volume: null
+  hide_links: false
+  id: n1
+  image_definition: null
+  label: R1
+  node_definition: iosv
+  parameters: {}
+  ram: null
+  tags: []
+  x: -200
+  y: 0
+  interfaces:
+  - id: i0
+    label: Loopback0
+    mac_address: null
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    mac_address: null
+    type: physical
+    slot: 0
+  - id: i2
+    label: GigabitEthernet0/1
+    mac_address: null
+    type: physical
+    slot: 1
+  - id: i3
+    label: GigabitEthernet0/2
+    mac_address: null
+    type: physical
+    slot: 2
+  - id: i4
+    label: GigabitEthernet0/3
+    mac_address: null
+    type: physical
+    slot: 3
+- boot_disk_size: null
+  configuration: "hostname R2\nno ip domain-lookup\n!\nline con 0\n logging synchronous\n exec-timeout 0 0\n!\ninterface GigabitEthernet0/0\n description LINK-R1\n ip address 10.12.0.2 255.255.255.252\n no shutdown\n!\ninterface GigabitEthernet0/1\n description LINK-R3\n ip address 10.23.0.1 255.255.255.252\n no shutdown\n!\nend"
+  cpu_limit: null
+  cpus: null
+  data_volume: null
+  hide_links: false
+  id: n2
+  image_definition: null
+  label: R2
+  node_definition: iosv
+  parameters: {}
+  ram: null
+  tags: []
+  x: 0
+  y: 0
+  interfaces:
+  - id: i0
+    label: Loopback0
+    mac_address: null
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    mac_address: null
+    type: physical
+    slot: 0
+  - id: i2
+    label: GigabitEthernet0/1
+    mac_address: null
+    type: physical
+    slot: 1
+  - id: i3
+    label: GigabitEthernet0/2
+    mac_address: null
+    type: physical
+    slot: 2
+  - id: i4
+    label: GigabitEthernet0/3
+    mac_address: null
+    type: physical
+    slot: 3
+- boot_disk_size: null
+  configuration: "hostname R3\nno ip domain-lookup\n!\nline con 0\n logging synchronous\n exec-timeout 0 0\n!\ninterface GigabitEthernet0/0\n description LINK-R2\n ip address 10.23.0.2 255.255.255.252\n no shutdown\n!\ninterface GigabitEthernet0/1\n description LAN-PC2\n ip address 10.3.3.1 255.255.255.0\n no shutdown\n!\nend"
+  cpu_limit: null
+  cpus: null
+  data_volume: null
+  hide_links: false
+  id: n3
+  image_definition: null
+  label: R3
+  node_definition: iosv
+  parameters: {}
+  ram: null
+  tags: []
+  x: 200
+  y: 0
+  interfaces:
+  - id: i0
+    label: Loopback0
+    mac_address: null
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    mac_address: null
+    type: physical
+    slot: 0
+  - id: i2
+    label: GigabitEthernet0/1
+    mac_address: null
+    type: physical
+    slot: 1
+  - id: i3
+    label: GigabitEthernet0/2
+    mac_address: null
+    type: physical
+    slot: 2
+  - id: i4
+    label: GigabitEthernet0/3
+    mac_address: null
+    type: physical
+    slot: 3
+- boot_disk_size: null
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC2
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.3.3.10/24 dev eth0
+
+    ip route add default via 10.3.3.1
+
+    '
+  cpu_limit: null
+  cpus: null
+  data_volume: null
+  hide_links: false
+  id: n4
+  image_definition: null
+  label: PC2
+  node_definition: alpine
+  parameters: {}
+  ram: null
+  tags: []
+  x: 400
+  y: 0
+  interfaces:
+  - id: i1
+    label: eth0
+    mac_address: null
+    type: physical
+    slot: 0
+  - id: i2
+    label: eth1
+    mac_address: null
+    type: physical
+    slot: 1
+  - id: i3
+    label: eth2
+    mac_address: null
+    type: physical
+    slot: 2
+  - id: i4
+    label: eth3
+    mac_address: null
+    type: physical
+    slot: 3
+links:
+- id: l0
+  n1: n0
+  n2: n1
+  i1: i1
+  i2: i1
+  conditioning: {}
+  label: PC1-eth0<->R1-GigabitEthernet0/0
+- id: l1
+  n1: n1
+  n2: n2
+  i1: i2
+  i2: i1
+  conditioning: {}
+  label: R1-GigabitEthernet0/1<->R2-GigabitEthernet0/0
+- id: l2
+  n1: n2
+  n2: n3
+  i1: i2
+  i2: i1
+  conditioning: {}
+  label: R2-GigabitEthernet0/1<->R3-GigabitEthernet0/0
+- id: l3
+  n1: n3
+  n2: n4
+  i1: i2
+  i2: i1
+  conditioning: {}
+  label: R3-GigabitEthernet0/1<->PC2-eth0
+lab:
+  description: 'Build: work order from network architecture. Static routing across three routers, then prove how CEF forwards.'
+  notes: "WORK ORDER WO-1207 (from: Network Architecture)\nBranch to data centre routing, phase 1\n\nDESIGN\n- Branch LAN 10.1.1.0/24 on R1 (PC1 = 10.1.1.10). Data centre LAN 10.3.3.0/24 on R3 (PC2 = 10.3.3.10).\n- Transit links: R1-R2 10.12.0.0/30, R2-R3 10.23.0.0/30. All interfaces are already addressed.\n- Static routing only. Edge routers (R1, R3) carry a single default route toward R2.\n  R2 is the core and holds specific routes to both LANs.\n\nADDRESSING PLAN\n  Node  Interface  IP address       Connects to\n  PC1   eth0       10.1.1.10/24     R1 Gi0/0   (gateway 10.1.1.1)\n  R1    Gi0/0      10.1.1.1/24      PC1, branch LAN\n  R1    Gi0/1      10.12.0.1/30     R2 Gi0/0\n  R2    Gi0/0      10.12.0.2/30     R1 Gi0/1\n  R2    Gi0/1      10.23.0.1/30     R3 Gi0/0\n  R3    Gi0/0      10.23.0.2/30     R2 Gi0/1\n  R3    Gi0/1      10.3.3.1/24      PC2, data centre LAN\n  PC2   eth0       10.3.3.10/24     R3 Gi0/1   (gateway 10.3.3.1)\n\nTASKS\n1. Implement the routing design. PC1 and PC2\
+    \ must reach each other. Verify from both PCs.\n2. For the change record, on R1: capture the routing table entry and the CEF entry for 10.3.3.0/24,\n   plus the adjacency it uses. Note what CEF holds that the routing table does not.\n3. Validation test on R2: clear the ARP entry for R3. Record CEF's state for that next hop,\n   then restore normal forwarding and record it again.\n4. Test request on R2: traffic arriving from R1 must be process switched for a short test.\n   Prove which switching path packets take, then restore the original state.\n   Add a note on what this would mean on a busy production router.\n5. Hand-off note: walk one packet from PC1 to PC2, hop by hop.\n   Record what changes and what stays the same in the frame and the packet.\n6. Design note for the architect: why does a switch use TCAM, and what does an SDM template control?\n\nHosts are Alpine Linux, login cisco / cisco.\n"
+  title: 'Day 12 - Lab A: Forwarding Architectures'
+  version: 0.3.0
