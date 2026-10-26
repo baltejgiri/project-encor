@@ -11,7 +11,7 @@ Day,Date,Weekday,Slot,Type,Block,Chapter,Book pages,Plan,Blueprint,Unit ID,Done 
 10,2026-10-22,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 100-105,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read","3.1.a, 3.1.b",R-5-2,2026-10-22
 11,2026-10-23,Fri,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 106-111,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read","3.1.a, 3.1.b",R-5-3,2026-10-23
 12,2026-10-24,Sat,Weekend 5:00-8:00,Lab,B1 Layer 2,Ch 1 Packet Forwarding,-,"Ch 1 lab: forwarding architectures (CEF, FIB, adjacency table, TCAM/SDM), new lab built for the stream; Anki cards from what broke",-,L-1-1,2026-10-24
-13,2026-10-26,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 112-117,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read","3.1.a, 3.1.b",R-5-4,
+13,2026-10-26,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 112-117,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read","3.1.a, 3.1.b",R-5-4,2026-10-26
 14,2026-10-27,Tue,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 118-123,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read; own-words summary; write 5-6 Anki cards","3.1.a, 3.1.b",R-5-5,
 15,2026-10-28,Wed,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 36-41,Pre-scan + DIKTA quiz (chat answers) + 1 sprint,3.1.c,R-2-1,
 16,2026-10-29,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 42-47,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read",3.1.c,R-2-2,
