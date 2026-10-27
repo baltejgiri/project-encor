@@ -1,3 +1,3 @@
 Chapter,Date,Score,Out of,Wrong questions,Weak section,Retake date,Retake score
 Ch 1 Packet Forwarding,2026-10-13,4,7,"Q1, Q3, Q7","Network Device Communication (Q1, Q3); Forwarding Architectures (Q7)",2026-10-20,7/7
-Ch 5 VLAN Trunks and EtherChannel,2026-10-21,5,11,"Q2, Q3, Q4, Q9, Q11 (Q8 partial)","VTP (Q2-Q4); EtherChannel (Q8 partial, Q9, Q11). DTP 2/2",,
+Ch 5 VLAN Trunks and EtherChannel,2026-10-21,5,11,"Q2, Q3, Q4, Q9, Q11 (Q8 partial)","VTP (Q2-Q4); EtherChannel (Q8 partial, Q9, Q11). DTP 2/2",2026-10-27,9/11
