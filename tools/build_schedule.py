@@ -159,8 +159,8 @@ def build_units():
         for k, rc in enumerate(review, 1):
             units.append(dict(id=f"V-{bid}-{k}", kind="review", block=bname, ch=rc,
                               chapter=f"Review: ch {rc}", pages="-",
-                              plan="Recall first (blank page: what do I remember?), then re-read own notes, "
-                                   "redo DIKTA quiz, book's 'Review All Key Topics' + 'Define Key Terms'",
+                              plan="Explain and lab: blank-page recall, explain the chapter from memory on stream, "
+                                   "then lab it; redo DIKTA quiz, book's 'Review All Key Topics' + 'Define Key Terms'",
                               bp=""))
         units.append(dict(id=f"BL-{bid}", kind="blocklab", block=bname, ch="", chapter=f"{bname}: mixed lab",
                           pages="-", plan="One topology combining the block's topics; troubleshoot from scratch "
