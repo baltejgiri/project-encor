@@ -1,0 +1,10 @@
+#separator:tab
+#html:true
+#notetype:Basic
+#deck:CCNP ENCOR::Ch 02 Spanning Tree Protocol
+#tags column:3
+Why can a Layer 2 loop keep forwarding the same frame forever?	There is no time-to-live (TTL) field in Layer 2 forwarding, so nothing ever drops the looping frame.	ch02 stp loops
+What traffic starts a Layer 2 forwarding loop in a redundant switch topology?	Broadcasts and unknown unicast flooding: switches flood them out every port, so they circle the loop.	ch02 stp loops
+Name three effects of a Layer 2 loop on the switches.	Links saturate and frames are dropped; the MAC address table keeps flapping between ports; CPU and memory use climb until the switch can crash.	ch02 stp loops
+What problem does STP solve, and what does RSTP add?	STP keeps redundant links but blocks the extra paths so no forwarding loop forms. RSTP does the same with much faster convergence.	ch02 stp rstp
+Which ENCOR chapters cover STP beyond Chapter 2?	Chapter 3 Advanced STP Tuning (e.g. BPDU guard, BPDU filter) and Chapter 4 Multiple Spanning Tree Protocol (MST).	ch02 stp
