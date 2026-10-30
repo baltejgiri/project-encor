@@ -1,0 +1,14 @@
+#separator:tab
+#html:true
+#notetype:Basic
+#deck:CCNP ENCOR::Ch 02 Spanning Tree Protocol
+#tags column:3
+List the 802.1D port states a port moves through, from shut down to sending traffic.	Disabled, then Blocking, Listening, Learning, Forwarding. (Broken is a separate error state.)	ch02 stp port-states
+In which 802.1D state does a port start learning MAC addresses, and does it forward data yet?	Learning. It adds MACs to the table but still forwards only BPDUs, no data.	ch02 stp port-states
+How long does a port stay in listening and in learning with default timers, and how long from blocking to forwarding?	15 seconds each (the forward delay), so about 30 seconds from blocking to forwarding.	ch02 stp timers
+What are the default STP hello, max age and forward delay timers?	Hello 2 s, max age 20 s, forward delay 15 s.	ch02 stp timers
+Name the two BPDU types and what each is for.	Configuration BPDU: elects the root bridge and picks root, designated and blocking ports.<br>TCN BPDU: tells switches the Layer 2 topology changed.	ch02 stp bpdu
+What three parts make up a bridge ID, and why does VLAN 1 show priority 32769?	Priority (4 bits) + system ID extension = VLAN number (12 bits) + system MAC. 32768 default + VLAN 1 = 32769.	ch02 stp bridge-id
+Root port vs designated port: how many of each, and what does each do?	Root port: one per switch per VLAN, points toward the root bridge (root bridge has none).<br>Designated port: one per link, sends BPDUs down toward downstream switches. All root bridge ports are designated.	ch02 stp port-roles
+Short-mode STP cost for 10 Mbps, 100 Mbps, 1 Gbps and 10 Gbps?	100, 19, 4, 2.	ch02 stp path-cost
+Why does long-mode STP path cost exist, and what is the rule when you turn it on?	Short mode (16-bit) gives 20 Gbps and faster links the same cost of 1. Long mode is 32-bit with a 20 Tbps reference. Use spanning-tree pathcost method long on every switch in the Layer 2 domain.	ch02 stp path-cost
