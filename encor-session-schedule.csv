@@ -14,8 +14,8 @@ Day,Date,Weekday,Slot,Type,Block,Chapter,Book pages,Plan,Blueprint,Unit ID,Done 
 13,2026-10-26,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 112-117,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read","3.1.a, 3.1.b",R-5-4,2026-10-26
 14,2026-10-27,Tue,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,pp 118-123,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read; own-words summary; write 5-6 Anki cards","3.1.a, 3.1.b",R-5-5,2026-10-27
 15,2026-10-29,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 36-41,Pre-scan + DIKTA quiz (chat answers) + 1 sprint,3.1.c,R-2-1,2026-10-29
-16,2026-10-29,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 42-47,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read",3.1.c,R-2-2,2026-10-29
-17,2026-10-30,Fri,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 48-53,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read",3.1.c,R-2-3,
+16,2026-10-29,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 42-47,"Homework after Day 15; not done, read live on 2026-10-30 instead",3.1.c,R-2-2,
+17,2026-10-30,Fri,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 38 onward,"40 min reading from Foundation Topics (p 38) as far as it goes, then 20-min CML lab WO-1602 (labs/day16)",3.1.c,R-2-3,
 18,2026-10-31,Sat,Weekend 5:00-8:00,Lab,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,-,"DTP trunk modes, allowed VLANs, native VLAN mismatch: Build, Break, Fix; Anki cards from what broke","3.1.a, 3.1.b",L-5-1,
 19,2026-10-31,Sat,Weekend 5:00-8:00,Lab,B1 Layer 2,Ch 5 VLAN Trunks and EtherChannel,-,"LACP/PAgP EtherChannel: mode and config mismatches: Build, Break, Fix; Anki cards from what broke","3.1.a, 3.1.b",L-5-2,
 20,2026-11-02,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 54-57,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read; own-words summary; write 5-6 Anki cards",3.1.c,R-2-4,

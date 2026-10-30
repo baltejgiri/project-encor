@@ -1,4 +1,4 @@
-# Day 16 Lab · Work Order WO-1601
+# Lab · Work Order WO-1601 (planned for the pp 48-53 session)
 
 **From:** Network Operations
 **Project:** Access block, Spanning Tree change monitoring
