@@ -1,0 +1,450 @@
+lab:
+  title: 'Day 17 - Lab: Ch 5 collapsed core'
+  version: 0.3.0
+  description: Ch 5 lab day. Hostname-only configs; fixed MACs so every boot is the
+    same.
+nodes:
+- id: n0
+  label: CORE1
+  node_definition: iosvl2
+  x: -200
+  y: -150
+  configuration:
+  - name: ios_config.txt
+    content: "hostname CORE1\nno ip domain-lookup\nvtp mode transparent\nline con\
+      \ 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:01:00:01'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:01:01:01'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:01:02:01'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:01:03:01'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:01:04:01'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:01:05:01'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:01:06:01'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:01:07:01'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:01:08:01'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:01:09:01'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:01:0a:01
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:01:0b:01
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:01:0c:01
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:01:0d:01
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:01:0e:01
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:01:0f:01
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n1
+  label: CORE2
+  node_definition: iosvl2
+  x: 200
+  y: -150
+  configuration:
+  - name: ios_config.txt
+    content: "hostname CORE2\nno ip domain-lookup\nvtp mode transparent\nline con\
+      \ 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:02:00:02'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:02:01:02'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:02:02:02'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:02:03:02'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:02:04:02'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:02:05:02'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:02:06:02'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:02:07:02'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:02:08:02'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:02:09:02'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:02:0a:02
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:02:0b:02
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:02:0c:02
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:02:0d:02
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:02:0e:02
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:02:0f:02
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n2
+  label: ACC1
+  node_definition: iosvl2
+  x: -200
+  y: 150
+  configuration:
+  - name: ios_config.txt
+    content: "hostname ACC1\nno ip domain-lookup\nvtp mode transparent\nline con 0\n\
+      \ exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:03:00:03'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:03:01:03'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:03:02:03'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:03:03:03'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:03:04:03'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:03:05:03'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:03:06:03'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:03:07:03'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:03:08:03'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:03:09:03'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:03:0a:03
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:03:0b:03
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:03:0c:03
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:03:0d:03
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:03:0e:03
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:03:0f:03
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n3
+  label: ACC2
+  node_definition: iosvl2
+  x: 200
+  y: 150
+  configuration:
+  - name: ios_config.txt
+    content: "hostname ACC2\nno ip domain-lookup\nvtp mode transparent\nline con 0\n\
+      \ exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:04:00:04'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:04:01:04'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:04:02:04'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:04:03:04'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:04:04:04'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:04:05:04'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:04:06:04'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:04:07:04'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:04:08:04'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:04:09:04'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:04:0a:04
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:04:0b:04
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:04:0c:04
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:04:0d:04
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:04:0e:04
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:04:0f:04
+  tags: []
+  parameters: {}
+  hide_links: false
+links:
+- id: l0
+  n1: n0
+  i1: i2
+  n2: n1
+  i2: i2
+  label: CORE1-Gi0/1<->CORE2-Gi0/1
+- id: l1
+  n1: n0
+  i1: i3
+  n2: n1
+  i2: i3
+  label: CORE1-Gi0/2<->CORE2-Gi0/2
+- id: l2
+  n1: n0
+  i1: i4
+  n2: n1
+  i2: i4
+  label: CORE1-Gi0/3<->CORE2-Gi0/3
+- id: l3
+  n1: n0
+  i1: i5
+  n2: n2
+  i2: i2
+  label: CORE1-Gi1/0<->ACC1-Gi0/1
+- id: l4
+  n1: n0
+  i1: i6
+  n2: n2
+  i2: i3
+  label: CORE1-Gi1/1<->ACC1-Gi0/2
+- id: l5
+  n1: n1
+  i1: i5
+  n2: n2
+  i2: i4
+  label: CORE2-Gi1/0<->ACC1-Gi0/3
+- id: l6
+  n1: n0
+  i1: i7
+  n2: n3
+  i2: i4
+  label: CORE1-Gi1/2<->ACC2-Gi0/3
+- id: l7
+  n1: n1
+  i1: i6
+  n2: n3
+  i2: i2
+  label: CORE2-Gi1/1<->ACC2-Gi0/1
+- id: l8
+  n1: n1
+  i1: i7
+  n2: n3
+  i2: i3
+  label: CORE2-Gi1/2<->ACC2-Gi0/2
+annotations: []
