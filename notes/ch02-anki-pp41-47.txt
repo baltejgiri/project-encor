@@ -1,0 +1,13 @@
+#separator:tab
+#html:true
+#notetype:Basic
+#deck:CCNP ENCOR::Ch 02 Spanning Tree Protocol
+#tags column:3
+A switch boots up. Who does it think the root bridge is, and what does it do with a neighbor's configuration BPDU?	It assumes it is the root and uses its own bridge ID.<br>Inferior BPDU: ignored.<br>Superior BPDU: it takes that root bridge ID and advertises it with its new root path cost. This repeats until every switch agrees on one root.	ch02 stp root-bridge
+Root bridge election: what is compared first, and what breaks a tie?	Lowest bridge priority wins. If the priority ties, the lowest system MAC wins. (Older switches often have lower MACs, so set the priority on purpose to control where the root is.)	ch02 stp root-bridge
+Does the root path cost in a BPDU include the cost of the port it is sent out of? Who adds the link cost?	No. The sender advertises only its own cost to the root (the root advertises 0). The receiving switch adds the cost of the port it received the BPDU on.	ch02 stp path-cost
+List the 5 tie-breakers for choosing the root port, in order.	1. Lowest root path cost<br>2. Lowest system priority of the advertising switch<br>3. Lowest system MAC of the advertising switch<br>4. Lowest port priority of the advertising switch<br>5. Lowest port number of the advertising switch	ch02 stp root-port
+SW4 has two equal-cost links to the same upstream switch. Whose port priority and port number break the tie for its root port, SW4's or the upstream switch's?	The upstream (advertising) switch's. SW4 compares the port ID inside the BPDUs it receives, so changing port-priority on SW4 itself does nothing. Change it on the upstream switch's port.	ch02 stp root-port
+Two non-root switches connect on designated ports. Which end blocks? Give the 3 tie-breakers.	1. Higher root path cost blocks.<br>2. If tied, the switch with the higher system priority blocks.<br>3. If still tied, the switch with the higher system MAC blocks.<br>The other end stays Desg FWD.	ch02 stp blocking
+On the root bridge, what do show spanning-tree root show for root cost and root port? How do you find the root from any switch?	Cost 0 and an empty Root Port field (all root ports are designated). From another switch, follow the root port with CDP or LLDP neighbors, hop by hop, until you reach the root.	ch02 stp verification
+In show spanning-tree, what do the port types P2p and P2p Edge mean, and what does *TYPE_Inc mean?	P2p: connects to another device (switch). P2p Edge: PortFast is enabled.<br>*TYPE_Inc: a config mismatch with the neighbor, such as wrong port type or access vs trunk mode.	ch02 stp verification
