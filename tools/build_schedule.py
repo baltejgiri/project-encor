@@ -278,13 +278,15 @@ def main():
     with open(OUT, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(HEAD)
-        n = 0
+        n, last = 0, None         # Day = stream number: rows on the same date (Saturday lab pairs) share one Day
         for r in kept:
-            n += 1
+            if r["Date"] != last:
+                n, last = n + 1, r["Date"]
             w.writerow([n] + [r[h] for h in HEAD[1:]])
         for r in rows:
-            n += 1
             dd = r["date"]
+            if dd.isoformat() != last:
+                n, last = n + 1, dd.isoformat()
             w.writerow([n, dd.isoformat(), dd.strftime("%a"), r["slot"], TYPES[r["kind"]], r["block"],
                         r["chapter"], r["pages"], r["plan"], r["bp"], r["id"], ""])
     print(f"wrote {OUT}: {n} sessions, last scheduled {rows[-1]['date']}")
