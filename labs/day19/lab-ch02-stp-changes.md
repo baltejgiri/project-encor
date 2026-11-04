@@ -58,19 +58,22 @@ Nothing has been changed for spanning tree: every priority, cost and timer is at
 
 ## WO-1901 · What does each failure cost?
 
-1. **One interface:** On SW4, look at spanning tree for Gi0/2 only, then the detailed version. Which switch and
-   which port send the BPDUs that SW4 uses on Gi0/2? Compare BPDUs sent and received on Gi0/2 and Gi0/1. Why does
+About 18 minutes, with 2 spare. Keep to the time on each task.
+
+1. **One interface (2 min):** On SW4, look at spanning tree for Gi0/2 only, then the detailed version. Which switch
+   and which port send the BPDUs that SW4 uses on Gi0/2? Compare BPDUs sent and received on Gi0/2 and Gi0/1. Why does
    SW4 send almost none?
-2. **Baseline:** On all five switches, record how many topology changes VLAN 1 has seen, how long ago the last one
-   happened, and which interface it came from.
-3. **Failure A, link between two non-root switches:** Take the SW2-SW3 link down from SW3's end. Did any switch
-   lose its path to the root? Which switches' change counters moved, and where did SW1's last change come from?
+2. **Baseline (2 min):** On SW1, SW2 and SW3, record how many topology changes VLAN 1 has seen, how long ago the last
+   one happened, and which interface it came from.
+3. **Failure A, link between two non-root switches (4 min):** Take the SW2-SW3 link down from SW3's end. Did any
+   switch lose its path to the root? Which of the three counters moved, and where did SW1's last change come from?
    Bring the link back and time how long SW3's port takes to forward again.
-4. **Failure B, direct:** Take SW2's root port down on SW2. Time how long until SW2 forwards toward the root again.
-   Which of the book's scenarios is this, and why did SW2 not wait for max age? Restore.
-5. **Failure C, direct, other side:** Take SW3's root port down on SW3. Time how long until SW3 has a forwarding
-   path to the root again, and record which port changes state on which switch. Why is this slower than failure B?
-   Which book scenario does it match? Restore.
-6. **Failure D, indirect:** Shut SW1's port toward SW2, on SW1 only. How does SW2 find out, and how long until it
-   forwards toward the root again? Compare with failure B. Restore.
-7. **Clean up:** Confirm every root port and blocked port matches the Day 18 tree.
+4. **Failure B, direct (4 min):** Take SW2's root port down on SW2. Time how long until SW2 forwards toward the root
+   again. Which of the book's scenarios is this, and why did SW2 not wait for max age? Restore.
+5. **Failure C, indirect (4 min):** Shut SW1's port toward SW2, on SW1 only. How does SW2 find out, and how long until
+   it forwards toward the root again? Compare with failure B. Restore.
+6. **Clean up (2 min):** Confirm every root port and blocked port matches the Day 18 tree.
+
+**After the stream, if you want more (not part of the 20 minutes):** Take SW3's root port down on SW3. Time how long
+until SW3 has a forwarding path to the root again, and record which port changes state on which switch. Why is this
+slower than failure B? Which book scenario does it match? Restore.
