@@ -1,6 +1,6 @@
 # Day 19 Lab · Chapter 2: STP Topology Changes
 
-**Session:** Wednesday 2026-11-04, 20-minute lab after the reading (live)
+**Session:** Thursday 2026-11-05, 20-minute lab after the reading (live)
 **CML lab:** same five switches as Day 18: import [`../day18/lab-ch02-stp-topology.yaml`](../day18/lab-ch02-stp-topology.yaml)
 **Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements
 **Book:** Chapter 2, pp 48-53 (Verification of VLANs on Trunk Links, STP Topology Changes, Converging with Direct Link Failures, Indirect Failures)
