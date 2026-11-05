@@ -2,7 +2,7 @@
 
 Related: Ch 3 (Advanced STP Tuning: BPDU guard, BPDU filter), Ch 4 (MST), Ch 5 (EtherChannel: STP sees a port channel as one link)
 
-**Status:** pp 36-41 read (Day 15 + Day 16). Next session starts at **Building the STP Topology** (p 41).
+**Status:** pp 36-53 read (Days 15, 16, 18 and 19). Next session starts at **RSTP (802.1W) Port States** (p 54).
 
 ---
 
@@ -100,6 +100,139 @@ Use the **same method on every switch** in the Layer 2 domain, and audit before 
 
 ---
 
+## Building the STP Topology (pp 41-47)
+
+### Root bridge election
+1. A switch boots and assumes **it is the root**, using its own bridge ID as the root bridge ID.
+2. It listens to its neighbors' configuration BPDUs:
+   - **Inferior** to its own: ignored.
+   - **Preferred** over its own: it updates its BPDUs with the new root bridge ID and the new root path cost.
+3. This repeats until every switch agrees on the root.
+
+**What wins:** lowest priority, then lowest system MAC. Older switches often have lower MACs, so without tuning an old switch can become the root by accident.
+
+**Why VLAN 1 shows 32769:** the priority in the BPDU is the priority **plus the sys-id-ext (the VLAN number)**. 32768 + 1 = 32769, and VLAN 10 shows 32778.
+
+### Root path cost
+- The root's root path cost is always **0**.
+- A BPDU carries the cost to reach the root. It does **not** include the cost of the port it is sent out of.
+- The **receiving** switch adds the cost of the port it received the BPDU on.
+- Example with 1 Gbps links (cost 4): SW1 advertises 0, SW3 ends up with 4, SW3 advertises 4, SW5 ends up with 8.
+
+### Locating root ports
+**Key Topic:** a switch picks its root port (RP) in this order, moving on only if there is a tie:
+
+| # | Lowest value wins | Whose value |
+|---|---|---|
+| 1 | Path cost to the root | Local total |
+| 2 | System priority | Advertising switch |
+| 3 | System MAC | Advertising switch |
+| 4 | Port priority | Advertising switch (multiple links to the same switch) |
+| 5 | Port number | Advertising switch (multiple links to the same switch) |
+
+Steps 4 and 5 use the **upstream** switch's port values, read from the BPDUs it sends. Changing port priority on the downstream switch does not move its root port.
+
+To find the root in a real network: run `show spanning-tree root`, use CDP or LLDP to see which switch is on the root port, connect to it, and repeat until the root cost is 0.
+
+### Locating blocked designated ports
+After the root and root ports are known, every other port is a designated port (DP). If two **non-root** switches meet on designated ports, one end has to block.
+
+**Key Topic:** order of comparison:
+1. The port is a DP, not an RP.
+2. Lower path cost to the root forwards. Higher cost blocks.
+3. Lower system priority forwards. The local port blocks if the remote priority is lower.
+4. Lower system MAC forwards. The local port blocks if the remote MAC is lower.
+
+The book's example: SW2 and SW3 tie on cost and priority, and SW2 has the lower MAC, so **SW3's** port blocks. SW5 doesn't check port numbers or priorities for its two links to SW4 because SW4 is not in its root path.
+
+### Reading show spanning-tree
+`show spanning-tree [vlan <id>]` has three parts: the root bridge, the local bridge, and the port table.
+
+- On the root bridge the output says "This bridge is the root" and all ports are designated.
+- `show spanning-tree root` on the root shows cost 0 and an **empty** Root Port field.
+- A blocked port shows as **Altn BLK**: an alternate path to the root if the root port fails.
+- Port types: **P2p** is a full-duplex link to another switch, **P2p Edge** is a port with PortFast.
+- ***TYPE_Inc** means a configuration mismatch with the neighbor, usually the port type or the port mode (access vs trunk).
+
+## Verification of VLANs on Trunk Links (p 48)
+`show spanning-tree` lists every VLAN on every port, which is a lot on trunks. To look at one port:
+
+```
+show spanning-tree interface gi1/0/1
+show spanning-tree interface gi1/0/1 detail
+```
+
+- The short version lists each VLAN's role, state, cost and port ID on that port.
+- `detail` adds port cost, port priority, transitions to forwarding, link type, the designated bridge and port, and **BPDUs sent and received** per VLAN.
+- A root port sends almost no BPDUs and receives many, because configuration BPDUs flow **from the root toward the edge**.
+- VLAN missing from a trunk's output? Check the trunk config first. A common cause is the allowed VLAN list (Ch 5).
+
+## STP Topology Changes (pp 49-50)
+**Key Topic:** a topology change is a switch failure, a link failure or a link becoming active. In a stable network, configuration BPDUs only flow down from the root. A change sends a message the other way:
+
+1. The switch that detects the link change sends a **TCN BPDU out its root port**.
+2. An upstream switch **acknowledges** it and forwards the TCN out its own root port.
+3. The root floods a **configuration BPDU with the Topology Change flag** set to all switches.
+4. Every switch changes its **MAC address timer from 300 s to the forward delay (15 s)**.
+5. MACs quiet for 15 s are flushed, active ones stay. The timer goes back to 300 s after the second configuration BPDU.
+
+**Why flush:** so a switch doesn't keep sending traffic to a host through a port that no longer reaches it.
+**Side effect:** more unknown unicast flooding while the table rebuilds.
+
+TCNs are per VLAN, so more hosts in a VLAN means more chances of a TCN and more hosts affected. PortFast (Ch 3) reduces them.
+
+### Tracing TCNs
+```
+show spanning-tree vlan 10 detail
+```
+Shows the **number of topology changes**, how long ago the last one happened, and **which interface** it came from. A sudden or continuous rise points to a flapping port or an event on a connected switch.
+
+To find the source: look at the interface it came from. If it goes to a host, you found it. If it goes to a switch, connect there (CDP or your documentation) and run the command again.
+
+## Converging with Direct Link Failures (pp 50-52)
+**Direct failure:** Layer 1 signaling brings the port down (power loss, reboot, cable pulled), so STP knows right away.
+
+The book's topology: SW1 is the root, SW2 Gi1/0/3 is designated, and SW3 Gi1/0/2 is blocking.
+
+| Scenario | Link that fails | Impact | Who waits for what | Total |
+|---|---|---|---|---|
+| 1 | SW2-SW3 | None: traffic already goes through SW1 | Nothing. SW2 and SW3 both send a TCN | No outage |
+| 2 | SW1-SW3 | SW3 cut off | SW3 listening 15 + learning 15, **no max age** | **30 s** |
+| 3 | SW1-SW2 | SW2 cut off | SW3 max age 20, then SW2 listening 15 + learning 15 | **50 s** |
+
+**Scenario 2, the switch that lost its RP has the blocked port:**
+- SW3's root port goes down, so it removes the best BPDU it had from SW1 at once. It can't send a TCN because its root port is down.
+- SW1 is the root, so it doesn't send a TCN. It sends the configuration BPDU with the Topology Change flag.
+- SW3 doesn't need max age. It starts listening and learning on Gi1/0/2, which becomes the RP.
+
+**Scenario 3, the blocked port is on the other switch:**
+- SW2 loses its only root port, assumes it is the root, and advertises its own inferior BPDUs to SW3.
+- SW3 discards them because it still gets superior BPDUs from SW1. Its blocked port can't relay SW1's BPDU to SW2.
+- SW3's **max age (20 s)** expires, and Gi1/0/2 goes from blocking to listening. It can now forward SW1's BPDU to SW2.
+- SW2 sees it is superior, makes Gi1/0/3 the RP and goes through listening and learning.
+
+## Indirect Failures (pp 52-53)
+**Indirect failure:** the link stays up, but STP traffic is impaired, filtered or corrupted. No port goes down, so **timers** have to detect it.
+
+The book's example, SW1-SW3 impaired:
+1. SW3 stops getting configuration BPDUs on its RP but **keeps the cached entry**. It still discards SW1's BPDUs arriving through SW2 on its blocked port.
+2. Max age expires and flushes the cached entry. Gi1/0/2 goes from blocking to listening.
+3. SW2 keeps advertising SW1's BPDUs toward SW3.
+4. SW3 receives one on Gi1/0/2, marks it the RP, and continues through listening and learning.
+
+**Total: 50 s** (max age 20 + listening 15 + learning 15).
+
+| Failure | Does the switch see the port go down? | Max age? | Time |
+|---|---|---|---|
+| Direct, blocked port on the same switch | Yes | No | 30 s |
+| Direct, blocked port on the other switch | Yes | Yes, on the other switch | 50 s |
+| Indirect | No | Yes | 50 s |
+
+## Why 802.1D wasn't enough (p 53)
+802.1D has one topology tree, which doesn't scale when larger networks want different trees per VLAN for load balancing and traffic steering. Cisco made **PVST** and **PVST+** for that. Those ideas, plus faster convergence, went into **IEEE 802.1W (RSTP)**.
+
+---
+
 ## Commands I need to know (so far)
 
 | Task | Command |
@@ -109,6 +242,9 @@ Use the **same method on every switch** in the Layer 2 domain, and audit before 
 | Max age | `spanning-tree vlan <id> max-age <s>` |
 | Forward delay | `spanning-tree vlan <id> forward-time <4-30>` |
 | Show the root bridge | `show spanning-tree root` |
+| See the tree for one VLAN | `show spanning-tree vlan <id>` |
+| One interface only | `show spanning-tree interface <if> [detail]` |
+| Topology change count, age and source | `show spanning-tree vlan <id> detail` |
 
 ## DIKTA misses (2026-10-29, 3/9 before reading)
 - **Q1:** there are **two** BPDU types: configuration and TCN.

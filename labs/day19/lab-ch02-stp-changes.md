@@ -58,7 +58,7 @@ Nothing has been changed for spanning tree: every priority, cost and timer is at
 
 ## WO-1901 · What does each failure cost?
 
-About 18 minutes, with 2 spare. Keep to the time on each task.
+About 16 minutes, with 4 spare. Keep to the time on each task.
 
 1. **One interface (2 min):** On SW4, look at spanning tree for Gi0/2 only, then the detailed version. Which switch
    and which port send the BPDUs that SW4 uses on Gi0/2? Compare BPDUs sent and received on Gi0/2 and Gi0/1. Why does
@@ -72,7 +72,6 @@ About 18 minutes, with 2 spare. Keep to the time on each task.
    again. Which of the book's scenarios is this, and why did SW2 not wait for max age? Restore.
 5. **Failure C, indirect (4 min):** Shut SW1's port toward SW2, on SW1 only. How does SW2 find out, and how long until
    it forwards toward the root again? Compare with failure B. Restore.
-6. **Clean up (2 min):** Confirm every root port and blocked port matches the Day 18 tree.
 
 **After the stream, if you want more (not part of the 20 minutes):** Take SW3's root port down on SW3. Time how long
 until SW3 has a forwarding path to the root again, and record which port changes state on which switch. Why is this

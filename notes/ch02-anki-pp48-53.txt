@@ -1,0 +1,14 @@
+#separator:tab
+#html:true
+#notetype:Basic
+#deck:CCNP ENCOR::Ch 02 Spanning Tree Protocol
+#tags column:3
+What does show spanning-tree interface &lt;if&gt; detail add over the short version?	Port cost, port priority, number of transitions to forwarding, link type, the designated bridge and port, and BPDUs sent and received, per VLAN.<br>(p 48)	ch02 pp48-53 stp
+Who sends a TCN BPDU, out which port, and what does the next switch up do with it?	The switch that detects the link change sends it out its root port. The upstream switch acknowledges it and forwards the TCN out its own root port toward the root.<br>(p 49)	ch02 pp48-53 stp
+What does the root do when it receives a TCN, and what does that do to the MAC tables?	It floods a configuration BPDU with the Topology Change flag. Switches drop the MAC address timer from 300 s to the forward delay (15 s), so quiet MACs are flushed and active ones stay. The timer returns to 300 s after the second configuration BPDU.<br>(p 49)	ch02 pp48-53 stp
+What is the side effect of the MAC flush after a topology change, and what reduces TCNs?	More unknown unicast flooding while the table rebuilds. PortFast reduces TCN generation (Ch 3).<br>(p 49)	ch02 pp48-53 stp
+Which command shows how many topology changes happened, how long ago, and from which interface? How do you trace the source?	show spanning-tree [vlan &lt;id&gt;] detail. If that interface goes to another switch, connect to it and run the command again until you reach the problem port.<br>(pp 49-50)	ch02 pp48-53 stp
+Direct failure: the link between two non-root switches fails and one end was already blocking. What is the impact?	No traffic impact, because traffic already goes through the root. Both switches send a TCN and the MAC tables are flushed.<br>(p 50, scenario 1)	ch02 pp48-53 stp
+Direct failure: a switch loses its root port and has its own blocked port toward the root. Does it wait for max age? Total time?	No. Its root port is down, so it drops the stored BPDU at once and starts listening and learning on the blocked port. 15 + 15 = 30 s.<br>(pp 50-51, scenario 2)	ch02 pp48-53 stp
+Direct failure: a switch loses its only root port, and the blocked port is on its neighbor. Why 50 s?	The neighbor discards its inferior BPDUs until max age expires (20 s), then goes to listening and relays the root's BPDU. The switch then goes through listening 15 + learning 15. 20 + 15 + 15 = 50 s.<br>(pp 51-52, scenario 3)	ch02 pp48-53 stp
+What is an indirect link failure, how is it detected, and how long does it take?	The link stays up but STP traffic is impaired, filtered or corrupted. No port goes down, so only timers detect it. Max age 20 + listening 15 + learning 15 = 50 s.<br>(pp 52-53)	ch02 pp48-53 stp
