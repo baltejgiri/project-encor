@@ -13,3 +13,4 @@ include step-by-step instructions. Import the YAML files into Cisco Modeling Lab
 | 17 | Sat 31 Oct 2026 | [day17](day17) | Collapsed core from factory defaults: DTP, trunk mismatches, LACP/PAgP/static EtherChannel | [YouTube](https://youtu.be/ph9Poy6Y3C4) |
 | 18 | Mon 2 Nov 2026 | [day18](day18) | Building the STP topology: root bridge, root ports, blocked ports (5 switches, fixed MACs) | [YouTube](https://youtu.be/HvlvtjYHgmA) |
 | 19 | Thu 5 Nov 2026 | [day19](day19) | STP topology changes: TCNs, direct vs indirect link failures (uses the Day 18 YAML) | [YouTube](https://youtu.be/zKOWaFwahzI) |
+| 20 | Fri 6 Nov 2026 | [day20](day20) | RSTP: migrate to Rapid PVST+, measure the same failures again, a classic neighbor (uses the Day 18 YAML) | [YouTube](https://youtu.be/x7bebLvcMPo) |
