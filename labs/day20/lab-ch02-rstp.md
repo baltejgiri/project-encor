@@ -57,7 +57,7 @@ indirect one. The architect wants the same five switches moved to Rapid PVST+ an
 
 ## WO-2001 · What does Rapid PVST+ save?
 
-About 18 minutes, with 2 spare. Keep to the time on each task.
+About 16 minutes, with 4 spare. Keep to the time on each task.
 
 1. **Migrate (3 min):** Move all five switches to Rapid PVST+. Where does the switch confirm the protocol it's running?
 2. **Compare (2 min):** Did the root, the root ports or the blocked ports change? The book says RSTP has a discarding
@@ -68,5 +68,3 @@ About 18 minutes, with 2 spare. Keep to the time on each task.
    root again. Compare with Day 19's failure C and with the book's number for RSTP. Restore.
 5. **A classic neighbor (5 min):** Move SW5 back to classic PVST+ and time how long until its root port forwards. What
    does SW3 show on its port toward SW5? Which note in the book explains this? Then move SW5 back to Rapid PVST+.
-6. **Clean up (2 min):** Confirm all five switches run Rapid PVST+ and every root port and blocked port matches the
-   Day 18 tree. Leave it this way for Day 21.
