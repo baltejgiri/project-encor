@@ -1,5 +1,7 @@
 # Day 21 Lab Day: 2-Tier Campus Design
 
+![Day 21 design](design.png)
+
 **Read the design:** [Cisco Campus Network for High Availability Design Guide (PDF, May 2008)](https://www.cisco.com/c/dam/en/us/td/docs/solutions/Enterprise/Campus/HA_campus_DG/hacampus-dg.pdf)
 
 | Page | What's there |
