@@ -14,7 +14,10 @@
 | 44-49 | Gateway redundancy: HSRP, VRRP and GLBP |
 | 64 | Figure 58, the design Cisco prefers |
 
-**Session:** Saturday 2026-11-07, 5:00 to 8:00 AM PT (live)
+**More from Cisco:** [Cisco Design Zone for Campus](https://www.cisco.com/c/en/us/solutions/design-zone/campus-branch.html) lists the current Cisco Validated Designs (CVDs) for campus networks, with their design and deployment guides.
+The newer campus guide is the [Campus LAN and Wireless LAN Solution Design Guide](https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/cisco-campus-lan-wlan-design-guide.html).
+
+**Session:** Saturday 2026-11-07, 5:00 to 8:00 AM PT (live). Replay: [YouTube](https://youtu.be/adt9stIzF8c)
 **Blueprint:** 3.1.a trunking, 3.1.b EtherChannel, 3.1.c spanning tree, 3.3.c first hop redundancy
 **Book:** Chapter 1 (forwarding, VLANs, SVIs, CEF), Chapter 2 (STP and RSTP), Chapter 5 (trunks, DTP, VTP, EtherChannel)
 **Not from these chapters:** setting the root on purpose (Chapter 3) and VRRP
@@ -80,6 +83,21 @@ situation, and its guides prefer other designs. It's used here because it gives 
 
 The PCs are already addressed. Spanning tree events and link changes show on the console with timestamps, with nothing to set up.
 
+## Lab environment
+
+| Item | Version |
+|---|---|
+| Cisco Modeling Labs (CML) | 2.9.1 (personal license) |
+| Switches (DSW1, DSW2, ASW1, ASW2) | IOSv L2 image "IOSv L2 2020" (IOS 15.2) |
+| PCs | Alpine Linux 3.21.3 |
+
+## How to follow along
+
+1. Import [`lab-campus-design.yaml`](lab-campus-design.yaml) into CML and start it. The switches take a few minutes to boot.
+2. The cabling, the PC addresses and the console logging are already done. The switches have no other configuration, so you build every layer yourself.
+3. Work through Steps 1 to 8 in order. Each step says what the network should do, not which commands to type.
+4. Save the configs with `write memory` on all four switches before you stop the lab. If you wipe the lab, the configs are lost.
+
 ---
 
 ## The build
@@ -139,3 +157,26 @@ Read the on-screen logs for each failure and restore it before the next one.
 - What would you change before deploying this for a real company?
 
 Save the configs before stopping the lab.
+
+---
+
+## What we found live: one EtherChannel member couldn't carry traffic alone
+
+During Step 8 we tested each Po1 member on its own, with a ping running from PC1 to PC4 and the traffic forced across Po1.
+
+| Shut on DSW1 | What Po1 showed | Traffic across Po1 |
+|---|---|---|
+| Gi0/2 (Gi0/1 left) | Up, Gi0/1 bundled | Worked, no problems |
+| Gi0/1 (Gi0/2 left) | Up (`SU`). DSW2 showed Gi0/1 suspended `(s)` and Gi0/2 bundled `(P)` | Failed. DSW2 couldn't even ping DSW1's SVI. Worked again as soon as Gi0/1 came back up |
+
+Both members have the same configuration, and LACP kept Gi0/2 in the bundle, so LACP messages were crossing that link.
+Data wasn't. On paper an EtherChannel should survive losing either member, so this looks like the lab platform
+(the CML link or the IOSv L2 image), not the design. **It isn't proven yet.** We'll test it off stream and update this page.
+
+Two things to know if you try this in CML:
+- **Shutting one end of a link leaves the far end up.** The far switch sees an indirect failure and only finds out
+  through missed hellos. With LACP's default slow timers that takes about 90 seconds. A real cable pull brings both
+  ends down at once. Shut both ends to act like a cable pull.
+- **Fast LACP timers aren't available here.** `lacp rate fast` is rejected on this IOSv L2 image.
+
+If you run this lab and see the same thing (or don't), open an issue and say which CML version and image you used.
