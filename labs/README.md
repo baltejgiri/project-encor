@@ -15,3 +15,4 @@ include step-by-step instructions. Import the YAML files into Cisco Modeling Lab
 | 19 | Thu 5 Nov 2026 | [day19](day19) | STP topology changes: TCNs, direct vs indirect link failures (uses the Day 18 YAML) | [YouTube](https://youtu.be/zKOWaFwahzI) |
 | 20 | Fri 6 Nov 2026 | [day20](day20) | RSTP: migrate to Rapid PVST+, measure the same failures again, a classic neighbor (uses the Day 18 YAML) | [YouTube](https://youtu.be/x7bebLvcMPo) |
 | 21 | Sat 7 Nov 2026 | [day21](day21) | 2-tier campus from Cisco's design guide (Figure 57): VLANs, trunks, LACP EtherChannel, Rapid PVST+, SVIs, VRRP, failure tests. Sheet: [lab-campus-design.md](day21/lab-campus-design.md) | [YouTube](https://youtu.be/adt9stIzF8c) |
+| 22 | Sun 8 Nov 2026 | [day22](day22) | Fix the Day 21 campus: six symptom-only tickets (VLANs, trunks, EtherChannel, spanning tree root, VRRP, management). Uses the Day 21 YAML | _after the stream_ |
