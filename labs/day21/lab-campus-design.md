@@ -1,5 +1,17 @@
 # Day 21 Lab Day: 2-Tier Campus Design
 
+**Read the design:** [Cisco Campus Network for High Availability Design Guide (PDF, May 2008)](https://www.cisco.com/c/dam/en/us/td/docs/solutions/Enterprise/Campus/HA_campus_DG/hacampus-dg.pdf)
+
+| Page | What's there |
+|---|---|
+| 63 | Figure 57, the design this lab uses |
+| 3, 6 | Cisco's summary of best practices |
+| 27-31 | Spanning tree versions and Rapid PVST+ |
+| 33-36 | Trunks, VTP and DTP |
+| 40-43 | EtherChannel |
+| 44-49 | Gateway redundancy: HSRP, VRRP and GLBP |
+| 64 | Figure 58, the design Cisco prefers |
+
 **Session:** Saturday 2026-11-07, 5:00 to 8:00 AM PT (live)
 **Blueprint:** 3.1.a trunking, 3.1.b EtherChannel, 3.1.c spanning tree, 3.3.c first hop redundancy
 **Book:** Chapter 1 (forwarding, VLANs, SVIs, CEF), Chapter 2 (STP and RSTP), Chapter 5 (trunks, DTP, VTP, EtherChannel)
