@@ -20,7 +20,7 @@ Day,Date,Weekday,Slot,Type,Block,Chapter,Book pages,Plan,Blueprint,Unit ID,Done 
 18,2026-11-02,Mon,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 41-47,"Start at Building the STP Topology (p 41). Read 40 min, then 20-min lab on what was read",3.1.c,R-2-2,2026-11-02
 19,2026-11-05,Thu,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 48-53,"Start at Verification of VLANs on Trunk Links (p 48). Read 40 min, then 20-min lab on what was read",3.1.c,R-2-3,2026-11-05
 20,2026-11-06,Fri,Weekday 5:00-6:00,Read,B1 Layer 2,Ch 2 Spanning Tree Protocol,pp 54-57,"Start at RSTP (802.1W) Port States (p 54). Read 40 min, then 20-min lab on what was read",3.1.c,R-2-4,2026-11-06
-21,2026-11-07,Sat,Weekend 5:00-8:00,Lab,B1 Layer 2,"Lab: 2-tier campus (ch 1, 2, 5)",-,Build a 2-tier campus from Cisco HA Campus Design Guide Figure 57: labs/day21/lab-campus-design.md,"3.1.a, 3.1.b, 3.1.c, 3.3.c",L-2-W21,
+21,2026-11-07,Sat,Weekend 5:00-8:00,Lab,B1 Layer 2,"Lab: 2-tier campus (ch 1, 2, 5)",-,Build a 2-tier campus from Cisco HA Campus Design Guide Figure 57: labs/day21/lab-campus-design.md,"3.1.a, 3.1.b, 3.1.c, 3.3.c",L-2-W21,2026-11-07
 22,2026-11-08,Sun,Weekend 5:00-8:00,Lab,B1 Layer 2,"Lab: 2-tier campus (ch 1, 2, 5)",-,"Fix Saturday's network: faults injected overnight, symptom-only tickets","3.1.a, 3.1.b, 3.1.c, 3.3.c",L-2-W22,
 23,2026-11-09,Mon,Weekend 5:00-8:00,Read,B1 Layer 2,Ch 3 Advanced STP Tuning,pp 58-63,"Pre-scan + DIKTA quiz (chat answers), then start at STP Topology Tuning (p 59). Read 40 min total, then 20-min lab on what was read",3.1.c,R-3-1,
 24,2026-11-10,Tue,Weekend 5:00-8:00,Read,B1 Layer 2,Ch 3 Advanced STP Tuning,pp 64-69,"Three 25-min sprints (Pomodoro, 5-min breaks), own-words notes as I read",3.1.c,R-3-2,
