@@ -128,7 +128,8 @@ Read the on-screen logs for each failure and restore it before the next one.
 
 | Test | Failure | Questions |
 |---|---|---|
-| Direct | Shut ASW1's active uplink on ASW1 | Which port takes over, and how long does it take? |
+| Direct | Shut ASW1's active uplink on ASW1, with a ping running from PC1 to PC4 | Which port takes over, and how long does it take? How long do the pings fail? Why are those two times different? |
+| Direct, again | Fix what you found, then repeat the failure | What changed for the PCs? |
 | Indirect | Shut the same uplink on the DSW1 end | ASW1's port stays up. How does it find out, and how long does it take? |
 | Bundle member | Shut one link in Po1 | Does spanning tree notice? Why or why not? |
 | Whole switch | Stop DSW1 | Who becomes the root and the gateway? What do the PCs notice? |
