@@ -1,0 +1,595 @@
+lab:
+  title: 'Day 21 - Lab: 2-tier campus design'
+  version: 0.3.0
+  description: 'Day 21: Cisco HA guide Figure 57 with a bundled trunk'
+nodes:
+- id: n0
+  label: DSW1
+  node_definition: iosvl2
+  x: -220
+  y: -180
+  configuration: "hostname DSW1\nno ip domain-lookup\nservice timestamps log datetime\
+    \ msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging\
+    \ buffered 128000 debugging\nevent manager applet STPLOG\n event syslog pattern\
+    \ \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"\
+    debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+    \ GigabitEthernet1/1\n shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface\
+    \ GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface\
+    \ GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface\
+    \ GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface\
+    \ GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface\
+    \ GigabitEthernet3/3\n shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\n\
+    end"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:24:00:24'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:24:01:24'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:24:02:24'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:24:03:24'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:24:04:24'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:24:05:24'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:24:06:24'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:24:07:24'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:24:08:24'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:24:09:24'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:24:0a:24
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:24:0b:24
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:24:0c:24
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:24:0d:24
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:24:0e:24
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:24:0f:24
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n1
+  label: DSW2
+  node_definition: iosvl2
+  x: 220
+  y: -180
+  configuration: "hostname DSW2\nno ip domain-lookup\nservice timestamps log datetime\
+    \ msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging\
+    \ buffered 128000 debugging\nevent manager applet STPLOG\n event syslog pattern\
+    \ \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"\
+    debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+    \ GigabitEthernet1/1\n shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface\
+    \ GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface\
+    \ GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface\
+    \ GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface\
+    \ GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface\
+    \ GigabitEthernet3/3\n shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\n\
+    end"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:23:00:23'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:23:01:23'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:23:02:23'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:23:03:23'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:23:04:23'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:23:05:23'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:23:06:23'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:23:07:23'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:23:08:23'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:23:09:23'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:23:0a:23
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:23:0b:23
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:23:0c:23
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:23:0d:23
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:23:0e:23
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:23:0f:23
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n2
+  label: ASW1
+  node_definition: iosvl2
+  x: -220
+  y: 60
+  configuration: "hostname ASW1\nno ip domain-lookup\nservice timestamps log datetime\
+    \ msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging\
+    \ buffered 128000 debugging\nevent manager applet STPLOG\n event syslog pattern\
+    \ \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"\
+    debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+    \ GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface\
+    \ GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface\
+    \ GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface\
+    \ GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface\
+    \ GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface\
+    \ GigabitEthernet3/3\n shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\n\
+    end"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:22:00:22'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:22:01:22'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:22:02:22'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:22:03:22'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:22:04:22'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:22:05:22'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:22:06:22'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:22:07:22'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:22:08:22'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:22:09:22'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:22:0a:22
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:22:0b:22
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:22:0c:22
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:22:0d:22
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:22:0e:22
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:22:0f:22
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n3
+  label: ASW2
+  node_definition: iosvl2
+  x: 220
+  y: 60
+  configuration: "hostname ASW2\nno ip domain-lookup\nservice timestamps log datetime\
+    \ msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging\
+    \ buffered 128000 debugging\nevent manager applet STPLOG\n event syslog pattern\
+    \ \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"\
+    debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+    \ GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface\
+    \ GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface\
+    \ GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface\
+    \ GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface\
+    \ GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface\
+    \ GigabitEthernet3/3\n shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\n\
+    end"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:21:00:21'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:21:01:21'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:21:02:21'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:21:03:21'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:21:04:21'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:21:05:21'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:21:06:21'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:21:07:21'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:21:08:21'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:21:09:21'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:21:0a:21
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:21:0b:21
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:21:0c:21
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:21:0d:21
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:21:0e:21
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:21:0f:21
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n4
+  label: PC1
+  node_definition: alpine
+  x: -320
+  y: 240
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC1
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.21.20.11/24 dev eth0
+
+    ip route add default via 10.21.20.1
+
+    '
+  interfaces:
+  - id: i0
+    label: eth0
+    type: physical
+    slot: 0
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n5
+  label: PC2
+  node_definition: alpine
+  x: -120
+  y: 240
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC2
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.21.30.12/24 dev eth0
+
+    ip route add default via 10.21.30.1
+
+    '
+  interfaces:
+  - id: i0
+    label: eth0
+    type: physical
+    slot: 0
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n6
+  label: PC3
+  node_definition: alpine
+  x: 120
+  y: 240
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC3
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.21.20.13/24 dev eth0
+
+    ip route add default via 10.21.20.1
+
+    '
+  interfaces:
+  - id: i0
+    label: eth0
+    type: physical
+    slot: 0
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n7
+  label: PC4
+  node_definition: alpine
+  x: 320
+  y: 240
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC4
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.21.30.14/24 dev eth0
+
+    ip route add default via 10.21.30.1
+
+    '
+  interfaces:
+  - id: i0
+    label: eth0
+    type: physical
+    slot: 0
+  tags: []
+  parameters: {}
+  hide_links: false
+links:
+- id: l0
+  n1: n0
+  i1: i2
+  n2: n1
+  i2: i2
+  label: DSW1-Gi0/1<->DSW2-Gi0/1
+- id: l1
+  n1: n0
+  i1: i3
+  n2: n1
+  i2: i3
+  label: DSW1-Gi0/2<->DSW2-Gi0/2
+- id: l2
+  n1: n0
+  i1: i4
+  n2: n2
+  i2: i2
+  label: DSW1-Gi0/3<->ASW1-Gi0/1
+- id: l3
+  n1: n0
+  i1: i5
+  n2: n3
+  i2: i2
+  label: DSW1-Gi1/0<->ASW2-Gi0/1
+- id: l4
+  n1: n1
+  i1: i4
+  n2: n2
+  i2: i3
+  label: DSW2-Gi0/3<->ASW1-Gi0/2
+- id: l5
+  n1: n1
+  i1: i5
+  n2: n3
+  i2: i3
+  label: DSW2-Gi1/0<->ASW2-Gi0/2
+- id: l6
+  n1: n2
+  i1: i5
+  n2: n4
+  i2: i0
+  label: ASW1-Gi1/0<->PC1-eth0
+- id: l7
+  n1: n2
+  i1: i6
+  n2: n5
+  i2: i0
+  label: ASW1-Gi1/1<->PC2-eth0
+- id: l8
+  n1: n3
+  i1: i5
+  n2: n6
+  i2: i0
+  label: ASW2-Gi1/0<->PC3-eth0
+- id: l9
+  n1: n3
+  i1: i6
+  n2: n7
+  i2: i0
+  label: ASW2-Gi1/1<->PC4-eth0
+annotations: []
