@@ -1,0 +1,14 @@
+#separator:tab
+#html:true
+#notetype:Basic
+#deck:CCNP ENCOR::Ch 02 Spanning Tree Protocol
+#tags column:3
+What are the three RSTP port states, and which 802.1D states does discarding replace?	Discarding, learning, forwarding. Discarding combines disabled, blocking and listening.<br>(p 54)	ch02 pp54-57 stp rstp
+In RSTP's learning state, what does the port do and not do?	It updates the MAC address table from traffic it receives, but forwards no network traffic other than BPDUs.<br>(p 54)	ch02 pp54-57 stp rstp
+RSTP alternate port vs backup port: what is the difference?	Alternate: another path toward the root through a different switch. Backup: link redundancy toward a shared segment in the same collision domain, typically a hub.<br>(p 54)	ch02 pp54-57 stp rstp
+What are the three RSTP port types?	Edge: hosts connect here and it can't form a loop (same as portfast). Non-edge: has received a BPDU. Point-to-point: connects to another RSTP switch at full duplex.<br>(p 54)	ch02 pp54-57 stp rstp
+How does RSTP decide a link can be point-to-point, and what happens on a half-duplex port?	It checks for full duplex, which allows only two devices on the segment. A half-duplex port must use traditional 802.1D forwarding states.<br>(pp 54-55)	ch02 pp54-57 stp rstp
+RSTP synchronization: what does the inferior switch do after it recognizes it is inferior?	Marks its local port as the root port, moves all non-edge ports to discarding, sends an agreement to the root, moves its root port to forwarding, then repeats the process with downstream switches. The superior switch moves its designated port to forwarding.<br>(p 55)	ch02 pp54-57 stp rstp
+With default timers, how long until RSTP ages out port information, and why? How does that compare with 802.1D?	6 seconds: three consecutive missed hellos. 802.1D's Max Age takes 20 seconds.<br>(p 55)	ch02 pp54-57 stp rstp
+When does an RSTP switch fall back to 802.1D behavior?	When no handshake occurs because the other end isn't RSTP compatible, or when a downstream switch fails to acknowledge the proposal. The fallback prevents a forwarding loop.<br>(pp 54-55)	ch02 pp54-57 stp rstp
+Which command shows when the last TCN occurred and which port caused it?	<code>show spanning-tree [vlan vlan-id] detail</code><br>(p 57)	ch02 pp54-57 stp rstp
