@@ -1,6 +1,6 @@
 # Day 22 Lab Day: Fix the 2-Tier Campus
 
-**Session:** Sunday 2026-11-08, 5:00 to 8:00 AM (live)
+**Session:** moved from Sunday 2026-11-08 (day off); new date to come, 5:00 to 8:00 AM (live)
 **Network:** the same lab as Day 21. See [the Day 21 sheet](../day21/lab-campus-design.md) for the design, cabling and addressing.
 **Blueprint:** 3.1.a trunking, 3.1.b EtherChannel, 3.1.c spanning tree, 3.3.c first hop redundancy
 **Book:** Chapter 1 (VLANs, SVIs), Chapter 2 (STP and RSTP), Chapter 5 (trunks and EtherChannel)
