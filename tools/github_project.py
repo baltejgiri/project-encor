@@ -205,7 +205,11 @@ def session_body(r):
     if r["Blueprint"]:
         lines.append(f"**Blueprint:** {r['Blueprint']}  ")
     lines += ["", "### Plan", r["Plan"], "", "### Checklist"]
-    lines += [f"- [ ] {c}" for c in CHECK.get(stype(r), ["Close this issue"])]
+    check = CHECK.get(stype(r), ["Close this issue"])
+    if "20-min lab" in r["Plan"]:
+        check = ["Anki reviews (5 cards)", f"Read {r['Book pages']} (40 min)", "Break (5 min)", "Lab (20 min)",
+                 "Own-words notes (off stream if there's no time)", "Comment the last page read", "Close this issue"]
+    lines += [f"- [ ] {c}" for c in check]
     lines += ["", "Stream replay: _(paste link in a comment)_", "",
               "_Dates live on the board and move when the schedule is replanned._",
               f"<!-- unit: {r['Unit ID']} -->"]
