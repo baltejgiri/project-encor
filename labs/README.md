@@ -2,7 +2,7 @@
 
 One folder per lab day of the live study series. Each lab is built for that session from what was read that week:
 build labs come as a request plus questions to answer, troubleshooting labs come as NOC tickets, and none of them
-include step-by-step instructions. Import the YAML files into Cisco Modeling Labs to follow along.
+include step-by-step instructions. Every day folder has its own YAML that boots into that day's starting point, even when the same CML lab is reused. Import it into Cisco Modeling Labs to follow along.
 
 | Day | Date | Folder | Topics | Replay |
 |---|---|---|---|---|
@@ -12,9 +12,9 @@ include step-by-step instructions. Import the YAML files into Cisco Modeling Lab
 | 16 | Fri 30 Oct 2026 | [day16](day16) | STP port roles and parallel links | [YouTube](https://youtu.be/g6UfIAzCLU4) |
 | 17 | Sat 31 Oct 2026 | [day17](day17) | Collapsed core from factory defaults: DTP, trunk mismatches, LACP/PAgP/static EtherChannel | [YouTube](https://youtu.be/ph9Poy6Y3C4) |
 | 18 | Mon 2 Nov 2026 | [day18](day18) | Building the STP topology: root bridge, root ports, blocked ports (5 switches, fixed MACs) | [YouTube](https://youtu.be/HvlvtjYHgmA) |
-| 19 | Thu 5 Nov 2026 | [day19](day19) | STP topology changes: TCNs, direct vs indirect link failures (uses the Day 18 YAML) | [YouTube](https://youtu.be/zKOWaFwahzI) |
-| 20 | Fri 6 Nov 2026 | [day20](day20) | RSTP: migrate to Rapid PVST+, measure the same failures again, a classic neighbor (uses the Day 18 YAML) | [YouTube](https://youtu.be/x7bebLvcMPo) |
+| 19 | Thu 5 Nov 2026 | [day19](day19) | STP topology changes: TCNs, direct vs indirect link failures (Day 18 switches) | [YouTube](https://youtu.be/zKOWaFwahzI) |
+| 20 | Fri 6 Nov 2026 | [day20](day20) | RSTP: migrate to Rapid PVST+, measure the same failures again, a classic neighbor (Day 18 switches) | [YouTube](https://youtu.be/x7bebLvcMPo) |
 | 21 | Sat 7 Nov 2026 | [day21](day21) | 2-tier campus from Cisco's design guide (Figure 57): VLANs, trunks, LACP EtherChannel, Rapid PVST+, SVIs, VRRP, failure tests. Sheet: [lab-campus-design.md](day21/lab-campus-design.md) | [YouTube](https://youtu.be/adt9stIzF8c) |
-| 22 | Mon 9 Nov 2026 | [day22](day22) | Ch 3 root bridge placement: primary/secondary root, a rogue switch, path cost (uses the Day 18 YAML). Sheet: [lab-ch03-root-placement.md](day22/lab-ch03-root-placement.md) | _after the stream_ |
-| 23 | Tue 10 Nov 2026 | [day23](day23) | Ch 3 protection: root guard against a rogue switch, PortFast and BPDU guard on a user port, err-disable recovery (uses the Day 18 YAML). Sheet: [lab-ch03-root-bpdu-guard.md](day23/lab-ch03-root-bpdu-guard.md) | _after the stream_ |
+| 22 | Mon 9 Nov 2026 | [day22](day22) | Ch 3 root bridge placement: primary/secondary root, a rogue switch, path cost (Day 18 switches). Sheet: [lab-ch03-root-placement.md](day22/lab-ch03-root-placement.md) | [YouTube](https://youtu.be/bQ3-0vdwKoA) |
+| 23 | Tue 10 Nov 2026 | [day23](day23) | Ch 3 protection: root guard against a rogue switch, PortFast and BPDU guard on a user port, err-disable recovery (Day 18 switches, starts where Day 22 ended). Sheet: [lab-ch03-root-bpdu-guard.md](day23/lab-ch03-root-bpdu-guard.md) | _after the stream_ |
 | later | date to come | [day22](day22) | Fix the Day 21 campus: six symptom-only tickets (VLANs, trunks, EtherChannel, spanning tree root, VRRP, management). Uses the Day 21 YAML. Moved from Sun 8 Nov. Sheet: [lab-campus-tickets.md](day22/lab-campus-tickets.md) | _after the stream_ |

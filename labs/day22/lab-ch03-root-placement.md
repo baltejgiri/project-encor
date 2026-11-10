@@ -1,7 +1,7 @@
 # Day 22 Lab · Chapter 3: Root Bridge Placement
 
 **Session:** Monday 2026-11-09, 20-minute lab after the reading (live)
-**CML lab:** same five switches as Day 18: import [`../day18/lab-ch02-stp-topology.yaml`](../day18/lab-ch02-stp-topology.yaml), all five boot on classic PVST+ (the YAML's default)
+**CML lab:** same five switches as Day 18: import [`lab-ch03-root-placement.yaml`](lab-ch03-root-placement.yaml), all five boot on classic PVST+ (the YAML's default)
 **Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements
 **Book:** Chapter 3, pp 58-63 (Placing the Root Bridge, start of Modifying STP Root Port and Blocked Switch Port Locations)
 

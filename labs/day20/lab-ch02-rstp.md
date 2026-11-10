@@ -1,7 +1,7 @@
 # Day 20 Lab · Chapter 2: RSTP
 
 **Session:** Friday 2026-11-06, 20-minute lab after the reading (live)
-**CML lab:** same five switches as Day 18: import [`../day18/lab-ch02-stp-topology.yaml`](../day18/lab-ch02-stp-topology.yaml)
+**CML lab:** same five switches as Day 18: import [`lab-ch02-rstp.yaml`](lab-ch02-rstp.yaml)
 **Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements
 **Book:** Chapter 2, pp 54-57 (RSTP Port States, Roles and Types, Building the RSTP Topology, RSTP Convergence)
 

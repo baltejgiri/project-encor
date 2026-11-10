@@ -1,7 +1,7 @@
 # Day 23 Lab · Chapter 3: Protecting the Root and the Edge
 
 **Session:** Tuesday 2026-11-10, 20-minute lab after the reading (live)
-**CML lab:** same five switches as Day 22: [`../day18/lab-ch02-stp-topology.yaml`](../day18/lab-ch02-stp-topology.yaml), left as Day 22 finished (SW1 primary root, SW2 secondary, classic PVST+)
+**CML lab:** same five switches as Day 22: import [`lab-ch03-root-bpdu-guard.yaml`](lab-ch03-root-bpdu-guard.yaml), which boots where Day 22 finished (SW1 primary root, SW2 secondary, classic PVST+)
 **Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements such as root guard and BPDU guard
 **Book:** Chapter 3, from p 67: Additional STP Protection Mechanisms
 
