@@ -2,7 +2,7 @@
 
 Related: Ch 3 (Advanced STP Tuning: BPDU guard, BPDU filter), Ch 4 (MST), Ch 5 (EtherChannel: STP sees a port channel as one link)
 
-**Status:** pp 36-53 read (Days 15, 16, 18 and 19). Next session starts at **RSTP (802.1W) Port States** (p 54).
+**Status:** complete, pp 36-57 (Days 15, 16, 18, 19 and 20). DIKTA before reading 3/9 (2026-10-29). Post-chapter DIKTA retake still to do.
 
 ---
 
@@ -233,7 +233,50 @@ The book's example, SW1-SW3 impaired:
 
 ---
 
-## Commands I need to know (so far)
+## RSTP (802.1W) Port States (p 54)
+**Key Topic**
+
+RSTP has only **three** states:
+
+| State | Forwards data? | Learns MACs? | Notes |
+|---|---|---|---|
+| **Discarding** | No | No | Replaces 802.1D **disabled, blocking and listening** |
+| **Learning** | No (BPDUs only) | Yes | |
+| **Forwarding** | Yes | Yes | Final state |
+
+A switch tries an **RSTP handshake** with whatever is on the other end. No handshake = the other side is treated as non-RSTP and the port falls back to **802.1D timing**. That is why a PC (no handshake) still waits about **30 s** after the link comes up, unless the port is portfast/edge (Ch 3).
+
+## RSTP Port Roles (p 54)
+- **Root port (RP):** toward the root (or upstream switch). One per VLAN per switch.
+- **Designated port (DP):** sends and forwards toward downstream switches and devices. One active DP per link.
+- **Alternate port:** a second path toward the root **through a different switch** (blocking, ready to take over).
+- **Backup port:** a redundant link onto the **same shared segment** (same collision domain, usually a hub).
+
+## RSTP Port Types (p 54)
+- **Edge port:** a host port that can't make a loop. Same thing as **portfast** (Ch 3).
+- **Non-edge port:** any port that has received a BPDU.
+- **Point-to-point port:** connects to another RSTP switch at **full duplex** (full duplex means only two devices on the link, the quickest way to tell it's a switch).
+
+Hubs only do **half duplex**, so a half-duplex port must use the old 802.1D states.
+
+## Building the RSTP Topology (p 55)
+**Key Topic**
+
+RSTP adds switches with a **synchronization** handshake instead of waiting on timers:
+1. The two switches check the link is **point-to-point** (full duplex).
+2. Each sends a **proposal** (in a configuration BPDU): "my port should be the DP for this segment".
+3. Only one DP per segment, so they compare bridge IDs (lowest priority, then lowest MAC). SW1 wins over SW2.
+4. The **inferior** switch (SW2) makes its port the **RP** and moves **all its non-edge ports to discarding**. Local switching on those ports stops.
+5. SW2 sends an **agreement** (configuration BPDU) back to the root: sync is happening.
+6. SW2's RP goes to **forwarding**, and SW1's DP goes to forwarding too.
+7. SW2 repeats the process with its own downstream switches.
+
+## RSTP Convergence (p 55)
+- RSTP ages out port information after **3 missed hellos**: **6 s** with default timers, instead of the 20 s Max Age.
+- With the proposal/agreement handshake, ports go from discarding to forwarding almost at once.
+- If a downstream switch **doesn't answer the proposal**, the port falls back to **802.1D** behaviour to avoid a loop.
+
+## Commands I need to know
 
 | Task | Command |
 |---|---|
@@ -246,10 +289,13 @@ The book's example, SW1-SW3 impaired:
 | One interface only | `show spanning-tree interface <if> [detail]` |
 | Topology change count, age and source | `show spanning-tree vlan <id> detail` |
 
+## Key terms to define from memory
+bridge protocol data unit (BPDU), configuration BPDU, designated port (DP), forward delay, hello time, local bridge identifier, Max Age, root bridge, root bridge identifier, root path cost, root port, system priority, system ID extension, topology change notification (TCN)
+
 ## DIKTA misses (2026-10-29, 3/9 before reading)
 - **Q1:** there are **two** BPDU types: configuration and TCN.
 - **Q3:** 802.1D short-mode cost for **1 Gbps = 4** (19 is 100 Mbps).
 - **Q5:** a port stays in **listening for 15 s** (the forward delay).
-- **Q6:** after a configuration BPDU with the topology change flag, switches **flush the old MAC addresses** from the table (not all of them). *Section not read yet.*
-- **Q7 (partial):** RSTP has no **blocking** and no **listening** state (both A and B). *Section not read yet.*
-- **Q9:** **False.** RSTP does not wait for the whole network to converge before forwarding. *Section not read yet.*
+- **Q6:** after a configuration BPDU with the topology change flag, switches **flush the old MAC addresses** from the table (not all of them).
+- **Q7 (partial):** RSTP has no **blocking** and no **listening** state (both A and B).
+- **Q9:** **False.** RSTP does not wait for the whole network to converge before forwarding.
