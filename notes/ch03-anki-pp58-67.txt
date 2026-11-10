@@ -1,0 +1,14 @@
+#separator:tab
+#html:true
+#notetype:Basic
+#deck:CCNP ENCOR::Ch 03 Advanced STP Tuning
+#tags column:3
+What values can an STP bridge priority take?	0 to 61,440, in steps of 4096. Any other value (like 1000) is rejected.<br>(p 60, DIKTA Q1)	ch03 pp58-67 stp
+What priority do <i>spanning-tree vlan X root primary</i> and <i>root secondary</i> set?	primary = 24,576<br>secondary = 28,672<br>(the macro is a script that sets the number once)<br>(p 60)	ch03 pp58-67 stp
+You run <i>root primary</i>, but another switch already has priority 24,576 or lower and is preferred. What does the script do?	It lowers the priority further to try to become root (in the Day 22 lab: rogue at 4096, so SW1 went to 0). It runs once only, so it won't react to a switch added later.<br>(p 60 note)	ch03 pp58-67 stp
+What does the <i>diameter</i> keyword on <i>root primary/secondary</i> do, and do other switches need the same timers?	It tunes the STP timers for the max number of Layer 2 hops to the root. No: the timers travel in the root bridge's BPDUs to every switch.<br>(p 60)	ch03 pp58-67 stp
+Book's best practice to stop a wrong device from becoming root?	Primary root priority 0, secondary root 4096 (others higher), plus root guard. Place the root on a core switch, usually the L2/L3 boundary, to keep hops to the furthest switch low.<br>(p 60, 63)	ch03 pp58-67 stp
+What does <i>spanning-tree [vlan X] cost N</i> change, and what scope does it have without the vlan keyword?	The port's STP cost, which moves forwarding/blocking ports: lower it to turn an alternate port designated, raise it to block a designated port. Without <i>vlan</i> it applies to all VLANs.<br>(p 65)	ch03 pp58-67 stp
+SW3 lowers its root-port cost to 1. Why does its blocked port toward SW2 become designated, and SW2's end become alternate?	On that link SW3 now has the lower root path cost (1 vs SW2's 4), and the lower cost end of a segment is designated. SW2 then sees the better BPDU and its end goes alternate.<br>(p 65-66)	ch03 pp58-67 stp
+Default STP port priority, is lower or higher preferred, and the command to change it?	128; lower is preferred (DIKTA Q3: true). <i>spanning-tree [vlan X] port-priority N</i>, set on the upstream switch's port (64 on SW4 Gi1/0/6 moved SW5's root port).<br>(p 66-67)	ch03 pp58-67 stp
+Why is a Layer 2 forwarding loop so damaging, and what are its common symptoms?	Ethernet frames have no TTL, so broadcast and multicast loop forever and flood every port. Symptoms: high CPU and low free memory on the switches.<br>(p 67)	ch03 pp58-67 stp
