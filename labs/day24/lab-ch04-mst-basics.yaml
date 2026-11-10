@@ -1,0 +1,556 @@
+lab:
+  title: 'Day 24 - Lab: Ch 4 MST basics'
+  version: 0.3.0
+  description: 'Ch 4 pp 80-85: move five switches from PVST+ (one tree per VLAN) to one MST region with two instances. Starts where Day 23 ended: SW1 root and SW2 backup for VLAN 1, classic PVST+, VLANs
+    10, 20, 30, 40.'
+nodes:
+- id: n0
+  label: SW1
+  node_definition: iosvl2
+  x: 0
+  y: -200
+  configuration:
+  - name: ios_config.txt
+    content: "hostname SW1\nno ip domain-lookup\nservice timestamps log datetime msec\nlogging console\nvtp mode transparent\nvlan 10\n name DATA\nvlan 20\n name VOICE\nvlan 30\n name SERVERS\nvlan 40\n\
+      \ name MGMT\ninterface GigabitEthernet0/1\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/2\n switchport trunk encapsulation dot1q\n\
+      \ switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/0\n shutdown\ninterface GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/0\n shutdown\ninterface GigabitEthernet1/1\n\
+      \ shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n\
+      \ shutdown\ninterface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n\
+      \ shutdown\nspanning-tree vlan 1 priority 24576\nline con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:41:00:41'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:41:01:41'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:41:02:41'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:41:03:41'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:41:04:41'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:41:05:41'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:41:06:41'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:41:07:41'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:41:08:41'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:41:09:41'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:41:0a:41
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:41:0b:41
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:41:0c:41
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:41:0d:41
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:41:0e:41
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:41:0f:41
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n1
+  label: SW2
+  node_definition: iosvl2
+  x: -200
+  y: -50
+  configuration:
+  - name: ios_config.txt
+    content: "hostname SW2\nno ip domain-lookup\nservice timestamps log datetime msec\nlogging console\nvtp mode transparent\nvlan 10\n name DATA\nvlan 20\n name VOICE\nvlan 30\n name SERVERS\nvlan 40\n\
+      \ name MGMT\ninterface GigabitEthernet0/1\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/2\n switchport trunk encapsulation dot1q\n\
+      \ switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/3\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet1/0\n\
+      \ switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/0\n shutdown\ninterface GigabitEthernet1/1\n shutdown\ninterface GigabitEthernet1/2\n\
+      \ shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface GigabitEthernet2/3\n\
+      \ shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n shutdown\nspanning-tree vlan 1\
+      \ priority 28672\nline con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:43:00:43'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:43:01:43'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:43:02:43'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:43:03:43'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:43:04:43'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:43:05:43'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:43:06:43'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:43:07:43'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:43:08:43'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:43:09:43'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:43:0a:43
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:43:0b:43
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:43:0c:43
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:43:0d:43
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:43:0e:43
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:43:0f:43
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n2
+  label: SW3
+  node_definition: iosvl2
+  x: 200
+  y: -50
+  configuration:
+  - name: ios_config.txt
+    content: "hostname SW3\nno ip domain-lookup\nservice timestamps log datetime msec\nlogging console\nvtp mode transparent\nvlan 10\n name DATA\nvlan 20\n name VOICE\nvlan 30\n name SERVERS\nvlan 40\n\
+      \ name MGMT\ninterface GigabitEthernet0/1\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/2\n switchport trunk encapsulation dot1q\n\
+      \ switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/3\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/0\n\
+      \ shutdown\ninterface GigabitEthernet1/0\n shutdown\ninterface GigabitEthernet1/1\n shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n\
+      \ shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n\
+      \ shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:42:00:42'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:42:01:42'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:42:02:42'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:42:03:42'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:42:04:42'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:42:05:42'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:42:06:42'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:42:07:42'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:42:08:42'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:42:09:42'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:42:0a:42
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:42:0b:42
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:42:0c:42
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:42:0d:42
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:42:0e:42
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:42:0f:42
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n3
+  label: SW4
+  node_definition: iosvl2
+  x: -200
+  y: 150
+  configuration:
+  - name: ios_config.txt
+    content: "hostname SW4\nno ip domain-lookup\nservice timestamps log datetime msec\nlogging console\nvtp mode transparent\nvlan 10\n name DATA\nvlan 20\n name VOICE\nvlan 30\n name SERVERS\nvlan 40\n\
+      \ name MGMT\ninterface GigabitEthernet0/1\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/2\n switchport trunk encapsulation dot1q\n\
+      \ switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet1/0\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/0\n\
+      \ shutdown\ninterface GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/1\n shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n\
+      \ shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n\
+      \ shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:45:00:45'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:45:01:45'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:45:02:45'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:45:03:45'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:45:04:45'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:45:05:45'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:45:06:45'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:45:07:45'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:45:08:45'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:45:09:45'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:45:0a:45
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:45:0b:45
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:45:0c:45
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:45:0d:45
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:45:0e:45
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:45:0f:45
+  tags: []
+  parameters: {}
+  hide_links: false
+- id: n4
+  label: SW5
+  node_definition: iosvl2
+  x: 200
+  y: 150
+  configuration:
+  - name: ios_config.txt
+    content: "hostname SW5\nno ip domain-lookup\nservice timestamps log datetime msec\nlogging console\nvtp mode transparent\nvlan 10\n name DATA\nvlan 20\n name VOICE\nvlan 30\n name SERVERS\nvlan 40\n\
+      \ name MGMT\ninterface GigabitEthernet0/1\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet1/0\n switchport trunk encapsulation dot1q\n\
+      \ switchport mode trunk\n switchport nonegotiate\ninterface GigabitEthernet0/0\n shutdown\ninterface GigabitEthernet0/2\n shutdown\ninterface GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/1\n\
+      \ shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n\
+      \ shutdown\ninterface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n\
+      \ shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+    mac_address: null
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:44:00:44'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:44:01:44'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:44:02:44'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:44:03:44'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:44:04:44'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:44:05:44'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:44:06:44'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:44:07:44'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:44:08:44'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:44:09:44'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:44:0a:44
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:44:0b:44
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:44:0c:44
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:44:0d:44
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:44:0e:44
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:44:0f:44
+  tags: []
+  parameters: {}
+  hide_links: false
+links:
+- id: l0
+  n1: n0
+  i1: i2
+  n2: n1
+  i2: i2
+  label: SW1-Gi0/1<->SW2-Gi0/1
+- id: l1
+  n1: n0
+  i1: i3
+  n2: n2
+  i2: i2
+  label: SW1-Gi0/2<->SW3-Gi0/1
+- id: l2
+  n1: n1
+  i1: i3
+  n2: n2
+  i2: i3
+  label: SW2-Gi0/2<->SW3-Gi0/2
+- id: l3
+  n1: n1
+  i1: i5
+  n2: n3
+  i2: i2
+  label: SW2-Gi1/0<->SW4-Gi0/1
+- id: l4
+  n1: n1
+  i1: i4
+  n2: n3
+  i2: i3
+  label: SW2-Gi0/3<->SW4-Gi0/2
+- id: l5
+  n1: n2
+  i1: i4
+  n2: n4
+  i2: i2
+  label: SW3-Gi0/3<->SW5-Gi0/1
+- id: l6
+  n1: n3
+  i1: i5
+  n2: n4
+  i2: i5
+  label: SW4-Gi1/0<->SW5-Gi1/0
+annotations: []
