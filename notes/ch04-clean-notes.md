@@ -2,7 +2,7 @@
 
 Related: Ch 2 (STP and RSTP basics), Ch 3 (Advanced STP Tuning), Ch 5 (EtherChannel)
 
-**Status:** read pp 80-87 (Day 24), notes done for pp 80-87; next: MST Tuning, p 87. DIKTA before reading 4/7 (2026-11-11). Post-chapter DIKTA retake still to do.
+**Status:** Ch 4 finished. Read pp 80-87 (Day 24) and pp 87-91 (Day 25); notes done for the whole chapter. DIKTA before reading 4/7 (2026-11-11). Post-chapter DIKTA retake still to do.
 
 ---
 
@@ -57,6 +57,86 @@ Example 4-1 (SW1): `root primary` for MST 0, 1 and 2; name ENTERPRISE_CORE, revi
 | `show spanning-tree mst interface <int>` | One port across all instances: role, state, cost, priority and VLANs per instance, plus edge port, link type, **Boundary** (internal or not), BPDU guard/filter, BPDUs sent/received. |
 
 Costs show as **20000** for a 1 Gb port (long path cost) in MST.
+
+---
+
+## The one idea that makes the rest of Ch 4 click
+
+**MST builds trees per instance, not per VLAN.** A switch never asks "where does VLAN 30 go?". It asks "where does instance 2 go?", and every VLAN in instance 2 follows that answer.
+- The tree is built from **BPDUs on physical links**. It does **not** look at which VLANs a trunk allows or which VLAN an access port is in.
+- So if the trunk config and the instance tree disagree, the **tree wins** and the VLAN loses its path. Both misconfigurations below are this one idea.
+
+---
+
+## MST tuning (pp 87-89)
+
+Same knobs as Ch 3, just with `mst <instance>` in front, so you can tune each instance on its own.
+
+| Knob | Command (interface) | Where you set it | Why there |
+|---|---|---|---|
+| **Port cost** | `spanning-tree mst <inst> cost <cost>` | On the switch **choosing** its root port (downstream) | Cost adds to **your own** root path cost. Lower cost on one uplink = that uplink becomes your root port. |
+| **Port priority** | `spanning-tree mst <inst> port-priority <0-240>` (steps of 16, default 128) | On the switch **sending** the BPDU (upstream) | Priority is part of the **sender's** port ID. It only matters as the last tie-breaker: equal cost, same upstream bridge. Lower wins. |
+
+- Ex 4-6: SW3 Gi1/0/1 `mst 0 cost 1`. Before: Gi1/0/1 Root, Gi1/0/2 Altn BLK. After: Gi1/0/2 changed from Altn to **Desg** FWD.
+- Ex 4-7: SW4 Gi1/0/5 `mst 0 port-priority 64`. The Prio.Nbr column shows **64.5** instead of 128.5. It changes what SW4 *advertises* on that port, so it only affects the switch on the other end.
+- Order of tie-breakers is still the Ch 2 list: lowest root path cost, then lowest sender bridge ID, then lowest sender port priority, then lowest sender port number.
+
+---
+
+## Common MST misconfigurations (pp 89-90)
+
+### 1. VLAN assignment to the IST
+- The **IST (instance 0) runs on every link in the region**, whatever VLAN a port is in.
+- Fig 4-5: two links between SW1 (root) and SW2. Gi1/0/1 is a trunk carrying VLAN 20 (instance 1), Gi1/0/2 is an **access port in VLAN 10**, and VLAN 10 is in the **IST**.
+  - You'd expect PC-A to PC-B (VLAN 10) to use Gi1/0/2.
+  - But the IST sees two links to the root, so SW2 blocks one for instance 0. It picks **Gi1/0/2** (worse sender port ID from SW1).
+  - Result: VLAN 10's only link is blocked, so VLAN 10 is cut.
+- **Fixes:** move VLAN 10 out of the IST into an MSTI, **or** allow the IST VLANs on every inter-switch trunk.
+
+### 2. Trunk link pruning
+- Pruning VLANs off trunks is a normal way to load balance in PVST+, **but not inside one MST instance**.
+- Fig 4-6: VLANs 10 and 20 in the same instance. A junior engineer prunes VLAN 20 off SW1-SW2 and VLAN 10 off SW1-SW3. Users on SW1 and SW3 lose the servers on SW2: the trunks changed, **the instance tree didn't**.
+- **Rule: prune all VLANs of the same MSTI together on a trunk (all or none).** To load balance, put VLANs in different instances and tune cost/priority/root per instance.
+
+---
+
+## MST region boundary (pp 90-91)
+**Key Topic**
+
+- **Boundary port** = a port facing a switch in a **different MST region**, or one that receives **802.1D or 802.1w (RSTP) BPDUs**. `show spanning-tree mst interface` shows `Boundary: internal` for ports inside the region.
+- **MSTIs never leave the region.** Only the IST talks to the outside, as the **CST**. That's why the region looks like one big switch from outside.
+- **PVST simulation:** PVST+/RPVST+ switches don't understand the IST BPDU. So the boundary port sends **one PVST+ BPDU per VLAN, all copied from the IST** (one topology to many VLANs). It starts only when a PVST BPDU arrives on that port.
+- Inbound, the boundary does **not** map PVST+ VLANs to MSTIs. It uses only the **VLAN 1** PVST+ BPDU for the IST.
+
+Two designs when mixing MST with PVST+/RPVST+:
+
+| Design | What happens |
+|---|---|
+| **MST region is the root for all VLANs** (recommended) | Make the IST priority better than any PVST+ switch. Every boundary port floods the same IST info for every VLAN; the PVST+ switch sees one root and does the blocking itself (Fig 4-7). That PVST+ switch can still load balance with per-VLAN cost on its uplinks. |
+| **MST region is not the root for any VLAN** | Boundary ports can only forward or block **all VLANs together**, no load balancing (the IST must stay consistent). |
+
+- **PVST simulation check:** if a boundary port gets a **better BPDU for just some VLAN** (the region would be root for some VLANs and not others), the switch blocks the port as **root inconsistent**. It may cut off switches below it, but it keeps the topology loop free.
+
+---
+
+## Day 25 lab proof (CML, IOSvL2)
+
+- Per-instance **cost** on SW4's own uplink moved only instance 2. `show spanning-tree mst 1` was identical before and after, which proved instance 1 didn't move.
+- To move instance 1 **without touching SW4**, cost was useless (it's local to SW4). **Port priority on SW2** worked, because SW4's two uplinks tie on cost and the same upstream bridge, so SW2's port ID decides.
+- Ticket: one VLAN of an instance pruned off the trunk that instance forwards on. The other VLAN of the same instance kept working, and the instance's other path stayed blocked, so the pruned VLAN had **no path at all**. Exactly Fig 4-6.
+
+---
+
+## Key terms (book list, own words)
+
+| Term | Meaning |
+|---|---|
+| **CST** (Common Spanning Tree) | One tree for all VLANs (802.1D). In MST, the IST is what the outside world sees as the CST. |
+| **IST** (internal spanning tree) | Instance 0. Runs on every port in the region, holds all unmapped VLANs, carries the BPDUs for all instances. |
+| **MSTI** (MST instance) | Instances 1-15: a group of VLANs that share one tree inside the region. |
+| **MST region** | Switches with the same name, revision and VLAN-to-instance map. |
+| **MST region boundary** | A port facing another region or an 802.1D/802.1w/PVST+ switch. |
+| **PVST simulation check** | Blocks a boundary port as root inconsistent when it gets a better PVST+ BPDU for some VLANs, to keep the IST consistent. |
 
 ---
 
