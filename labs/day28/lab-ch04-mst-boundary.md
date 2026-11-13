@@ -1,6 +1,6 @@
-# Day 26 Lab · Chapter 4: MST Region Boundary
+# Day 28 Lab · Chapter 4: MST Region Boundary
 
-**Session:** Friday 2026-11-13, 20-minute lab after the DIKTA catch-up (live)
+**Session:** Monday 2026-11-16, 20-minute lab after the DIKTA catch-up (live)
 **CML lab:** import [`lab-ch04-mst-boundary.yaml`](lab-ch04-mst-boundary.yaml). It boots where Day 25 finished: one MST region, two instances, both of SW4's uplinks in use.
 **Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements such as root guard and BPDU guard
 **Book:** Chapter 4, pp 90-91: MST Region Boundary
@@ -31,14 +31,14 @@
 
 ---
 
-## WO-2601 · SW5 swap
+## WO-2801 · SW5 swap
 
 1. **The swap (4 min):** SW5 is being replaced by a switch that only runs Rapid PVST+, not MST. Make SW5 match the
    new switch. Which ports in the MST region are now region boundary ports, and which output proves it?
 
-> **INC-2602 comes in right after task 1. Work it before task 2.**
+> **INC-2802 comes in right after task 1. Work it before task 2.**
 
-## INC-2602 · Ticket from the NOC
+## INC-2802 · Ticket from the NOC
 
 About 8 minutes.
 
@@ -48,7 +48,7 @@ About 8 minutes.
 
 2. Find the root cause and fix it. Then answer: what has to stay true about the PVST+ side so this can't happen?
 
-## WO-2601 (continued)
+## WO-2801 (continued)
 
 3. **Keep the region in charge (5 min):** The architect wants the MST region to stay the root for every VLAN on SW5,
    even if someone adds a new switch at default priority later. Do it without touching SW5.
