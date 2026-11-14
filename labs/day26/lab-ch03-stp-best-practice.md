@@ -1,9 +1,13 @@
 # Day 26 Lab Day: Spanning Tree Done Right
 
 **Session:** Saturday 2026-11-14, 5:00 to 8:00 AM PT (live)
+
 **CML lab:** import [`lab-ch03-stp-best-practice.yaml`](lab-ch03-stp-best-practice.yaml) (CML title "Day 26 - Lab: Ch 3 STP best practice"). It boots with hostnames, cabling and console logging only.
+
 **Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements such as root guard and BPDU guard
+
 **Book:** Chapter 2 (STP and RSTP), Chapter 3 (root placement, cost and priority, root guard, PortFast, BPDU guard, error recovery, BPDU filter, loop guard, UDLD). Trunks and EtherChannel from Chapter 5.
+
 **Read the design:** [Cisco Campus Network for High Availability Design Guide (PDF, May 2008)](https://www.cisco.com/c/dam/en/us/td/docs/solutions/Enterprise/Campus/HA_campus_DG/hacampus-dg.pdf)
 
 | Page | What's there |
