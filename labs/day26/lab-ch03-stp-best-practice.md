@@ -26,15 +26,7 @@ contractor's switch was. Leave it alone until FOCUS 3.
 
 ## Topology
 
-```
-          DIST-A1 ====== Po1 ====== DIST-A2
-          /   |   \               /   |   \
-   (each access switch has one uplink to each distribution switch)
-          \   |   /               \   |   /
-      ACCESS-A1    ACCESS-A2    ACCESS-A3
-          |          |    \  \        |
-         PC1        PC2    ROGUE-SW  PC3
-```
+![Day 26 design](design.png)
 
 | Device | Port | Connects to | Purpose |
 |---|---|---|---|
