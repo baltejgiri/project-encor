@@ -1,0 +1,741 @@
+lab:
+  title: 'Day 26 - Lab: Ch 3 STP best practice'
+  version: 0.3.0
+  description: 'Building A from Cisco''s Campus Network for High Availability Design Guide (Figure 57): a spanning tree design built to Cisco''s recommendations.'
+nodes:
+- id: n0
+  label: DIST-A1
+  node_definition: iosvl2
+  x: -220
+  y: -200
+  configuration:
+  - name: ios_config.txt
+    content: "hostname DIST-A1\nno ip domain-lookup\nservice timestamps log datetime msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging buffered 128000 debugging\nevent manager\
+      \ applet STPLOG\n event syslog pattern \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+      \ GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\n\
+      interface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n shutdown\n\
+      line con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:54:00:54'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:54:01:54'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:54:02:54'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:54:03:54'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:54:04:54'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:54:05:54'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:54:06:54'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:54:07:54'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:54:08:54'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:54:09:54'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:54:0a:54
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:54:0b:54
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:54:0c:54
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:54:0d:54
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:54:0e:54
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:54:0f:54
+- id: n1
+  label: DIST-A2
+  node_definition: iosvl2
+  x: 220
+  y: -200
+  configuration:
+  - name: ios_config.txt
+    content: "hostname DIST-A2\nno ip domain-lookup\nservice timestamps log datetime msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging buffered 128000 debugging\nevent manager\
+      \ applet STPLOG\n event syslog pattern \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+      \ GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\n\
+      interface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n shutdown\n\
+      line con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:53:00:53'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:53:01:53'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:53:02:53'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:53:03:53'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:53:04:53'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:53:05:53'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:53:06:53'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:53:07:53'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:53:08:53'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:53:09:53'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:53:0a:53
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:53:0b:53
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:53:0c:53
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:53:0d:53
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:53:0e:53
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:53:0f:53
+- id: n2
+  label: ACCESS-A1
+  node_definition: iosvl2
+  x: -380
+  y: 40
+  configuration:
+  - name: ios_config.txt
+    content: "hostname ACCESS-A1\nno ip domain-lookup\nservice timestamps log datetime msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging buffered 128000 debugging\nevent manager\
+      \ applet STPLOG\n event syslog pattern \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+      \ GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/1\n shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\n\
+      interface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\n\
+      interface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:52:00:52'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:52:01:52'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:52:02:52'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:52:03:52'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:52:04:52'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:52:05:52'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:52:06:52'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:52:07:52'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:52:08:52'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:52:09:52'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:52:0a:52
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:52:0b:52
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:52:0c:52
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:52:0d:52
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:52:0e:52
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:52:0f:52
+- id: n3
+  label: ACCESS-A2
+  node_definition: iosvl2
+  x: 0
+  y: 40
+  configuration:
+  - name: ios_config.txt
+    content: "hostname ACCESS-A2\nno ip domain-lookup\nservice timestamps log datetime msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging buffered 128000 debugging\nevent manager\
+      \ applet STPLOG\n event syslog pattern \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+      \ GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\n\
+      interface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n shutdown\n\
+      line con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:55:00:55'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:55:01:55'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:55:02:55'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:55:03:55'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:55:04:55'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:55:05:55'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:55:06:55'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:55:07:55'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:55:08:55'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:55:09:55'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:55:0a:55
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:55:0b:55
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:55:0c:55
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:55:0d:55
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:55:0e:55
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:55:0f:55
+- id: n4
+  label: ACCESS-A3
+  node_definition: iosvl2
+  x: 380
+  y: 40
+  configuration:
+  - name: ios_config.txt
+    content: "hostname ACCESS-A3\nno ip domain-lookup\nservice timestamps log datetime msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging buffered 128000 debugging\nevent manager\
+      \ applet STPLOG\n event syslog pattern \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"debug spanning-tree events\"\ninterface GigabitEthernet0/0\n shutdown\ninterface\
+      \ GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/1\n shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\n\
+      interface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n shutdown\ninterface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\n\
+      interface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:51:00:51'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:51:01:51'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:51:02:51'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:51:03:51'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:51:04:51'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:51:05:51'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:51:06:51'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:51:07:51'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:51:08:51'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:51:09:51'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:51:0a:51
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:51:0b:51
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:51:0c:51
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:51:0d:51
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:51:0e:51
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:51:0f:51
+- id: n5
+  label: ROGUE-SW
+  node_definition: iosvl2
+  x: 160
+  y: 260
+  configuration:
+  - name: ios_config.txt
+    content: "hostname ROGUE-SW\nno ip domain-lookup\nservice timestamps log datetime msec\nservice timestamps debug datetime msec\nlogging console debugging\nlogging buffered 128000 debugging\nevent manager\
+      \ applet STPLOG\n event syslog pattern \"SYS-5-RESTART\"\n action 1 cli command \"enable\"\n action 2 cli command \"debug spanning-tree events\"\nvtp mode transparent\nvlan 10\n name USERS\nvlan 20\n\
+      \ name VOICE\nvlan 30\n name PRINTERS\nvlan 99\n name MGMT\nvlan 999\n name NATIVE-UNUSED\nspanning-tree mode rapid-pvst\nspanning-tree vlan 1-4094 priority 0\ninterface GigabitEthernet0/1\n switchport\
+      \ mode access\n switchport access vlan 10\n shutdown\ninterface GigabitEthernet0/2\n switchport trunk encapsulation dot1q\n switchport trunk native vlan 999\n switchport trunk allowed vlan 10,20,30,99,999\n\
+      \ switchport mode trunk\n switchport nonegotiate\n shutdown\ninterface GigabitEthernet0/0\n shutdown\ninterface GigabitEthernet0/3\n shutdown\ninterface GigabitEthernet1/0\n shutdown\ninterface GigabitEthernet1/1\n\
+      \ shutdown\ninterface GigabitEthernet1/2\n shutdown\ninterface GigabitEthernet1/3\n shutdown\ninterface GigabitEthernet2/0\n shutdown\ninterface GigabitEthernet2/1\n shutdown\ninterface GigabitEthernet2/2\n\
+      \ shutdown\ninterface GigabitEthernet2/3\n shutdown\ninterface GigabitEthernet3/0\n shutdown\ninterface GigabitEthernet3/1\n shutdown\ninterface GigabitEthernet3/2\n shutdown\ninterface GigabitEthernet3/3\n\
+      \ shutdown\nline con 0\n exec-timeout 0 0\n logging synchronous\nend"
+  interfaces:
+  - id: i0
+    label: Loopback0
+    type: loopback
+  - id: i1
+    label: GigabitEthernet0/0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:56:00:56'
+  - id: i2
+    label: GigabitEthernet0/1
+    type: physical
+    slot: 1
+    mac_address: '52:54:00:56:01:56'
+  - id: i3
+    label: GigabitEthernet0/2
+    type: physical
+    slot: 2
+    mac_address: '52:54:00:56:02:56'
+  - id: i4
+    label: GigabitEthernet0/3
+    type: physical
+    slot: 3
+    mac_address: '52:54:00:56:03:56'
+  - id: i5
+    label: GigabitEthernet1/0
+    type: physical
+    slot: 4
+    mac_address: '52:54:00:56:04:56'
+  - id: i6
+    label: GigabitEthernet1/1
+    type: physical
+    slot: 5
+    mac_address: '52:54:00:56:05:56'
+  - id: i7
+    label: GigabitEthernet1/2
+    type: physical
+    slot: 6
+    mac_address: '52:54:00:56:06:56'
+  - id: i8
+    label: GigabitEthernet1/3
+    type: physical
+    slot: 7
+    mac_address: '52:54:00:56:07:56'
+  - id: i9
+    label: GigabitEthernet2/0
+    type: physical
+    slot: 8
+    mac_address: '52:54:00:56:08:56'
+  - id: i10
+    label: GigabitEthernet2/1
+    type: physical
+    slot: 9
+    mac_address: '52:54:00:56:09:56'
+  - id: i11
+    label: GigabitEthernet2/2
+    type: physical
+    slot: 10
+    mac_address: 52:54:00:56:0a:56
+  - id: i12
+    label: GigabitEthernet2/3
+    type: physical
+    slot: 11
+    mac_address: 52:54:00:56:0b:56
+  - id: i13
+    label: GigabitEthernet3/0
+    type: physical
+    slot: 12
+    mac_address: 52:54:00:56:0c:56
+  - id: i14
+    label: GigabitEthernet3/1
+    type: physical
+    slot: 13
+    mac_address: 52:54:00:56:0d:56
+  - id: i15
+    label: GigabitEthernet3/2
+    type: physical
+    slot: 14
+    mac_address: 52:54:00:56:0e:56
+  - id: i16
+    label: GigabitEthernet3/3
+    type: physical
+    slot: 15
+    mac_address: 52:54:00:56:0f:56
+- id: n6
+  label: PC1
+  node_definition: alpine
+  x: -380
+  y: 220
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC1
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.28.10.101/24 dev eth0
+
+    ip route add default via 10.28.10.1
+
+    '
+  interfaces:
+  - id: i0
+    label: eth0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:57:00:57'
+- id: n7
+  label: PC2
+  node_definition: alpine
+  x: -120
+  y: 260
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC2
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.28.20.102/24 dev eth0
+
+    ip route add default via 10.28.20.1
+
+    '
+  interfaces:
+  - id: i0
+    label: eth0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:58:00:58'
+- id: n8
+  label: PC3
+  node_definition: alpine
+  x: 380
+  y: 220
+  configuration: '# this is a shell script which will be sourced at boot
+
+    hostname PC3
+
+    USERNAME=cisco
+
+    PASSWORD=cisco
+
+    ip link set dev eth0 up
+
+    ip address add 10.28.30.103/24 dev eth0
+
+    ip route add default via 10.28.30.1
+
+    '
+  interfaces:
+  - id: i0
+    label: eth0
+    type: physical
+    slot: 0
+    mac_address: '52:54:00:59:00:59'
+links:
+- id: l0
+  n1: n0
+  i1: i2
+  n2: n1
+  i2: i2
+  label: DIST-A1-Gi0/1<->DIST-A2-Gi0/1
+- id: l1
+  n1: n0
+  i1: i3
+  n2: n1
+  i2: i3
+  label: DIST-A1-Gi0/2<->DIST-A2-Gi0/2
+- id: l2
+  n1: n0
+  i1: i4
+  n2: n2
+  i2: i2
+  label: DIST-A1-Gi0/3<->ACCESS-A1-Gi0/1
+- id: l3
+  n1: n0
+  i1: i5
+  n2: n3
+  i2: i2
+  label: DIST-A1-Gi1/0<->ACCESS-A2-Gi0/1
+- id: l4
+  n1: n0
+  i1: i6
+  n2: n4
+  i2: i2
+  label: DIST-A1-Gi1/1<->ACCESS-A3-Gi0/1
+- id: l5
+  n1: n1
+  i1: i4
+  n2: n2
+  i2: i3
+  label: DIST-A2-Gi0/3<->ACCESS-A1-Gi0/2
+- id: l6
+  n1: n1
+  i1: i5
+  n2: n3
+  i2: i3
+  label: DIST-A2-Gi1/0<->ACCESS-A2-Gi0/2
+- id: l7
+  n1: n1
+  i1: i6
+  n2: n4
+  i2: i3
+  label: DIST-A2-Gi1/1<->ACCESS-A3-Gi0/2
+- id: l8
+  n1: n3
+  i1: i6
+  n2: n5
+  i2: i2
+  label: ACCESS-A2-Gi1/1<->ROGUE-SW-Gi0/1
+- id: l9
+  n1: n3
+  i1: i7
+  n2: n5
+  i2: i3
+  label: ACCESS-A2-Gi1/2<->ROGUE-SW-Gi0/2
+- id: l10
+  n1: n2
+  i1: i5
+  n2: n6
+  i2: i0
+  label: ACCESS-A1-Gi1/0<->PC1-eth0
+- id: l11
+  n1: n3
+  i1: i5
+  n2: n7
+  i2: i0
+  label: ACCESS-A2-Gi1/0<->PC2-eth0
+- id: l12
+  n1: n4
+  i1: i5
+  n2: n8
+  i2: i0
+  label: ACCESS-A3-Gi1/0<->PC3-eth0
