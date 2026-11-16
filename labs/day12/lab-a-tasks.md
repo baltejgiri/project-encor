@@ -3,6 +3,10 @@
 **From:** Network Architecture
 **Project:** Branch to data centre routing, phase 1
 
+## Topology
+
+![Day 12 Lab A: Packet forwarding](design-a.png)
+
 ## Design
 
 - Branch LAN `10.1.1.0/24` on R1. 

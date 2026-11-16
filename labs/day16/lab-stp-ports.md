@@ -4,6 +4,10 @@
 **Project:** Access block, Spanning Tree port audit
 **Time box:** 20 minutes
 
+## Topology
+
+![Day 16: STP port roles, parallel links](design.png)
+
 ## Design
 
 - Three access switches cabled in a triangle, all links in VLAN 1.

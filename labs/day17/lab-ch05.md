@@ -22,17 +22,7 @@ If time is left: Day 16 STP lab (WO-1602). If not, it moves to another session.
 
 ## Topology
 
-```
- MDF          CORE1 =======3======= CORE2
-               ||  \               /  ||
-               2    1             1    2
-               ||     \         /     ||
-               ||       \     /       ||
-               ||         \ /         ||
-               ||         / \         ||
-               ||       /     \       ||
- Closet 2A    ACC1 ---'         '--- ACC2    Closet 3B
-```
+![Day 17: Collapsed core uplinks](design.png)
 (Numbers are how many cables. Each closet has two cables to one core and one cable to the other.)
 
 | Cable | From | To | Purpose |

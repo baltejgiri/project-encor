@@ -5,6 +5,12 @@
 **Blueprint:** 3.1.a trunking, 3.1.b EtherChannel, 3.1.c spanning tree, 3.3.c first hop redundancy
 **Book:** Chapter 1 (VLANs, SVIs), Chapter 2 (STP and RSTP), Chapter 5 (trunks and EtherChannel)
 
+## Topology
+
+Same campus as Day 21:
+
+![Day 21 design](../day21/design.png)
+
 ## The situation
 
 Saturday's network was built and working. Overnight, someone made changes, and six tickets came in by morning.

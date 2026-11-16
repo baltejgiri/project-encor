@@ -3,6 +3,10 @@
 **From:** Network Operations
 **Site:** Building A (SW1, SW2) and Building C (SW3)
 
+## Topology
+
+![Day 12 Lab B: VTP, DTP, EtherChannel tickets](design-b.png)
+
 ## Design
 
 - User network VLAN 10 `USERS`: `10.10.10.0/24`.

@@ -4,6 +4,10 @@
 **Project:** Access block, Spanning Tree change monitoring
 **Time box:** 20 minutes
 
+## Topology
+
+![Planned: STP topology changes](design.png)
+
 ## Design
 
 - The same three access switches cabled in a triangle (WO-1501).

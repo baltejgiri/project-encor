@@ -12,20 +12,7 @@ know how exposed VLAN 1 is if someone adds a switch with a low priority.
 
 ## Topology
 
-```
-                  SW1
-                /     \
-           Gi0/1       Gi0/2
-              |           |
-           Gi0/1       Gi0/1
-            SW2 --------- SW3
-              Gi0/2   Gi0/2
-          Gi1/0  Gi0/3      Gi0/3
-            |      |          |
-          Gi0/1  Gi0/2      Gi0/1
-            SW4 ------------ SW5
-              Gi1/0     Gi1/0
-```
+![Day 22: Root bridge placement](design.png)
 
 | Link | From | To |
 |---|---|---|

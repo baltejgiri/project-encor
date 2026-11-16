@@ -4,6 +4,10 @@
 **Project:** Access block, Spanning Tree baseline
 **Time box:** 20 minutes
 
+## Topology
+
+![Day 15: STP root bridge election](design.png)
+
 ## Design
 
 - Three access switches cabled in a triangle, all links in VLAN 1.

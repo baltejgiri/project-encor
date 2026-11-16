@@ -13,20 +13,7 @@ but never accept a switch.
 
 ## Topology
 
-```
-                  SW1
-                /     \
-           Gi0/1       Gi0/2
-              |           |
-           Gi0/1       Gi0/1
-            SW2 --------- SW3
-              Gi0/2   Gi0/2
-          Gi1/0  Gi0/3      Gi0/3
-            |      |          |
-          Gi0/1  Gi0/2      Gi0/1
-            SW4 ------------ SW5
-              Gi1/0     Gi1/0
-```
+![Day 23: Protecting the root and the edge](design.png)
 
 SW5 is the outer switch. SW3 and SW4 are the switches it plugs into.
 
