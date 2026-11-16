@@ -1,6 +1,6 @@
 # Day 27 Lab · Chapter 4: MST Region Boundary
 
-**Session:** Monday 2026-11-16, live, after the DIKTA catch-up
+**Session:** Tuesday 2026-11-17, live, after the DIKTA catch-up
 **CML lab:** import [`lab-ch04-mst-boundary.yaml`](lab-ch04-mst-boundary.yaml). Starts where Day 25 ended.
 **Blueprint:** 3.1.c Spanning tree (RSTP, MST) and enhancements
 **Book:** Chapter 4, pp 90-91: MST Region Boundary
