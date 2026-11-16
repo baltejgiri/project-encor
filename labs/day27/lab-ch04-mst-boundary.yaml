@@ -1653,10 +1653,10 @@ links:
     conditioning: {}
     label: SW4-GigabitEthernet1/0<->SW5-GigabitEthernet1/0
 lab:
-  description: 'CCNP ENCOR Day 28: MST region boundary lab (WO-2801 + INC-2802). Sheet:
-    labs/day28/lab-ch04-mst-boundary.md'
+  description: 'CCNP ENCOR Day 27: MST region boundary lab (WO-2801 + INC-2802). Sheet:
+    labs/day27/lab-ch04-mst-boundary.md'
   notes: |-
-    # Day 28 Lab · Chapter 4: MST Region Boundary
+    # Day 27 Lab · Chapter 4: MST Region Boundary
 
     **Session:** Monday 2026-11-16, 20-minute lab after the DIKTA catch-up (live)
     **CML lab:** import [`lab-ch04-mst-boundary.yaml`](lab-ch04-mst-boundary.yaml). It boots where Day 25 finished: one MST region, two instances, both of SW4's uplinks in use.
@@ -1713,5 +1713,5 @@ lab:
        Why does SW5 show the same root bridge for every VLAN?
 
     Run `write memory` only if you want to keep today's changes for the next lab.
-  title: 'Day 28 - Lab: Ch 4 MST region boundary'
+  title: 'Day 27 - Lab: Ch 4 MST region boundary'
   version: 0.3.0
