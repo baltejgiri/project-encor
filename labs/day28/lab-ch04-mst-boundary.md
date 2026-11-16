@@ -1,4 +1,4 @@
-# Day 28 Lab · Chapter 4: MST Region Boundary
+# Day 27 Lab · Chapter 4: MST Region Boundary
 
 **Session:** Monday 2026-11-16, 20-minute lab after the DIKTA catch-up (live)
 **CML lab:** import [`lab-ch04-mst-boundary.yaml`](lab-ch04-mst-boundary.yaml). It boots where Day 25 finished: one MST region, two instances, both of SW4's uplinks in use.
