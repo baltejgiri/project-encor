@@ -1,6 +1,7 @@
 # Ch 4 - Multiple Spanning Tree Protocol (clean notes)
 
-Related: Ch 2 (STP and RSTP basics), Ch 3 (Advanced STP Tuning), Ch 5 (EtherChannel)
+Related: Ch 2 (STP and RSTP basics), Ch 3 (Advanced STP Tuning), Ch 5 (EtherChannel)  
+Reference: Cisco, [Understand the Multiple Spanning Tree Protocol (802.1s)](https://www.cisco.com/c/en/us/support/docs/lan-switching/spanning-tree-protocol/24248-147.html) (doc 24248)
 
 **Status:** Ch 4 finished. Read pp 80-87 (Day 24) and pp 87-91 (Day 25); notes done for the whole chapter. DIKTA before reading 4/7 (2026-11-11). Post-chapter DIKTA retake still to do.
 
@@ -116,6 +117,31 @@ Two designs when mixing MST with PVST+/RPVST+:
 | **MST region is not the root for any VLAN** | Boundary ports can only forward or block **all VLANs together**, no load balancing (the IST must stay consistent). |
 
 - **PVST simulation check:** if a boundary port gets a **better BPDU for just some VLAN** (the region would be root for some VLANs and not others), the switch blocks the port as **root inconsistent**. It may cut off switches below it, but it keeps the topology loop free.
+
+---
+
+## What the Cisco MST doc adds (doc 24248)
+
+Same story as the book, plus these details. Concepts only, no commands in the doc.
+
+- **Instances on Cisco:** 16 in total, the IST (0) plus 15 MSTIs. The standard only requires the IST plus at least one MSTI.
+- **The map is 4096 entries**, one per VLAN. BPDUs carry only a **digest** of it, next to the name (up to 32 bytes) and revision (2 bytes). Different digest = different region.
+- **One BPDU per port** for all instances: the IST info plus one **M-record** per MSTI. M-records hold only priority and root info, **no timers**.
+- **Timers are IST only.** Hello, forward delay and max age come from the IST. MSTIs inherit them.
+- **Both ends of a link can send BPDUs** at the same time, because a switch can be designated for one instance and not another. In plain RSTP only the designated side sends.
+- **At a boundary, every MSTI copies the IST.** If the IST blocks that port, all instances block it.
+- **PVST+ next to MST, the rules:**
+  1. MST region is the root: it must be the root for **every** VLAN (recommended).
+  2. PVST+ switch is the root: it must be the root for **every** VLAN, **VLAN 1 included** (VLAN 1 carries the CST).
+  3. Anything in between (the region is root for some VLANs, a PVST+ switch for others) means the boundary port goes **root inconsistent** and blocks.
+- **Instance 0 trap:** the IST runs on every port, even access ports. With VLAN 10 in instance 0 and VLAN 20 in instance 1, the IST can block the only link VLAN 10 uses, so the hosts in VLAN 10 lose each other. Fix: **don't map user VLANs to instance 0**.
+- **Pruning rule:** never prune single VLANs off a trunk. Remove all VLANs of an instance together, or none.
+- **Migration order (Cisco's advice):**
+  1. Mark edge ports (PortFast) and make switch-to-switch links full duplex (point-to-point).
+  2. Decide how many instances. Each one is a separate topology, so keep it small.
+  3. Map VLANs, then pick a root and a backup root per instance.
+  4. Same name and revision on every switch, and as few regions as possible.
+  5. Move the **core first**, then the access switches.
 
 ---
 
