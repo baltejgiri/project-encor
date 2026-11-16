@@ -30,10 +30,11 @@
 
 ## Tickets
 
-1. INC-2051 (Priority 2): "Our new switch SW3 went in yesterday and I can't reach PC1 (10.10.10.1) in building A. We're both on the USERS network." Change record: SW3 installed and connected to SW2. Standard config applied.
-2. INC-2052 (Priority 3, monitoring): "The SW1–SW2 uplink is supposed to be a two-link bundle. Monitoring says it's only using one link."
+1. **INC-2051** (P2): "New switch SW3 went in yesterday. I can't reach PC1 (10.10.10.1) in Building A. We're both on USERS."
+   Change record: SW3 installed, connected to SW2, standard config.
+2. **INC-2052** (P3, monitoring): "The SW1–SW2 uplink should be a two-link bundle. Only one link is in use."
 
-For each ticket: symptom, what you checked, root cause, fix, proof it's fixed. Find the root cause before you change anything.
+For each ticket: symptom, what you checked, root cause, fix, proof. Find the cause before changing anything.
 
 ## Quick test
 
@@ -43,5 +44,5 @@ For each ticket: symptom, what you checked, root cause, fix, proof it's fixed. F
 
 ## Notes
 
-- PCs are Alpine Linux · login `cisco` / `cisco`
-- `ip a` · `ip route` · `ping -c 3 10.10.10.1`
+- PCs are Alpine Linux, login `cisco` / `cisco`.
+- On the PCs: `ip a`, `ip route`, `ping -c 3 10.10.10.1`.

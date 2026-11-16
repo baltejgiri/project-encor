@@ -1,39 +1,36 @@
 # Day 24 Lab · Chapter 4: One Tree for Many VLANs
 
-**Session:** Wednesday 2026-11-11, 20-minute lab after the reading (live)
-**CML lab:** import [`lab-ch04-mst-basics.yaml`](lab-ch04-mst-basics.yaml). It boots where Day 23 finished (SW1 root and SW2 backup for VLAN 1, classic PVST+) and adds VLANs 20, 30 and 40.
-**Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements such as root guard and BPDU guard
+**Session:** Wednesday 2026-11-11, live, after the reading
+**CML lab:** import [`lab-ch04-mst-basics.yaml`](lab-ch04-mst-basics.yaml). Starts where Day 23 ended (classic PVST+), with VLANs 20, 30 and 40 added.
+**Blueprint:** 3.1.c Spanning tree (RSTP, MST) and enhancements
 **Book:** Chapter 4, pp 80-85: Multiple Spanning Tree Protocol, MST configuration
 
 ## The job
 
-The switches carry five VLANs now, and every VLAN runs its own spanning tree. The architect wants fewer trees:
-VLANs 10 and 20 share one tree, VLANs 30 and 40 share another, and each tree has its own root so both
-uplinks from the core get used.
+Five VLANs, five spanning trees. The architect wants two: VLANs 10 and 20 on one, VLANs 30 and 40 on the other,
+each with its own root so both core uplinks get used.
 
 ## Topology
 
 ![Day 24: One tree for many VLANs](design.png)
 
-## Notes before you start
+## Notes
 
-- VLANs 10, 20, 30 and 40 exist on every switch, and every link is a trunk.
-- Predict each result first, then answer each task's question in your notes.
+- VLANs 10, 20, 30 and 40 on every switch. Every link is a trunk.
+- Predict first, then check.
 
 ---
 
 ## WO-2401 · Fewer trees, two roots
 
-About 18 minutes, with 2 spare. Keep to the time on each task.
+1. **Starting point:** how many spanning-tree instances does SW3 run?
+   - Who is root for VLAN 1 and for VLAN 30, and why?
+2. **One region:** all five switches in MST region ENCOR, revision 1. Instance 1: VLANs 10, 20. Instance 2: VLANs 30, 40.
+   - Which command shows the region settings?
+   - How many instances does SW3 run now? Which instance holds VLAN 1?
+3. **Two roots:** SW1 is root for instance 1, SW2 for instance 2, each backing up the other.
+   - Which ports block in each instance? Same port for both?
+4. **Look back:** compare with task 1.
+   - How many trees does each switch run now, and how many sets of BPDUs does it send?
 
-1. **Starting point (2 min):** How many spanning-tree instances is SW3 running right now? Who is the root for VLAN 1
-   and for VLAN 30, and why?
-2. **One region (8 min):** Put all five switches in one MST region named ENCOR, revision 1. VLANs 10 and 20 go in
-   instance 1, VLANs 30 and 40 in instance 2. Which command shows the region settings? How many instances does SW3
-   run now? Which instance is VLAN 1 in?
-3. **Two roots (6 min):** SW1 must be the root for instance 1 and SW2 the root for instance 2, each one the backup for
-   the other. Which ports block in instance 1, and which in instance 2? Is it the same port for both?
-4. **Look back (2 min):** Compare with task 1. How many spanning trees does each switch run now, and how many sets
-   of BPDUs does each switch send for them?
-
-Run `write memory` only if you want to keep MST for the next lab.
+Run `write memory` only to keep MST for the next lab.

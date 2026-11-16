@@ -1,7 +1,5 @@
 # Day 21 Lab Day: 2-Tier Campus Design
 
-![Day 21 design](design.png)
-
 **Read the design:** [Cisco Campus Network for High Availability Design Guide (PDF, May 2008)](https://www.cisco.com/c/dam/en/us/td/docs/solutions/Enterprise/Campus/HA_campus_DG/hacampus-dg.pdf)
 
 | Page | What's there |
@@ -29,29 +27,14 @@ The layout comes from Figure 57, "Best Practice Topology for Spanning VLANs Acro
 The looped layout also appears as Figure 13 in Cisco's newer
 [Campus LAN and Wireless LAN Solution Design Guide](https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/cisco-campus-lan-wlan-design-guide.html).
 
-Two changes from Figure 57:
-- A second trunk link between the distribution switches, to form an EtherChannel.
-- VRRP instead of HSRP.
+Changes from Figure 57: a second link between the distribution switches (for an EtherChannel), and VRRP instead of HSRP.
 
-**This is a learning design, not a production recommendation.** Cisco calls spanning VLANs across access switches a suboptimal
-situation, and its guides prefer other designs. It's used here because it gives spanning tree real work to do.
+**Learning design, not a production recommendation.** Cisco calls VLANs spanning access switches suboptimal. It's used
+here because it gives spanning tree real work to do.
 
 ## Topology
 
-```
-        DSW1 ===== Po1 ===== DSW2
-         |  \               /  |
-         |    \           /    |
-         |      \       /      |
-         |        \   /        |
-         |        /   \        |
-         |      /       \      |
-         |    /           \    |
-         |  /               \  |
-        ASW1                 ASW2
-        /  \                 /  \
-      PC1  PC2             PC3  PC4
-```
+![Day 21 design](design.png)
 
 | Device | Port | Connects to | Purpose |
 |---|---|---|---|
@@ -81,7 +64,7 @@ situation, and its guides prefer other designs. It's used here because it gives 
 | ASW1 management | 99 | 10.21.99.11 |
 | ASW2 management | 99 | 10.21.99.12 |
 
-The PCs are already addressed. Spanning tree events and link changes show on the console with timestamps, with nothing to set up.
+PCs are pre-addressed. Spanning tree and link events show on the console with timestamps.
 
 ## Lab environment
 
@@ -93,10 +76,10 @@ The PCs are already addressed. Spanning tree events and link changes show on the
 
 ## How to follow along
 
-1. Import [`lab-campus-design.yaml`](lab-campus-design.yaml) into CML and start it. The switches take a few minutes to boot.
-2. The cabling, the PC addresses and the console logging are already done. The switches have no other configuration, so you build every layer yourself.
-3. Work through Steps 1 to 8 in order. Each step says what the network should do, not which commands to type.
-4. Save the configs with `write memory` on all four switches before you stop the lab. If you wipe the lab, the configs are lost.
+1. Import [`lab-campus-design.yaml`](lab-campus-design.yaml) into CML and start it. Booting takes a few minutes.
+2. Cabling, PC addresses and console logging are done. Everything else is yours to build.
+3. Work Steps 1 to 8 in order. Each says what the network should do, not which commands to type.
+4. `write memory` on all four switches before stopping the lab.
 
 ---
 

@@ -1,29 +1,18 @@
 # Day 19 Lab · Chapter 2: STP Topology Changes
 
-**Session:** Thursday 2026-11-05, 20-minute lab after the reading (live)
-**CML lab:** same five switches as Day 18: import [`lab-ch02-stp-changes.yaml`](lab-ch02-stp-changes.yaml)
-**Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements
-**Book:** Chapter 2, pp 48-53 (Verification of VLANs on Trunk Links, STP Topology Changes, Converging with Direct Link Failures, Indirect Failures)
+**Session:** Thursday 2026-11-05, live, after the reading
+**CML lab:** import [`lab-ch02-stp-changes.yaml`](lab-ch02-stp-changes.yaml). Same five switches as Day 18.
+**Blueprint:** 3.1.c Spanning tree (RSTP, MST) and enhancements
+**Book:** Chapter 2, pp 48-53: topology changes, direct and indirect failures
 
 ## The job
 
-The tree from Day 18 is stable. Before this design goes live, operations wants to know what each kind of link
-failure costs: who notices, what gets reported, and how many seconds each switch is without a path to the root.
-Nothing has been changed for spanning tree: every priority, cost and timer is at its default.
+Before the Day 18 design goes live, operations wants to know what each link failure costs: who notices, what gets
+reported, and how long each switch has no path to the root. Everything is at its defaults.
 
 ## Topology
 
 ![Day 19: STP topology changes](design.png)
-
-| Link | From | To |
-|---|---|---|
-| 1 | SW1 Gi0/1 | SW2 Gi0/1 |
-| 2 | SW1 Gi0/2 | SW3 Gi0/1 |
-| 3 | SW2 Gi0/2 | SW3 Gi0/2 |
-| 4 | SW2 Gi1/0 | SW4 Gi0/1 |
-| 5 | SW2 Gi0/3 | SW4 Gi0/2 |
-| 6 | SW3 Gi0/3 | SW5 Gi0/1 |
-| 7 | SW4 Gi1/0 | SW5 Gi1/0 |
 
 | Switch | System MAC |
 |---|---|
@@ -33,33 +22,26 @@ Nothing has been changed for spanning tree: every priority, cost and timer is at
 | SW4 | 5254.0015.0015 |
 | SW5 | 5254.0014.0014 |
 
-## Notes before you start
+## Notes
 
-- These switches run PVST+ (`spanning-tree enabled protocol ieee`), the classic 802.1D timers from the book.
-- In CML, shutting a port on one switch does **not** bring the link down on the switch at the other end. That end
-  stays up and simply stops hearing BPDUs.
-- Restore each failure and let the tree settle before you start the next one.
-- Answer each task's question in your notes before you move on.
+- Classic PVST+ (`spanning-tree enabled protocol ieee`) with the book's 802.1D timers.
+- In CML, shutting one end of a link leaves the far end up. It just stops hearing BPDUs.
+- Restore each failure and let the tree settle before the next.
 
 ---
 
 ## WO-1901 · What does each failure cost?
 
-About 16 minutes, with 4 spare. Keep to the time on each task.
+1. **One interface:** on SW4, spanning tree for Gi0/2 only, then the detailed view.
+   - Which switch and port send the BPDUs SW4 uses on Gi0/2?
+   - Compare BPDUs sent and received on Gi0/2 and Gi0/1. Why does SW4 send almost none?
+2. **Baseline:** on SW1, SW2 and SW3, record VLAN 1's topology change count, time since the last one, and its interface.
+3. **Failure A, between two non-root switches:** take the SW2-SW3 link down from SW3's end. Bring it back and time SW3's port.
+   - Did any switch lose its path to the root? Which counters moved, and where did SW1's last change come from?
+4. **Failure B, direct:** take SW2's root port down on SW2. Time how long until SW2 forwards toward the root. Restore.
+   - Which book scenario is this, and why didn't SW2 wait for max age?
+5. **Failure C, indirect:** shut SW1's port toward SW2, on SW1 only. Time it. Restore.
+   - How does SW2 find out? Compare with failure B.
 
-1. **One interface (2 min):** On SW4, look at spanning tree for Gi0/2 only, then the detailed version. Which switch
-   and which port send the BPDUs that SW4 uses on Gi0/2? Compare BPDUs sent and received on Gi0/2 and Gi0/1. Why does
-   SW4 send almost none?
-2. **Baseline (2 min):** On SW1, SW2 and SW3, record how many topology changes VLAN 1 has seen, how long ago the last
-   one happened, and which interface it came from.
-3. **Failure A, link between two non-root switches (4 min):** Take the SW2-SW3 link down from SW3's end. Did any
-   switch lose its path to the root? Which of the three counters moved, and where did SW1's last change come from?
-   Bring the link back and time how long SW3's port takes to forward again.
-4. **Failure B, direct (4 min):** Take SW2's root port down on SW2. Time how long until SW2 forwards toward the root
-   again. Which of the book's scenarios is this, and why did SW2 not wait for max age? Restore.
-5. **Failure C, indirect (4 min):** Shut SW1's port toward SW2, on SW1 only. How does SW2 find out, and how long until
-   it forwards toward the root again? Compare with failure B. Restore.
-
-**After the stream, if you want more (not part of the 20 minutes):** Take SW3's root port down on SW3. Time how long
-until SW3 has a forwarding path to the root again, and record which port changes state on which switch. Why is this
-slower than failure B? Which book scenario does it match? Restore.
+**Extra, after the stream:** take SW3's root port down on SW3 and time it. Restore.
+- Which port changes state on which switch? Why is it slower than failure B? Which book scenario matches?
