@@ -1,44 +1,42 @@
 # Day 27 Lab · Chapter 4: MST Region Boundary
 
-**Session:** Monday 2026-11-16, 20-minute lab after the DIKTA catch-up (live)
-**CML lab:** import [`lab-ch04-mst-boundary.yaml`](lab-ch04-mst-boundary.yaml). It boots where Day 25 finished: one MST region, two instances, both of SW4's uplinks in use.
-**Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements such as root guard and BPDU guard
+**Session:** Monday 2026-11-16, live, after the DIKTA catch-up
+**CML lab:** import [`lab-ch04-mst-boundary.yaml`](lab-ch04-mst-boundary.yaml). Starts where Day 25 ended.
+**Blueprint:** 3.1.c Spanning tree (RSTP, MST) and enhancements
 **Book:** Chapter 4, pp 90-91: MST Region Boundary
 
 ## Topology
 
 ![Day 27 design](design.png)
 
-## Notes before you start
+## Notes
 
-- MST region ENCOR, revision 1. Instance 1 = VLANs 10 and 20, instance 2 = VLANs 30 and 40.
-- SW5 has an SVI in VLAN 40 (10.40.0.5). SW2 is 10.40.0.2.
-- IOSvL2 quirk: a port that spanning tree marks as blocked can still pass a ping in this lab. Judge by the switches' STP state and logs, not by ping alone.
-- Predict each result first, then answer each question in your notes.
+- Region ENCOR, revision 1. Instance 1: VLANs 10, 20. Instance 2: VLANs 30, 40.
+- VLAN 40 SVIs: SW2 10.40.0.2, SW5 10.40.0.5.
+- In this lab a blocked port can still pass a ping. Trust STP state and logs, not ping.
+- Predict first, then check.
 
 ---
 
 ## WO-2801 · SW5 swap
 
-1. **The swap (4 min):** SW5 is being replaced by a switch that only runs Rapid PVST+, not MST. Make SW5 match the
-   new switch. Which ports in the MST region are now region boundary ports, and which output proves it?
+1. **Swap SW5:** the new SW5 runs Rapid PVST+ only. Make SW5 match it.
+   - Which ports are now region boundary ports? Which output proves it?
 
-> **INC-2802 comes in right after task 1. Work it before task 2.**
+> Work INC-2802 before task 2.
 
-## INC-2802 · Ticket from the NOC
-
-About 8 minutes.
+## INC-2802 · NOC ticket
 
 > **Reported:** 05:50 by monitoring, priority 2
-> **Symptom:** Right after the SW5 change, SW3 and SW4 started raising critical (level 2) spanning-tree alarms for
-> their ports toward SW5. The change record says "SW5 swap, no other changes".
+> **Symptom:** Since the SW5 change, SW3 and SW4 raise critical spanning-tree alarms on their ports toward SW5.
+> Change record: "SW5 swap, no other changes".
 
-2. Find the root cause and fix it. Then answer: what has to stay true about the PVST+ side so this can't happen?
+2. Find the cause and fix it.
+   - What must stay true on the PVST+ side so this can't happen again?
 
 ## WO-2801 (continued)
 
-3. **Keep the region in charge (5 min):** The architect wants the MST region to stay the root for every VLAN on SW5,
-   even if someone adds a new switch at default priority later. Do it without touching SW5.
-   Why does SW5 show the same root bridge for every VLAN?
+3. **Keep the region in charge:** the MST region must stay root for every VLAN on SW5, even if a new switch is added at default priority. Don't touch SW5.
+   - Why does SW5 show the same root for every VLAN?
 
-Run `write memory` only if you want to keep today's changes for the next lab.
+Run `write memory` only to keep today's changes for the next lab.
