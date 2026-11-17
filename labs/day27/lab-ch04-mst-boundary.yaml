@@ -1658,7 +1658,7 @@ lab:
   notes: |-
     # Day 27 Lab · Chapter 4: MST Region Boundary
 
-    **Session:** Tuesday 2026-11-17, live, after the DIKTA catch-up
+    **Session:** Wednesday 2026-11-18, live, after the DIKTA catch-up
     **CML lab:** import [`lab-ch04-mst-boundary.yaml`](lab-ch04-mst-boundary.yaml). It boots where Day 25 finished: one MST region, two instances, both of SW4's uplinks in use.
     **Blueprint:** 3.1.c Configure and verify common Spanning Tree Protocols (RSTP, MST) and Spanning Tree enhancements such as root guard and BPDU guard
     **Book:** Chapter 4, pp 90-91: MST Region Boundary
